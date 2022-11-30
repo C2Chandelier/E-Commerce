@@ -17,36 +17,21 @@ class Articles
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $titre = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-    
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-
-
     public function getPrix(): ?string
     {
         return $this->prix;
@@ -55,6 +40,17 @@ class Articles
     public function setPrix(string $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -71,16 +67,14 @@ class Articles
         return $this;
     }
 
-
-
-    public function getDescription(): ?string
+    public function getTitre(): ?string
     {
-        return $this->description;
+        return $this->titre;
     }
 
-    public function setDescription(string $description): self
+    public function setTitre(string $titre): self
     {
-        $this->description = $description;
+        $this->titre = $titre;
 
         return $this;
     }
