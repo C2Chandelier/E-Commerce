@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Single_product from './single_product_page.js';
 
 function App() {
   return (
@@ -23,3 +24,5 @@ function App() {
 }
 
 export default App;
+//export default Single_product;
+

@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+/* single_product */
+
+.Single_product{
+  display: grid;
+  grid-template-areas: 
+  "a b"
+  "a b"
+  "c c";
+}
+.img_product{
+  grid-area: a;
+}
+.product{
+  grid-area: b;
+}
+.product_desc{
+  grid-area: c;
+}
