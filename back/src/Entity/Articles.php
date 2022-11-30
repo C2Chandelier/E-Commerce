@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Metadata\ApiFilter;
 use App\Repository\ArticlesRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource]
@@ -16,33 +16,15 @@ class Articles
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 250)]
     private ?string $prix = null;
 
-    #[ORM\Column(type: Types::BLOB)]
-    private $image = null;
-
-    #[ORM\Column(length: 1000)]
+    #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
     }
 
     public function getPrix(): ?string
@@ -53,18 +35,6 @@ class Articles
     public function setPrix(string $prix): self
     {
         $this->prix = $prix;
-
-        return $this;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function setImage($image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
