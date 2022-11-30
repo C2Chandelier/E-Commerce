@@ -23,6 +23,6 @@ function App() {
   );
 }
 
-export default App;
-//export default Single_product;
+//export default App;
+export default Single_product;
 
