@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-
-import Single_product from './single_product_page.js';
+import Admin_pannel from './component/pannel_admin/Admin_pannel';
+import Single_product from './component/single_product_page/single_product_page';
 
 function App() {
   return (
@@ -25,5 +25,7 @@ function App() {
 }
 
 // export default App;
-export default Single_product;
+//export default Single_product;
+export default Admin_pannel;
+
 
