@@ -1,7 +1,7 @@
 import {useEffect,useState } from 'react'
 import axios from 'axios'
 
-function Single_product() {
+export default function Single_product() {
 
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
@@ -45,7 +45,7 @@ function Single_product() {
 }
 
 
-export default Single_product;
+
 
 
 
