@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import Single_product from './single_product_page.js';
+import Register from './register';
+import Login from './login';
 
 function App() {
   return (
@@ -23,6 +25,6 @@ function App() {
   );
 }
 
-export default App;
-//export default Single_product;
+//export default App;
+export default Login;
 
