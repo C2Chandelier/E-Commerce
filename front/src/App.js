@@ -1,13 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-<<<<<<< HEAD
-import Single_product from './single_product_page.js';
-import Register from './register';
-import Login from './login';
-=======
+import Register from './component/register/register.js';
+import Login from './component/login/login.js';
 import Admin_pannel from './component/pannel_admin/Admin_pannel';
 import Single_product from './component/single_product_page/single_product_page';
->>>>>>> 9b743625692b1bede092d7763ced9eb3651b5588
 
 function App() {
   return (
@@ -30,13 +26,6 @@ function App() {
   );
 }
 
-<<<<<<< HEAD
 //export default App;
 export default Login;
-=======
-// export default App;
-//export default Single_product;
-export default Admin_pannel;
-
->>>>>>> 9b743625692b1bede092d7763ced9eb3651b5588
 

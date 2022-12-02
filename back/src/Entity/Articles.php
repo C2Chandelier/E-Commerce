@@ -6,19 +6,10 @@ use App\Repository\ArticlesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
-<<<<<<< HEAD
 #[ApiResource]
 #[ApiResource(paginationEnabled: false)]
-=======
-#[ApiResource(operations: [
-    new Get(),
-    new GetCollection()
-])]
->>>>>>> 9b743625692b1bede092d7763ced9eb3651b5588
 class Articles
 {
     #[ORM\Id]
@@ -27,19 +18,37 @@ class Articles
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $titre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b743625692b1bede092d7763ced9eb3651b5588
     public function getId(): ?int
     {
         return $this->id;
     }
+    
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+
+
     public function getPrix(): ?string
     {
         return $this->prix;
@@ -51,6 +60,21 @@ class Articles
 
         return $this;
     }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+
+
     public function getDescription(): ?string
     {
         return $this->description;
