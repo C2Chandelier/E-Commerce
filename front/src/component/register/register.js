@@ -74,8 +74,11 @@ const Register = () => {
            <option value="Autres">Autres</option>
          </select>
           
+<<<<<<< HEAD
         <Link to={'/home'} onClick={() =>  inscription()}>S'inscrire</Link> 
       </div>  
+=======
+>>>>>>> ce431285e42002051a05ee77ce7ce57a0b79b723
         <button onClick={() =>  inscription()}>S'inscrire</button> 
       </div>   */}
       </div>
