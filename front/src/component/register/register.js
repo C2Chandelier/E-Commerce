@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-//import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -58,29 +57,8 @@ const Register = () => {
       </select>
     </div>
 
-  <button id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <Link to="/home" id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</Link>
 </form>
-
-
-
-
-      {/* <div>
-        <input onChange={(e)=>setEmail(e.target.value)} type="text" placeholder='email' value={email} name="email" ></input>
-        <input onChange={(e)=>setPassword(e.target.value)} type="text" placeholder='password' name="password" value={password}></input>
-        <input onChange={(e)=>setUsername(e.target.value)} type="text" placeholder='username' value={username} name="username"></input>
-         <select value={genre} onChange={(e)=>setGenre(e.target.value)}>
-           <option value="Homme">Homme</option>
-           <option value="Femme">Femme</option>
-           <option value="Autres">Autres</option>
-         </select>
-          
-<<<<<<< HEAD
-        <Link to={'/home'} onClick={() =>  inscription()}>S'inscrire</Link> 
-      </div>  
-=======
->>>>>>> ce431285e42002051a05ee77ce7ce57a0b79b723
-        <button onClick={() =>  inscription()}>S'inscrire</button> 
-      </div>   */}
       </div>
   );
 };
