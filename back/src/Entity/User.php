@@ -5,10 +5,14 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['email'=>'exact',"password"=>"exact"])]
+#[ApiResource(paginationEnabled: false)]
 
 class User
 {
