@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-//import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const Register = () => {
@@ -10,12 +10,7 @@ const Register = () => {
   const [genre, setGenre] = useState("Homme");
   const [role, setRole] = useState(0);
   const [isActive, setIsActive] = useState(0);
- // let navigate = useNavigate();
- // const routeChange = () =>{ 
- //   let path = ""; 
- //   navigate(path);
- // }
- //<button onClick={(routeChange) =>  inscription()}>S'inscrire</button>  // a mettre au niveau du submit du form
+ 
 
   function inscription()
   {
@@ -43,7 +38,7 @@ const Register = () => {
            <option value="Autres">Autres</option>
          </select>
           
-        <button onClick={() =>  inscription()}>S'inscrire</button> 
+        <Link to={'/home'} onClick={() =>  inscription()}>S'inscrire</Link> 
       </div>  
   );
 };
