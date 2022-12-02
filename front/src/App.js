@@ -26,14 +26,12 @@ function App() {
   );
 }
 
-<<<<<<< HEAD
 //export default App;
-export default Login;
-=======
+// export default Login;
 // export default App;
 //export default Single_product;
 // export default Admin_pannel;
 export default Register;
 // export default Login;
->>>>>>> registerHtml
+
 

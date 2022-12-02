@@ -9,7 +9,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource]
+<<<<<<< HEAD
 
+=======
+#[ApiResource(paginationEnabled: false)]
+>>>>>>> 7872d566b3d61de088db56ac8cefab1f7bf8668d
 class Articles
 {
     #[ORM\Id]
@@ -18,15 +22,40 @@ class Articles
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $titre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7872d566b3d61de088db56ac8cefab1f7bf8668d
     public function getId(): ?int
     {
         return $this->id;
     }
+    
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+
+
     public function getPrix(): ?string
     {
         return $this->prix;
@@ -38,6 +67,21 @@ class Articles
 
         return $this;
     }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+
+
     public function getDescription(): ?string
     {
         return $this->description;
