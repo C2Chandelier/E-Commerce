@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import './cards.css';
+import './card_product.css';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Link } from 'react-router-dom';
 
 
-function CardData() {
+
+function CardProduct() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
 
@@ -15,7 +15,6 @@ function CardData() {
   useEffect(() => {
     axios("https://localhost:8000/api/articles")
       .then((response) => {
-        let a = "";
         setProduct(response.data["hydra:member"])
         setError(null);
       })
@@ -24,15 +23,15 @@ function CardData() {
   }, []);
   if (error) return <p>An error occurred</p>
 
-  /* product.map((item)=>(console.log(item.id))); */
+  console.log(product);
   return (
 
    
     <div className='container-product'>
       {product.map((item) => (
-      
-        <Card key={item.id} id={"produit-" + item.id} className="card-product">
-          <Card.Img className='img-product' src={item.image} />
+        <Link to={"/article/" + item.id} key={item.id}>
+        <Card id={"produit-" + item.id} className="card-product">
+          <Card.Img className='img-product' src={item.image} alt={item.titre} />
           <Card.Body>
             <Card.Title>{item.titre}</Card.Title>
             <Card.Subtitle>{item.prix}</Card.Subtitle>
@@ -41,6 +40,7 @@ function CardData() {
             </Card.Text>
           </Card.Body>
         </Card>
+        </Link>
       ))};
       </div>
 
@@ -51,4 +51,4 @@ function CardData() {
 }
 
 
-export default CardData
+export default CardProduct;

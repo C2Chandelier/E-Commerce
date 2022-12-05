@@ -1,37 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import Admin_pannel from './component/pannel_admin/Admin_pannel';
-import Single_product from './component/single_product_page/single_product_page';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Component } from 'react';
+import AdminPannel from './component/pannel_admin/Admin_pannel';
+import SingleProduct from './component/single_product_page/single_product_page';
 import Register from './component/register/register';
 import Login from './component/login/login';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './component/Home/Home';
+
+export default class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+        </div>
+        <Routes>
+          <Route exact path="/" element={<Login />}></Route>;
+          <Route exact path="/register" element={<Register />}></Route>;
+          <Route exact path="/home" element={<Home />}></Route>;
+          <Route path="/admin/*" element={<AdminPannel />}></Route>
+          <Route path="/article/:id" element={<SingleProduct />}></Route>
+        </Routes>
+      </Router>
+    );
+  }
 }
-
-//export default App;
-// export default Login;
-// export default App;
-//export default Single_product;
-export default Admin_pannel;
-// export default Register;
-// export default Login;
-
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-//import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -13,12 +13,7 @@ const Register = () => {
   const [genre, setGenre] = useState("Homme");
   const [role, setRole] = useState(0);
   const [isActive, setIsActive] = useState(0);
- // let navigate = useNavigate();
- // const routeChange = () =>{ 
- //   let path = ""; 
- //   navigate(path);
- // }
- //<button onClick={(routeChange) =>  inscription()}>S'inscrire</button>  // a mettre au niveau du submit du form
+ 
 
   function inscription()
   {
@@ -62,24 +57,8 @@ const Register = () => {
       </select>
     </div>
 
-  <button id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <Link to="/home" id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</Link>
 </form>
-
-
-
-
-      {/* <div>
-        <input onChange={(e)=>setEmail(e.target.value)} type="text" placeholder='email' value={email} name="email" ></input>
-        <input onChange={(e)=>setPassword(e.target.value)} type="text" placeholder='password' name="password" value={password}></input>
-        <input onChange={(e)=>setUsername(e.target.value)} type="text" placeholder='username' value={username} name="username"></input>
-         <select value={genre} onChange={(e)=>setGenre(e.target.value)}>
-           <option value="Homme">Homme</option>
-           <option value="Femme">Femme</option>
-           <option value="Autres">Autres</option>
-         </select>
-          
-        <button onClick={() =>  inscription()}>S'inscrire</button> 
-      </div>   */}
       </div>
   );
 };

@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource]
+#[ApiResource(paginationEnabled: false)]
 class Articles
 {
     #[ORM\Id]
