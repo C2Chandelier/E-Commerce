@@ -22,6 +22,7 @@ export default class App extends Component {
           <Route path="/article/:id" element={<SingleProduct />}></Route>
         </Routes>
       </Router>
+      
     );
   }
 }
