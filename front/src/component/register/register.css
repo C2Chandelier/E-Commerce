@@ -9,7 +9,7 @@ body{
     background-image: url(./images/back2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 37vw;
+    height: 39vw;
     border-radius: 20px;
     margin-top: 85px;
     box-shadow:5px 10px 8px 10px #000000bb;
@@ -69,4 +69,15 @@ body{
     color: white;
     box-shadow: none!important;
     background-color: #1e1a17;
+}
+.btn-ret> .btn{
+    background-color: rgb(7, 3, 36);
+    border-color: rgb(7, 3, 36) ;
+    transition: 0.5s;
+    width: 30%;
+    font-size: 13px;
+}
+.btn-ret> .btn:hover{
+    background-color: #203647;
+    border-color: #203647;
 }

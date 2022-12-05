@@ -34,7 +34,7 @@ const Register = () => {
       .then(res => {
         
       })
-      navigate("/home");
+      navigate("/");
     }
 }
   return (
@@ -65,7 +65,10 @@ const Register = () => {
     </div>
 
   <button id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <div class="form-group btn-ret">
   <Link to ="/" className='btn btn-primary'>Retour</Link>
+  </div>
+  
 </form>
       </div>
   );
