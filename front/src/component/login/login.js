@@ -10,32 +10,37 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [tableau, setTableau] = useState(null);
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [tableau, setTableau] = useState(null);
 
   useEffect(() => {
-    console.log(tableau)
+    if(tableau == 0){
+      alert("Email ou mot de passe Incorrect")
+    }
+    if(tableau == 1){
+     navigate("/")
+    }
 
   }, [tableau])
-  const connection = () => 
-  {
-    axios('https://localhost:8000/api/users?email=' + email + '&password=' + password)
+  
+  
+   async function  connection(e) 
+  { 
+    e.preventDefault()
+    await axios('https://localhost:8000/api/users?email=' + email + '&password=' + password)
       .then((res) => {
-
         setTableau(res.data["hydra:member"].length)
-      })
-      .catch(setError);
-      if (error) return <p>An error occurred</p>
-    if (email === "" || password === "" || tableau === null) // n'affiche pas le return 
+    })
+     .catch(setError);
+    if (error) return <p>An error occurred</p>
+    if (email === "" || password === "") // n'affiche pas le return 
     {
-      alert("Email ou Mot de passe incorrect")
+      //console.log(tableau)
+      alert("Champs vide")
     }
-    else
-    {
-      navigate("/home");
-    }
+    
 
   }
   return (
@@ -49,7 +54,7 @@ const Login = () => {
           <label htmlFor="exampleInputPassword1">Password</label>
           <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
         </div>
-        <button  id='button' type="submit" className="btn btn-primary" onClick={() => connection()}>Connection</button>
+        <button  id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
       </form>
       <div className='form-register'>
         <p>Pas encore de compte ?</p>
@@ -61,4 +66,6 @@ const Login = () => {
   );
 }
 export default Login;
+
+
 
