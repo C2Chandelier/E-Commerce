@@ -1,6 +1,9 @@
-import {useEffect,useState } from 'react'
-import axios from 'axios'
-import './single_card.css'
+import {useEffect,useState } from 'react';
+import axios from 'axios';
+import Navbar from "../Navbar/ Navbar";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import './single_card.css';
 
 export default function SingleProduct() {
 
@@ -25,23 +28,32 @@ export default function SingleProduct() {
       console.log(product);
 
     return (
+        <div className='main'>
+        <header>
+              <Navbar></Navbar>
+        </header>
         <div className="Single_product">
             <div className="img_product">
                 <img 
                     src={product.image}
                     alt={product.titre}
-                    width="500px"
-                    height="500px"
                 />
             </div>
             <div className="product">
                 <div className="product_title"><h2>{product.titre}</h2></div>
-                <div className="product_price">{product.prix}</div>
-            </div>
-            <div className="product_desc">
+                <hr className="col-md-12"></hr>
+                <div className="product_price">{product.prix}€</div>
+                <div className="product-btn">
+                    <button className='btn btn-light achat'>Acheter</button>
+                    <button className='btn btn-light ajout-panier'>Ajouter au panier</button>
+                </div>
+                <div className="product_desc">
                 <h3>Description :</h3>
                 <p>{product.description}</p>
             </div>
+            </div>
+    
+        </div>
         </div>
     )
 }
