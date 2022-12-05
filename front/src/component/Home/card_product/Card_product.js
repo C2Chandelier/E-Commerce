@@ -32,7 +32,7 @@ function CardProduct() {
         <Link to={"/article/" + item.id} key={item.id}>
         <Card id={"produit-" + item.id} className="card-product">
           <Card.Img className='img-product' src={item.image} alt={item.titre} />
-          <Card.Body>
+          <Card.Body> 
             <Card.Title>{item.titre}</Card.Title>
             <Card.Subtitle>{item.prix}</Card.Subtitle>
             <Card.Text>
