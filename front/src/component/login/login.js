@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import "./login.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
 import { useNavigate } from "react-router-dom";
 
 
@@ -16,14 +15,14 @@ const Login = () => {
   const [tableau, setTableau] = useState(null);
 
   useEffect(() => {
-    if(tableau == 0){
+    if(tableau === 0){
       alert("Email ou mot de passe Incorrect")
     }
-    if(tableau == 1){
+    if(tableau === 1){
      navigate("/")
     }
 
-  }, [tableau])
+  }, [tableau,navigate])
   
   
    async function  connection(e) 
@@ -35,9 +34,8 @@ const Login = () => {
     })
      .catch(setError);
     if (error) return <p>An error occurred</p>
-    if (email === "" || password === "") // n'affiche pas le return 
+    if (email === "" || password === "")
     {
-      //console.log(tableau)
       alert("Champs vide")
     }
     
