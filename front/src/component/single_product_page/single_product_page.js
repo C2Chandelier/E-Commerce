@@ -1,9 +1,7 @@
-import {useEffect,useState } from 'react'
 import axios from 'axios'
 import './single_card.css'
 import { Link } from 'react-router-dom';
 import {useEffect,useState } from 'react';
-import axios from 'axios';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
