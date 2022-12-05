@@ -1,6 +1,7 @@
 import {useEffect,useState } from 'react'
 import axios from 'axios'
 import './single_card.css'
+import { Link } from 'react-router-dom';
 
 export default function SingleProduct() {
 
@@ -30,8 +31,7 @@ export default function SingleProduct() {
                 <img 
                     src={product.image}
                     alt={product.titre}
-                    width="500px"
-                    height="500px"
+                    
                 />
             </div>
             <div className="product">
@@ -42,7 +42,9 @@ export default function SingleProduct() {
                 <h3>Description :</h3>
                 <p>{product.description}</p>
             </div>
+            <Link to="/">Retour</Link>
         </div>
+      
     )
 }
 

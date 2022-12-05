@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -13,22 +14,28 @@ const Register = () => {
   const [genre, setGenre] = useState("Homme");
   const [role, setRole] = useState(0);
   const [isActive, setIsActive] = useState(0);
+  const navigate = useNavigate();
+
  
 
   function inscription()
   {
     
-     if(email == "" || password =="" || username =="") // n'affiche pas le return 
+     if(email === "" || password === "" || username === "") // n'affiche pas le return 
      {
-        return <p>Email vide</p>
+        alert("Veuillez renseigner tous les champs")
      }
+     else
+     {
       console.log("oui");
       console.log(email,password,genre,username);
       const configuration = {headers:{'Content-Type': "application/json", Accept: "application/json"}}
       axios.post('https://localhost:8000/api/users', { email,password,username,genre,role,isActive}, configuration)
       .then(res => {
-        alert("Succes");
+        
       })
+      navigate("/home");
+    }
 }
   return (
       <div className='container col-md-7'>
@@ -57,7 +64,8 @@ const Register = () => {
       </select>
     </div>
 
-  <Link to="/home" id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</Link>
+  <button id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <Link to ="/" className='btn btn-primary'>Retour</Link>
 </form>
       </div>
   );

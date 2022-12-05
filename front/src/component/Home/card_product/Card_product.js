@@ -36,7 +36,7 @@ function CardProduct() {
             <Card.Title>{item.titre}</Card.Title>
             <Card.Subtitle>{item.prix}</Card.Subtitle>
             <Card.Text>
-              {item.description}
+              {item.description.substring(0,20)+"..."}
             </Card.Text>
           </Card.Body>
         </Card>
