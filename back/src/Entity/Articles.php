@@ -9,11 +9,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource]
-<<<<<<< HEAD
-
-=======
-#[ApiResource(paginationEnabled: false)]
->>>>>>> 7872d566b3d61de088db56ac8cefab1f7bf8668d
 class Articles
 {
     #[ORM\Id]
@@ -33,10 +28,6 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7872d566b3d61de088db56ac8cefab1f7bf8668d
     public function getId(): ?int
     {
         return $this->id;
