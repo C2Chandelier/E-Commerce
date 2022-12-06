@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221206141445 extends AbstractMigration
+final class Version20221206153946 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,6 +20,7 @@ final class Version20221206141445 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE articles ADD nb_stock VARCHAR(255) DEFAULT NULL, ADD en_rupture TINYINT(1) NOT NULL');
         $this->addSql('ALTER TABLE souscategorie ADD CONSTRAINT FK_6FF3A701BCF5E72D FOREIGN KEY (categorie_id) REFERENCES categorie (id)');
         $this->addSql('CREATE INDEX IDX_6FF3A701BCF5E72D ON souscategorie (categorie_id)');
     }
@@ -31,5 +32,6 @@ final class Version20221206141445 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_6FF3A701BCF5E72D ON souscategorie');
         $this->addSql('ALTER TABLE articles DROP FOREIGN KEY FK_BFDD3168BCF5E72D');
         $this->addSql('ALTER TABLE articles DROP FOREIGN KEY FK_BFDD3168A27126E0');
+        $this->addSql('ALTER TABLE articles DROP nb_stock, DROP en_rupture');
     }
 }
