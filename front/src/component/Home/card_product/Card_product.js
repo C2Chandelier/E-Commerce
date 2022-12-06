@@ -30,12 +30,12 @@ function CardProduct() {
     <div className='container-product'>
       {product.map((item) => (
         <Link to={"/article/" + item.id} key={item.id}>
-        <Card id={"produit-" + item.id} className="card-product">
-          <Card.Img className='img-product' src={item.image} alt={item.titre} />
-          <Card.Body> 
-            <Card.Title>{item.titre}</Card.Title>
-            <Card.Subtitle>{item.prix}</Card.Subtitle>
-            <Card.Text>
+        <Card id={"produit-" + item.id} className="card">
+          <Card.Img className='card__img' src={item.image} alt={item.titre} />
+          <Card.Body className='card__body'> 
+            <Card.Title className='card__title'>{item.titre}</Card.Title>
+            <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+            <Card.Text className='card__description'>
               {item.description.substring(0,20)+"..."}
             </Card.Text>
           </Card.Body>
@@ -43,6 +43,7 @@ function CardProduct() {
         </Link>
       ))};
       </div>
+    
 
    
 

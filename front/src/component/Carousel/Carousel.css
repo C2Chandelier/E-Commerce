@@ -1,0 +1,11 @@
+.carousel .thumbs{
+    visibility: hidden;
+}
+.carousel .slider-wrapper{
+    height: 1000px;
+}
+.carousel.carousel-slider{
+    height: 600px;
+    user-select: none
+    ;
+}
