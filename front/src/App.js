@@ -5,7 +5,7 @@ import AdminPannel from './component/pannel_admin/Admin_pannel';
 import SingleProduct from './component/single_product_page/single_product_page';
 import Register from './component/register/register';
 import Login from './component/login/login';
- 
+
 import Home from './component/Home/Home';
 
 export default class App extends Component {
@@ -17,7 +17,7 @@ export default class App extends Component {
         <Routes>
           <Route exact path="/login" element={<Login />}></Route>;
           <Route exact path="/register" element={<Register />}></Route>;
-          <Route exact path="/" element={<Home />}></Route>;
+          <Route exact path="/home" element={<Home />}></Route>;
           <Route path="/admin/*" element={<AdminPannel />}></Route>
           <Route path="/article/:id" element={<SingleProduct />}></Route>
         </Routes>
