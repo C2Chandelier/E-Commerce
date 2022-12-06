@@ -56,12 +56,13 @@ const Login = () => {
           <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
         </div>
         <button  id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
-      </form>
-      <div className='form-register'>
+        <div className='form-register link-register'>
         <p>Pas encore de compte ?</p>
         <Link to="/register" className='btn btn-primary'>Inscrivez-vous</Link>
         <Link to ="/" className='btn btn-primary btn-retour'>Retour</Link>
       </div>
+      </form>
+ 
     </div>
   
  

@@ -88,3 +88,23 @@ body{
     background-color: #203647;
     border-color: #203647;
 }
+
+.link-register{
+    margin-top: 20px;
+    margin-left: 30px;
+}
+.btn-retour{
+    margin-left: 10px;
+}
+.link-register > .btn{
+    background-color: rgb(7, 3, 36);
+    border-color: rgb(7, 3, 36) ;
+    transition: 0.5s;
+    width: 37%;
+    font-size: 13px;
+}
+
+.link-register > .btn:hover{
+    background-color: #203647;
+    border-color: #203647;
+}
