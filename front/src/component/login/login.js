@@ -13,16 +13,18 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [tableau, setTableau] = useState(null);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     if(tableau === 0){
       alert("Email ou mot de passe Incorrect")
     }
     if(tableau === 1){
+    localStorage.setItem('role',role)
      navigate("/")
     }
 
-  }, [tableau,navigate])
+  }, [tableau,navigate,role])
   
   
    async function  connection(e) 
@@ -31,6 +33,7 @@ const Login = () => {
     await axios('https://localhost:8000/api/users?email=' + email + '&password=' + password)
       .then((res) => {
         setTableau(res.data["hydra:member"].length)
+        setRole(res.data["hydra:member"][0].role);
     })
      .catch(setError);
     if (error) return <p>An error occurred</p>

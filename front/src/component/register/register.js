@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
 import { useNavigate } from "react-router-dom";
 
 
@@ -12,8 +11,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [genre, setGenre] = useState("Homme");
-  const [role, setRole] = useState(0);
-  const [isActive, setIsActive] = useState(0);
+  const [role] = useState(0);
+  const [isActive] = useState(0);
   const navigate = useNavigate();
 
  
@@ -41,31 +40,31 @@ const Register = () => {
       <div className='container col-md-7'>
         
       <form className='form col-md-5'>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" onChange={(e)=>setEmail(e.target.value)}  value={email} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required></input>
+  <div className="form-group">
+    <label htmlfor="exampleInputEmail1">Email address</label>
+    <input type="email" className="form-control" onChange={(e)=>setEmail(e.target.value)}  value={email} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required></input>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
+  <div className="form-group">
+    <label htmlfor="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} required></input>
   </div>
 
-  <div class="form-group">
-    <label for="text">Username</label>
-    <input type="text" class="form-control" onChange={(e)=>setUsername(e.target.value)}  value={username} id="Username" aria-describedby="text" placeholder="Enter username" required></input>
+  <div className="form-group">
+    <label htmlfor="text">Username</label>
+    <input type="text" className="form-control" onChange={(e)=>setUsername(e.target.value)}  value={username} id="Username" aria-describedby="text" placeholder="Enter username" required></input>
   </div>
 
-  <div class="form-group col-md-6">
-      <label for="inputGenre">Genre</label>
-      <select id="inputGenre" class="form-control"  value={genre} onChange={(e)=>setGenre(e.target.value)} required>
+  <div className="form-group col-md-6">
+      <label htmlfor="inputGenre">Genre</label>
+      <select id="inputGenre" className="form-control"  value={genre} onChange={(e)=>setGenre(e.target.value)} required>
         <option value="Homme" selected>Homme</option>
         <option value="Femme">Femme</option>
         <option value="Autres">Autres</option>
       </select>
     </div>
 
-  <button id='button' type="button" class="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
-  <div class="form-group btn-ret">
+  <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <div className="form-group btn-ret">
   <Link to ="/" className='btn btn-primary'>Retour</Link>
   </div>
   

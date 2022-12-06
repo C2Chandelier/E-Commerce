@@ -1,10 +1,8 @@
 import axios from 'axios'
 import './single_card.css'
-import { Link } from 'react-router-dom';
 import {useEffect,useState } from 'react';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
 import './single_card.css';
 
 export default function SingleProduct() {
@@ -45,7 +43,7 @@ export default function SingleProduct() {
                 <div className="product_price">{product.prix}€</div>
                 <div className="product-btn">
                     {(() => {
-                    if(product.nbStock > 0 && product.enRupture == false){
+                    if(product.nbStock > 0 && product.enRupture === false){
                         return (
                             <><div>
                                 <button className='btn btn-light achat'>Acheter</button>
