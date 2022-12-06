@@ -26,8 +26,14 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $prix = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 4000)]
     private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nbStock = null;
+
+    #[ORM\Column]
+    private ?bool $enRupture = null;
 
     public function getId(): ?int
     {
@@ -72,8 +78,6 @@ class Articles
         return $this;
     }
 
-
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -85,4 +89,30 @@ class Articles
 
         return $this;
     }
+
+    public function getNbStock(): ?string
+    {
+        return $this->nbStock;
+    }
+
+    public function setNbStock(?string $nbStock): self
+    {
+        $this->nbStock = $nbStock;
+
+        return $this;
+    }
+
+    public function isEnRupture(): ?bool
+    {
+        return $this->enRupture;
+    }
+
+    public function setEnRupture(bool $enRupture): self
+    {
+        $this->enRupture = $enRupture;
+
+        return $this;
+    }
+
+
 }

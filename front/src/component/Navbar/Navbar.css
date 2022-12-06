@@ -23,7 +23,7 @@
     
 } */
 nav{
-    height: 180px;
+    height: 100px;
     background-color: #061F37;
 
 }
@@ -39,7 +39,7 @@ nav{
 .items{
     color: #AA974C;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 25px;
 
 }
 .btn{
