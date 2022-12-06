@@ -9,6 +9,8 @@ function AdminPannel() {
         <HydraAdmin basename="/admin" entrypoint="https://localhost:8000/api">
             <ResourceGuesser name={"articles"} />
             <ResourceGuesser name={"users"} />
+            <ResourceGuesser name={"categories"} />
+            <ResourceGuesser name={"souscategories"} />
         </HydraAdmin>
         </div>
     )
