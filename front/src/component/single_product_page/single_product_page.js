@@ -15,6 +15,8 @@ export default function SingleProduct() {
          const path = (window.location.href.substring(window.location.href.length-1, window.location.href.length));
            axios("https://localhost:8000/api/articles/"+path)
             .then((response) => {
+                const configuration = {headers:{'Content-Type': "application/merge-patch+json", Accept: "application/json"}}
+                axios.patch('https://localhost:8000/api/articles/'+path, {click:response.data["click"]+1}, configuration)
               setProduct(response.data) 
               setError(null);
             })
