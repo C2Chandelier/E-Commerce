@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221207155757 extends AbstractMigration
+final class Version20221207172831 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20221207155757 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE articles DROP click');
+        $this->addSql('ALTER TABLE articles ADD click INT NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -28,6 +28,6 @@ final class Version20221207155757 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE articles DROP FOREIGN KEY FK_BFDD3168BCF5E72D');
         $this->addSql('ALTER TABLE articles DROP FOREIGN KEY FK_BFDD3168A27126E0');
-        $this->addSql('ALTER TABLE articles ADD click INT NOT NULL');
+        $this->addSql('ALTER TABLE articles DROP click');
     }
 }

@@ -4,9 +4,9 @@ import {useEffect,useState } from 'react';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
+import Bread from '../breadcrumpSingle/breadcrumpSingle';
 
 export default function SingleProduct() {
-
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
 
@@ -32,6 +32,7 @@ export default function SingleProduct() {
         <header>
               <Navbar></Navbar>
         </header>
+        <Bread/>
         <div className="Single_product">
             <div className="img_product">
                 <img 
