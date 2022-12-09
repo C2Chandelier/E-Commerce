@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./ResultTitre.css"
+import "./ResultTitre.css";
 import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "../../NavbarComponent/Navbar/ Navbar";
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import Navbar from "../../Navbar/ Navbar";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 
 function ResultSearch() {
   const [error, setError] = useState(null);
@@ -16,8 +16,8 @@ function ResultSearch() {
   );
 
   useEffect(() => {
-
-    axios.get("https://localhost:8000/api/articles?titre=" + path)
+    axios
+      .get("https://localhost:8000/api/articles?titre=" + path)
 
       .then((response) => {
         setProduct(response.data["hydra:member"]);
