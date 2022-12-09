@@ -7,7 +7,7 @@ import Register from './component/register/register';
 import Login from './component/login/login';
 import ResultCategorie from './component/Result/ResultCategorie/ResultCategorie';
 import ResultSousCategorie from './component/Result/ResultSousCategorie/ResultSousCategorie';
-import ResultSearch from './component/result/result';
+import ResultSearch from './component/Result/ResultTitre/ResultTitre';
 
 import Home from './component/Home/Home';
 

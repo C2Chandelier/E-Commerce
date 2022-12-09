@@ -61,6 +61,7 @@ export default function Navbar() {
 
         <li><Link to={"/"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>
         <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
+        <BarreRecherche></BarreRecherche>
       </ul>
     </nav>
   )
