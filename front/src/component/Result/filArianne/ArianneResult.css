@@ -1,3 +1,8 @@
+
 .aria{
     color: white;
+}
+.aria a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
 }

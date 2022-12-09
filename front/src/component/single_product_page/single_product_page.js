@@ -2,10 +2,10 @@ import axios from 'axios'
 import './single_card.css'
 import {useEffect,useState} from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from "../Navbar/ Navbar";
+import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
-import Bread from '../breadcrumpSingle/breadcrumpSingle';
+import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);

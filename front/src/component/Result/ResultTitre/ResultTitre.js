@@ -4,7 +4,7 @@ import axios from "axios";
 import "./ResultTitre.css"
 import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "../../Navbar/ Navbar";
+import Navbar from "../../NavbarComponent/Navbar/ Navbar";
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 function ResultSearch() {

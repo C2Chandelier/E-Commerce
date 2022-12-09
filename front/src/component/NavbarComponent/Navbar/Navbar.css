@@ -141,3 +141,11 @@ ul{
     height: 20px;
     filter: contrast(0);
 }
+.liste li a{
+  color: #AA974C;
+  text-decoration: none;
+  font-size: 25px;
+}.liste li a:hover{
+  text-decoration: underline;
+  
+}
