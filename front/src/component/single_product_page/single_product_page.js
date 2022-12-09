@@ -1,6 +1,7 @@
 import axios from 'axios'
 import './single_card.css'
-import {useEffect,useState } from 'react';
+import {useEffect,useState} from 'react';
+import { useParams } from 'react-router-dom';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
@@ -9,17 +10,19 @@ import Bread from '../breadcrumpSingle/breadcrumpSingle';
 export default function SingleProduct() {
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
+    const path = useParams()
+
     useEffect( ()=> {   
-         const path = (window.location.href.substring(window.location.href.length-1, window.location.href.length));
-           axios("https://localhost:8000/api/articles/"+path)
+           axios("https://localhost:8000/api/articles/"+path.id)
             .then((response) => {
                 const configuration = {headers:{'Content-Type': "application/merge-patch+json", Accept: "application/json"}}
-                axios.patch('https://localhost:8000/api/articles/'+path, {click:response.data["click"]+1}, configuration)
+                axios.patch('https://localhost:8000/api/articles/'+path.id, {click:response.data["click"]+1}, configuration)
               setProduct(response.data) 
               setError(null);
             })
             .catch(setError);
-      }, []);
+
+      }, [path]);
       if (error) return <p>An error occurred</p>
     return (
         <div className='main'>
