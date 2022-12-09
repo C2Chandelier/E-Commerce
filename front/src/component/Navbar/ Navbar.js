@@ -20,13 +20,14 @@ export default function Navbar() {
     axios("https://localhost:8000/api/categories")
       .then((response) => {
         setCategorie(response.data["hydra:member"])
+       
         setError(null);
       })
       .catch(setError);
 
   }, []);
   if (error) return <p>An error occurred</p>
-
+  console.log(categorie)
   return (
     <nav className="Navbar">
      {categorie ?
