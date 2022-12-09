@@ -9,9 +9,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\ORM\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
+#[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false)]
 #[ApiResource]
 #[ApiFilter(SearchFilter::class, properties:["titre"=>"partial"])]
-#[ApiResource(paginationEnabled: false)]
 class Articles
 {
     #[ORM\Id]
@@ -43,6 +43,9 @@ class Articles
 
     #[ORM\Column]
     private ?bool $enRupture = null;
+
+    #[ORM\Column]
+    private ?int $click = null;
 
     public function getId(): ?int
     {
@@ -143,6 +146,18 @@ class Articles
     public function setEnRupture(bool $enRupture): self
     {
         $this->enRupture = $enRupture;
+
+        return $this;
+    }
+
+    public function getClick(): ?int
+    {
+        return $this->click;
+    }
+
+    public function setClick(int $click): self
+    {
+        $this->click = $click;
 
         return $this;
     }
