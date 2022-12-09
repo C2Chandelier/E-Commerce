@@ -4,6 +4,7 @@ import {useEffect,useState } from 'react';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
+import Bread from '../breadcrumpSingle/breadcrumpSingle';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
@@ -12,6 +13,8 @@ export default function SingleProduct() {
          const path = (window.location.href.substring(window.location.href.length-1, window.location.href.length));
            axios("https://localhost:8000/api/articles/"+path)
             .then((response) => {
+                const configuration = {headers:{'Content-Type': "application/merge-patch+json", Accept: "application/json"}}
+                axios.patch('https://localhost:8000/api/articles/'+path, {click:response.data["click"]+1}, configuration)
               setProduct(response.data) 
               setError(null);
             })
@@ -23,6 +26,7 @@ export default function SingleProduct() {
         <header>
               <Navbar></Navbar>
         </header>
+        <Bread/>
         <div className="Single_product">
             <div className="img_product">
                 <img 
