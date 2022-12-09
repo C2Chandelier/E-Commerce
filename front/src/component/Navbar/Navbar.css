@@ -24,6 +24,7 @@
 } */
 nav{
     height: 100px;
+    width: 100%;
     background-color: #061F37;
 
 }
@@ -55,8 +56,20 @@ nav{
     cursor: pointer;
 }
 .logo2{
-    width: auto;
+    /* width: auto; */
     height: 30px;
     filter: contrast(0);
     cursor: pointer;
+    margin-left: 12px;
+}
+.logoIcons{
+
+    min-width: 15%;
+    max-width: 35%;
+    margin-left: 20px;
+    
+}
+.logoIcons > li{
+    padding-left: 25px;
+    display: inline-block;
 }

@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
+import Bread from '../breadcrumpSingle/breadcrumpSingle';
 
 export default function SingleProduct() {
-
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
     const path = useParams()
@@ -15,6 +15,8 @@ export default function SingleProduct() {
     useEffect( ()=> {   
            axios("https://localhost:8000/api/articles/"+path.id)
             .then((response) => {
+                const configuration = {headers:{'Content-Type': "application/merge-patch+json", Accept: "application/json"}}
+                axios.patch('https://localhost:8000/api/articles/'+path, {click:response.data["click"]+1}, configuration)
               setProduct(response.data) 
               setError(null);
             })
@@ -22,14 +24,12 @@ export default function SingleProduct() {
 
       }, [path]);
       if (error) return <p>An error occurred</p>
-      console.log(product);
-
     return (
-
         <div className='main'>
         <header>
               <Navbar></Navbar>
         </header>
+        <Bread/>
         <div className="Single_product">
             <div className="img_product">
                 <img 

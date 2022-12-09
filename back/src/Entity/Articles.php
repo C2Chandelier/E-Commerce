@@ -47,6 +47,9 @@ class Articles
     #[ORM\Column]
     private ?bool $enRupture = null;
 
+    #[ORM\Column]
+    private ?int $click = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -146,6 +149,18 @@ class Articles
     public function setEnRupture(bool $enRupture): self
     {
         $this->enRupture = $enRupture;
+
+        return $this;
+    }
+
+    public function getClick(): ?int
+    {
+        return $this->click;
+    }
+
+    public function setClick(int $click): self
+    {
+        $this->click = $click;
 
         return $this;
     }

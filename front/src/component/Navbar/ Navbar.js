@@ -4,6 +4,7 @@ import './Navbar.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import BarreRecherche from '../Barre/barre'
 
 export default function Navbar() {
 

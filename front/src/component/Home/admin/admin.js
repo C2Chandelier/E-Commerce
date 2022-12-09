@@ -9,7 +9,7 @@ export default function ButtonAdmin(){
         }
         if(localStorage.getItem('role') === "1"){
             return (
-                <Link to={"/admin"}>Admin</Link>
+                <Link to={"/admin"} className='adminBtn'>Admin</Link>
             )
         }
 }
