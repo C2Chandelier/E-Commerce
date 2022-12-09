@@ -35,7 +35,7 @@ export default function Card_collection() {
   return (
 
     <div className='collection'>
-      {categorie ?
+      {SousCategorie && categorie ?
         <div className='text-collection'>
           <div className='Vetement'>
             <h1><Link to={"/result/categorie/" + categorie[2].id}>Vêtements</Link></h1>

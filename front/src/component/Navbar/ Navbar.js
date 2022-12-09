@@ -3,7 +3,7 @@ import React from 'react'
 import './Navbar.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Card_collection from '../card_collection/card_collection'
+import CardCollection from '../card_collection/card_collection'
 
 import BarreRecherche from '../Barre/barre'
 
@@ -39,7 +39,7 @@ export default function Navbar() {
         <li><Link to={"/result/categorie/" + categorie[0].id}>Costumes</Link></li>
         <li><Link to={"/result/categorie/" + categorie[1].id}>Chemises</Link></li>
 
-        <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png'></img><Card_collection /></li> 
+        <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png'alt="fleche"></img><CardCollection /></li> 
 
 
         <li><Link to={"/"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>

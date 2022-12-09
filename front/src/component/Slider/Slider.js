@@ -3,7 +3,6 @@ import "./Slider.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
-//npm i react-responsive-carousel pour utiliser carousel
 
 function Slider() {
 

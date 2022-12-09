@@ -7,13 +7,13 @@ function Slider() {
   return (
     <Carousel>
     <div>
-        <img src="./images/Image_Carousel/Carousel.jpg" />
+        <img src="./images/Image_Carousel/Carousel.jpg" alt="costume"/>
     </div>
     <div>
-        <img src="./images/Image_Carousel/Carousel2.jpg" />
+        <img src="./images/Image_Carousel/Carousel2.jpg" alt="costume"/>
     </div>
     <div>
-        <img src="./images/Image_Carousel/Carousel3.jpg" />
+        <img src="./images/Image_Carousel/Carousel3.jpg" alt="costume" />
     </div>
     </Carousel>
   )
