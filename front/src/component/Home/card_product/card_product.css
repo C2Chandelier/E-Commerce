@@ -1,41 +1,57 @@
-
 .container-product {
-    margin: 2rem;
-    display:grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3,1fr);
-    justify-content: center;
-    width: 80%;
-    margin: auto;
-    margin-top: 2%;
-  }
-  
+  display: grid;
+  gap: 6rem;
+  grid-template-columns: repeat(3, 1fr);
+  width: 90%;
+  height: auto;
+  margin: auto;
+  margin-top: 2%;
+}
+
+
+/* .card .card__img{
+  object-fit : fill;
+  width: auto;
+  height: auto;
+} */
+
 .card {
-    box-shadow: 0 0 10px 5px #e1e5ee;;
-    border-radius: 0.2rem;
-    min-width: 28rem;
-    display: flex;
-  }
-  
-.card__img {
-      width: 14rem;
-      height: 11rem;
-      object-fit: cover;
-    }
-  
+  box-shadow: 0 0 10px 5px #dbd5ba;
+  border-radius: 0.4rem;
+}
+.card:hover{
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px 0px;
+
+}
+
 .card__body {
-      margin: 1rem;
-      flex-grow: 1;
-    }
-    .card__title {
-      line-height: 1.4rem;
-      margin-bottom: 0.5rem;
-    }
-    .card__description {
+  margin: 0,1;
+  background-color: #ffffff;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-direction : column;
+  text-decoration: none;
+
+ /*  box-shadow: 0 0 20px 5px #a0c0df;
+  border-radius: 0.6rem; */
+
+}
+
+.card__title {
+  line-height: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/*  .card__description {
       line-height: 1.2rem;
-    }
-    .card__price {
-      font-size: 1.4rem;
-      margin-top: 0.6rem;
-    }
-  
+    } */
+.card__price {
+  font-size: 1.4rem;
+  margin-top: 0.6rem;
+}
+.link_none{
+  text-decoration: none;
+  color: black;
+} 
