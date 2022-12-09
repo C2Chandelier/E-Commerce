@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./breadcrumpSingle.css"
 import { Breadcrumb, BreadcrumbItem } from "reactstrap"
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
   
 function Bread() {
         const [titre,setTitre] = useState("");
@@ -10,8 +10,9 @@ function Bread() {
         const [souscategorie,setSouscategorie] = useState("");
         const [idsous,setIdsous] = useState("");
         const [idcate,setIdcate] = useState("");
+        const test = useParams();
     useEffect( ()=> {   
-        const article = (window.location.href.slice(-1))
+        const article = test.id
         axios("https://localhost:8000/api/articles/"+article)
         .then((res)=>{
                 setTitre(res.data["titre"])
@@ -33,7 +34,7 @@ function Bread() {
                 
             })
         })
-     }, []);
+     }, [test.id]);
     return (
         <div className="filda">
             <Breadcrumb>

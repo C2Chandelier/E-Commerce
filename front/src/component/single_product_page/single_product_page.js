@@ -2,10 +2,10 @@ import axios from 'axios'
 import './single_card.css'
 import {useEffect,useState} from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from "../Navbar/ Navbar";
+import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
-import Bread from '../breadcrumpSingle/breadcrumpSingle';
+import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
@@ -43,7 +43,10 @@ export default function SingleProduct() {
                 <div className="product_price">{product.prix}€</div>
                 <div className="product-btn">
                     {(() => {
-                    if(product.nbStock > 0 && product.enRupture === false){
+                    if(product.nbStock !== 0 && product.enRupture === true){
+                        
+                    }
+                    else{
                         return (
                             <><div>
                                 <button className='btn btn-light achat'>Acheter</button>
@@ -52,18 +55,6 @@ export default function SingleProduct() {
                             <div>
                                     <p>Il en reste {product.nbStock}</p>
                                 </div></>
-                        )
-                    }
-                    else{
-                        return(
-                            <><div>
-                            <button className='btn btn-light achat btn-indisponible' disabled>Acheter</button>
-                            <button className='btn btn-light ajout-panier btn-indisponible' disabled>Ajouter au panier</button>
-                        </div>
-                        
-                        <div>
-                                <p className='indisponible'>Article indisponible</p>
-                            </div></>
                         )
                     }
                 })()}  

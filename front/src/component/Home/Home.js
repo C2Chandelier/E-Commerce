@@ -1,7 +1,7 @@
 import CardProduct from "./card_product/Card_product";
-import Navbar from "../Navbar/ Navbar";
-import Slider from "../Carousel/Carousel";
-import Title from "../h1/title";
+import Navbar from "../NavbarComponent/Navbar/ Navbar";
+import Slider from "../NavbarComponent/Carousel/Carousel";
+import Title from "../NavbarComponent/h1/title";
 import ButtonAdmin from "./admin/admin"
 import { useEffect } from "react";
 
