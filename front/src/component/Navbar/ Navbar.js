@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import './Navbar.css'
-import Barre from '../Barre/barre'
+// import Barre from '../Barre/barre'
+import BarreRecherche from '../Barre/barre'
 export default function Navbar() {
   return(
     <nav className="Navbar">
@@ -12,9 +13,14 @@ export default function Navbar() {
         <li className="items">Accueil</li>
         <li className="items">Costume</li>
         <li className="items">Contact</li>
-        <li><Barre/></li> 
+        {/* <li><Barre placeholder="Recherche"/></li>  */}
+        <div className='logoIcons'>
         <li><Link to={"/"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume"/></Link></li>
         <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume"/></Link></li>
+        <li><BarreRecherche/></li>
+        </div>
+      
+       
 
     </ul>
 </nav>

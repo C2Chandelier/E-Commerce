@@ -10,7 +10,10 @@ import { Link } from 'react-router-dom';
 function CardProduct() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
+<<<<<<< HEAD
   
+=======
+>>>>>>> registerHtml
 
   useEffect(() => {
     axios("https://localhost:8000/api/articles")
