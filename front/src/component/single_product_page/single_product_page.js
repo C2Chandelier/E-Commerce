@@ -1,6 +1,7 @@
 import axios from 'axios'
 import './single_card.css'
-import {useEffect,useState } from 'react';
+import {useEffect,useState} from 'react';
+import { useParams } from 'react-router-dom';
 import Navbar from "../Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
@@ -9,18 +10,17 @@ export default function SingleProduct() {
 
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
-
+    const path = useParams()
 
     useEffect( ()=> {   
-         const path = (window.location.href.substring(window.location.href.length-1, window.location.href.length));
-           axios("https://localhost:8000/api/articles/"+path)
+           axios("https://localhost:8000/api/articles/"+path.id)
             .then((response) => {
               setProduct(response.data) 
               setError(null);
             })
             .catch(setError);
 
-      }, []);
+      }, [path]);
       if (error) return <p>An error occurred</p>
       console.log(product);
 

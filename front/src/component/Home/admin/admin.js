@@ -4,7 +4,6 @@ import './admin.css';
 
 export default function ButtonAdmin(){
 
-        console.log(localStorage.getItem('role'))
         if(localStorage.getItem('role') !== "1"){
             return ""
         }

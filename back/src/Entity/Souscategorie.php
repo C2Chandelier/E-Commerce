@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SouscategorieRepository::class)]
 #[ApiResource]
+#[ApiResource(paginationEnabled: false)]
 class Souscategorie
 {
     #[ORM\Id]
