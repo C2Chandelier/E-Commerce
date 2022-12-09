@@ -23,7 +23,6 @@ function CardProduct() {
   }, []);
   if (error) return <p>An error occurred</p>
 
-  console.log(product);
   return (
 
    
