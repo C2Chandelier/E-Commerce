@@ -9,7 +9,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 
 function ResultSearch() {
   const [error, setError] = useState(null);
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
 
   const path = useLocation().pathname.substring(
     useLocation().pathname.lastIndexOf("/") + 1
@@ -18,7 +18,7 @@ function ResultSearch() {
   useEffect(() => {
 
     axios.get("https://localhost:8000/api/articles?titre=" + path)
-        
+
       .then((response) => {
         setProduct(response.data["hydra:member"]);
         setError(null);
@@ -26,15 +26,19 @@ function ResultSearch() {
       .catch(setError);
   }, [path]);
   if (error) return <p>An error occurred</p>;
-  
+
+  if (product === null) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
-    <header className="navResult"><Navbar /></header>
-    <div className="container-product">
-      
+      <header className="navResult"><Navbar /></header>
+      <div className="container-product">
+
         {product.length > 0 ? product.map((item) => (
-               
-            <Link to={"/article/" + item.id} key={item.id}>
+
+          <Link to={"/article/" + item.id} key={item.id}>
             <Card id={"produit-" + item.id} className="card">
               <Card.Img
                 className="card__img"
@@ -53,15 +57,15 @@ function ResultSearch() {
               </Card.Body>
             </Card>
           </Link>
-  ))
-              :
-             
-              <div className="messageErreur"><p className="">Aucun article ne correspond à votre recherche <SentimentVeryDissatisfiedIcon className="sad"/></p>
-                <Link to={"/"} className='retourLink'>Retour à l'accueil</Link>
-              </div>}
+        ))
+          :
+
+          <div className="messageErreur"><p className="">Aucun article ne correspond à votre recherche <SentimentVeryDissatisfiedIcon className="sad" /></p>
+            <Link to={"/"} className='retourLink'>Retour à l'accueil</Link>
+          </div>}
+      </div>
     </div>
-    </div>
-    
+
   );
 }
 export default ResultSearch;
