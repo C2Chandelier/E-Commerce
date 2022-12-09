@@ -11,7 +11,6 @@ function CardProduct() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
 
-
   useEffect(() => {
     axios("https://localhost:8000/api/articles")
       .then((response) => {

@@ -6,9 +6,11 @@ use App\Repository\ArticlesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Doctrine\ORM\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties:["titre"=>"partial"])]
 #[ApiResource(paginationEnabled: false)]
 class Articles
 {

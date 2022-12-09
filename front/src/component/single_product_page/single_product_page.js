@@ -6,11 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
 
 export default function SingleProduct() {
-
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
-
-
     useEffect( ()=> {   
          const path = (window.location.href.substring(window.location.href.length-1, window.location.href.length));
            axios("https://localhost:8000/api/articles/"+path)
@@ -19,13 +16,9 @@ export default function SingleProduct() {
               setError(null);
             })
             .catch(setError);
-
       }, []);
       if (error) return <p>An error occurred</p>
-      console.log(product);
-
     return (
-
         <div className='main'>
         <header>
               <Navbar></Navbar>
