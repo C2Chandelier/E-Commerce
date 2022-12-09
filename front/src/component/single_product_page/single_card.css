@@ -4,6 +4,7 @@
 .Single_product{
     height: 55vw;
     background-image: linear-gradient(to bottom, #09233d, #09233d, #09233d, #09233d, #09233d);
+    display: flex;
 }
 .product{
     width: 40%;
