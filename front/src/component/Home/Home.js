@@ -10,6 +10,7 @@ export default function Home() {
     useEffect(() => {
         const handleTabClose = event => {
           localStorage.removeItem('role');
+          localStorage.removeItem('id');
         };
     
         window.addEventListener('beforeunload', handleTabClose);
