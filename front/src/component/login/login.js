@@ -14,6 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [tableau, setTableau] = useState(null);
   const [role, setRole] = useState(null);
+  const [id_user, setId_user] = useState(null);
 
   useEffect(() => {
     if(tableau === 0){
@@ -21,10 +22,12 @@ const Login = () => {
     }
     if(tableau === 1){
     localStorage.setItem('role',role)
+    localStorage.setItem('id',id_user)
+
      navigate("/")
     }
 
-  }, [tableau,navigate,role])
+  }, [tableau,navigate,role,id_user])
   
   
    async function  connection(e) 
@@ -34,6 +37,8 @@ const Login = () => {
       .then((res) => {
         setTableau(res.data["hydra:member"].length)
         setRole(res.data["hydra:member"][0].role);
+        setId_user(res.data["hydra:member"][0].id);
+
     })
      .catch(setError);
     if (error) return <p>An error occurred</p>
