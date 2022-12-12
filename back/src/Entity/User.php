@@ -41,14 +41,6 @@ class User
     #[ORM\Column]
     private ?int $role = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Panier::class)]
-    private Collection $paniers;
-
-    public function __construct()
-    {
-        $this->paniers = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -122,36 +114,6 @@ class User
     public function setRole(int $role): self
     {
         $this->role = $role;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
-
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): self
-    {
-        if ($this->paniers->removeElement($panier)) {
-            // set the owning side to null (unless already changed)
-            if ($panier->getUser() === $this) {
-                $panier->setUser(null);
-            }
-        }
-
         return $this;
     }
 }

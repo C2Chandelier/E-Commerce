@@ -10,8 +10,6 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
-
-
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false)]
 #[ApiResource]
@@ -52,14 +50,6 @@ class Articles
 
     #[ORM\Column]
     private ?int $click = null;
-
-    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Panier::class)]
-    private Collection $paniers;
-
-    public function __construct()
-    {
-        $this->paniers = new ArrayCollection();
-    }
 
     
     public function getId(): ?int
@@ -175,35 +165,5 @@ class Articles
         $this->click = $click;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
-
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->setArticles($this);
-        }
-
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): self
-    {
-        if ($this->paniers->removeElement($panier)) {
-            // set the owning side to null (unless already changed)
-            if ($panier->getArticles() === $this) {
-                $panier->setArticles(null);
-            }
-        }
-
-        return $this;
-    }
+    }   
 }

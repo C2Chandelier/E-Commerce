@@ -37,7 +37,6 @@ function CardProduct() {
             <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
           </Card.Body>
         </Link>
-
         </Card>
        
       ))};
