@@ -43,8 +43,14 @@ export default function SingleProduct() {
                 <div className="product_price">{product.prix}€</div>
                 <div className="product-btn">
                     {(() => {
-                    if(product.nbStock !== 0 && product.enRupture === true){
-                        
+                    if(product.nbStock === 0 || product.enRupture === true){
+                        <><div>
+                        <button className='btn btn-light achat' disabled>Acheter</button>
+                        <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>
+                    </div>
+                    <div>
+                            <p className='indisponible'>Article indisponible</p>
+                        </div></>
 
                     }   
                     else{

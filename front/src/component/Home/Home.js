@@ -4,8 +4,7 @@ import Slider from "../NavbarComponent/Carousel/Carousel";
 import Title from "../NavbarComponent/h1/title";
 import ButtonAdmin from "./admin/admin"
 import { useEffect } from "react";
-import Panier from "../panier/panier";
-
+    
 
 export default function Home() {
     useEffect(() => {
@@ -19,7 +18,6 @@ export default function Home() {
     return (
         <div>
             <header>
-                <Panier></Panier>
                 <Navbar></Navbar>
                 <ButtonAdmin></ButtonAdmin>
             </header>

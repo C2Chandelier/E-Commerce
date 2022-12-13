@@ -4,11 +4,7 @@ import axios from "axios";
 import "./ResultTitre.css";
 import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
-<<<<<<< HEAD
-import Navbar from "../../NavbarComponent/Navbar/ Navbar";
-=======
 import Navbar from "../../NavbarComponent/Navbar/ Navbar"
->>>>>>> registerHtml
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import Sidebar from "../../sidebar/SideBar";
 
