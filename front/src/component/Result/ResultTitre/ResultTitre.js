@@ -4,8 +4,9 @@ import axios from "axios";
 import "./ResultTitre.css";
 import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "../../Navbar/ Navbar";
+import Navbar from "../../NavbarComponent/Navbar/ Navbar"
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import Sidebar from "../../sidebar/SideBar";
 
 function ResultSearch() {
   const [error, setError] = useState(null);
@@ -33,8 +34,9 @@ function ResultSearch() {
 
   return (
     <div>
-      <header className="navResult"><Navbar /></header>
+      <header className="navResult"><Navbar/></header>
       <div className="container-product">
+      <div className="SideBarResult"><Sidebar/></div>
 
         {product.length > 0 ? product.map((item) => (
 
