@@ -1,5 +1,9 @@
 .searchInputs{
     display: flex;
+    transition: 2s;
+}
+.search{
+    transition: 2s;
 }
 .search input{
     background-color: white;
@@ -59,7 +63,50 @@
     width: 35px !important;
     height: 35px !important;
     /* margin-top: -4px !important; */
+}
+
+.InstResult{
+    background-color:white;
+    height: 330px;
+    /* max-height: 120px; */
+    width: 640px !important;
+    position: absolute;
+    top: 90px;
+    z-index: 1;
+    right: 30px;
+    overflow: hidden;
+    overflow-y: auto;
+    display: inline-block;
+
+
+}
+.InstResult::-webkit-scrollbar{
+    display: none;
+}
+.searchCadre{
+    width: 100%;
+    border-radius: 0px !important;
+    margin-left: 20px;
+    border-color: none!important;
     
 
+}
 
+.searchCard__img{
+    height: 200px;
+    width: 100%!important;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.resultVide{
+    display: none;
+}
+.InstResult > div{
+    display: inline-block;
+}
+.imageCd{
+    width: 25%;
+}
+.bodyCd{
+    width: 75%;
 }

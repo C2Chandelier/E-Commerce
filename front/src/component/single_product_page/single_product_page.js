@@ -45,7 +45,8 @@ export default function SingleProduct() {
                     {(() => {
                     if(product.nbStock !== 0 && product.enRupture === true){
                         
-                    }
+
+                    }   
                     else{
                         return (
                             <><div>

@@ -1,8 +1,11 @@
+import React from "react"
+import "./SideBar.css"
+
+
+export default function Sidebar(){
+
+  return(
 <div>
-      <header className="navResult">
-        <Navbar />
-      </header>
-      <div className="container-product div-product">
         <div className="sideBarre">
           <h1 className="t-name">Cotumichioo</h1>
           <hr className="t-hr"></hr>
@@ -21,11 +24,11 @@
               <option value="3">Gilet</option>
             </select> */}
 
-            <div class="user-box">
-              <div class="user-id">
-                <div class="user-name">Catégorie</div>
-                <div class="dropdown-arrow"></div>
-                <div class="dropdown-menu">
+            <div className="user-box">
+              <div className="user-id">
+                <div className="user-name">Catégorie</div>
+                <div className="dropdown-arrow"></div>
+                <div className="dropdown-menu">
                   <ul>
                     <li>Costumes</li>
                     <li>Chemise</li>
@@ -34,11 +37,11 @@
                 </div>
               </div>
             </div>
-            <div class="user-box">
-              <div class="user-id">
-                <div class="user-name">Vêtements</div>
-                <div class="dropdown-arrow"></div>
-                <div class="dropdown-menu">
+            <div className="user-box">
+              <div className="user-id">
+                <div className="user-name">Vêtements</div>
+                <div className="dropdown-arrow"></div>
+                <div className="dropdown-menu">
                   <ul>
                     <li>Veste</li>
                     <li>Gilet</li>
@@ -47,11 +50,11 @@
                 </div>
               </div>
             </div>
-            <div class="user-box">
-              <div class="user-id">
-                <div class="user-name">Accéssoires</div>
-                <div class="dropdown-arrow"></div>
-                <div class="dropdown-menu">
+            <div className="user-box">
+              <div className="user-id">
+                <div className="user-name">Accéssoires</div>
+                <div className="dropdown-arrow"></div>
+                <div className="dropdown-menu">
                   <ul>
                     <li>Ceinture</li>
                     <li>Cravate</li>
@@ -62,3 +65,5 @@
             </div>
           </div>
         </div>
+        </div>
+       ) }
