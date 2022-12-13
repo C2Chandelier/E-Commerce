@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import "./card_collection.css";
 export default function Card_collection() {
 
 

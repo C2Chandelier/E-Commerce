@@ -73,7 +73,7 @@ export default function BarreRecherche() {
     <div className='searchInputs'>
     {(barre ?  <><div className='searchInputs'> <input type="text" className='inID' id='searchBarre' onChange={handleFilter} placeholder="Recherche" onKeyDown={handleKeyDown} required />
 
-          <div className='searchIcon'> <button onClick={SearchArticle}><SearchIcon className='icon' /></button> </div>
+          <div className='searchIcon2'> <button onClick={SearchArticle}><SearchIcon className='icon' /></button> </div>
        
         </div>
         {(article.length !== 0 ?

@@ -1,6 +1,7 @@
 .searchInputs{
     display: flex;
     transition: 2s;
+    margin-bottom: 10px;
 }
 .search{
     transition: 2s;
@@ -13,6 +14,7 @@
     padding: 15px;
     height: 30px;
     width: 170px;
+
 }
 /* .searchIcon{
     height: 20px;
@@ -29,6 +31,7 @@
     background-color: #061f37;
     border-width: 0 0 1px;
     border-bottom-color: white;
+    margin-bottom: 7px;
     
 
 }
@@ -50,12 +53,23 @@
     height: 30px;
     background-color:#061f37;
     border-width: 0 0 0 0;
+    margin-top: 10px;
+}
+.searchIcon2 button{
+    height: 30px;
+    background-color:#061f37;
+    border-width: 0 0 0 0;
+    margin-bottom: 7px;
 }
 .croixIcone > button{
     height: 30px;
     background-color:#061f37;
     border-width: 0 0 0 0;
-    margin-left: 165px;
+    /* margin-left: 195px;
+    margin-top: 40px; */
+    position: relative;
+    left: 195px;
+    top: 30px;
    
 }
 .icon{
