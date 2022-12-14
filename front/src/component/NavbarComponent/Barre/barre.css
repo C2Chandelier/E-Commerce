@@ -2,6 +2,7 @@
     display: flex;
     transition: 2s;
     margin-bottom: 10px;
+    
 }
 .search{
     transition: 2s;
@@ -54,12 +55,14 @@
     background-color:#061f37;
     border-width: 0 0 0 0;
     margin-top: 10px;
+    
 }
 .searchIcon2 button{
     height: 30px;
     background-color:#061f37;
     border-width: 0 0 0 0;
     margin-bottom: 7px;
+    margin-right: 20px;
 }
 .croixIcone > button{
     height: 30px;
@@ -68,7 +71,7 @@
     /* margin-left: 195px;
     margin-top: 40px; */
     position: relative;
-    left: 195px;
+    left: 207px;
     top: 30px;
    
 }
