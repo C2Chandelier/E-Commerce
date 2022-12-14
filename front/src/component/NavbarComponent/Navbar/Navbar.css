@@ -124,6 +124,8 @@ ul{
   cursor: pointer;
 
 }
+
+
 .Accesoire_ul li{
   padding: 15%;
   font-size: 20px;
@@ -145,7 +147,9 @@ ul{
   color: #AA974C;
   text-decoration: none;
   font-size: 25px;
+  transition: 0.5s;
 }.liste li a:hover{
-  text-decoration: underline;
+  font-size: 27px;
+
   
 }
