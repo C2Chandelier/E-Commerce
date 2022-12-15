@@ -8,6 +8,7 @@ import Navbar from '../NavbarComponent/Navbar/ Navbar';
 
 function Panier() {
   const [article, setArticle] = useState([]);
+  const [length, setLength] = useState(null)
   let total = 0;
   let id_panier = localStorage.getItem("id_panier")
 
@@ -18,22 +19,53 @@ function Panier() {
           setArticle(response.data["hydra:member"]);
         })
     }
-  }, [id_panier]);
+  }, [id_panier, length]);
 
   article.map((item) => {
 
-    total = total + parseFloat(item.articles.prix);
+    total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
   })
 
-  function DeleteItem(e) {
+  async function DeleteItem(e) {
     const id_article = e.target.id.substring(4)
     article.filter((res) => {
       if (parseInt(res.articles.id) === parseInt(id_article)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
-        setArticle(article)
+          .then((res) => {
+            setLength(article.length)
+            setArticle(article)
+          })
       }
     })
+  }
+
+  async function setMoreQuantity(e) {
+    let id_panier = e.target.value.substring(21)
+    axios("https://localhost:8000/api/panier_articles/" + id_panier)
+      .then((response) => {
+        let quantité = parseInt(response.data.quantity)+1
+        const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+        axios.patch('https://localhost:8000/api/panier_articles/' + id_panier, { quantity: quantité }, configuration)
+          .then((res) => {
+            setArticle(article)
+            setLength(length+1);
+          })
+      })
+  }
+
+  async function setLessQuantity(e) {
+    let id_panier = e.target.value.substring(21)
+    axios("https://localhost:8000/api/panier_articles/" + id_panier)
+      .then((response) => {
+        let quantité = parseInt(response.data.quantity)-1
+        const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+        axios.patch('https://localhost:8000/api/panier_articles/' + id_panier, { quantity: quantité }, configuration)
+          .then((res) => {
+            setArticle(article)
+            setLength(length-1);
+          })
+      })
   }
 
 
@@ -50,7 +82,9 @@ function Panier() {
               </Link>
               <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
               <button id={"btn_" + item.articles.id} onClick={(e) => DeleteItem(e)}>&#x2716;</button>
-
+              <input id={item["@id"]} type="text" value={item.quantity} readOnly></input>
+              <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
+              <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
             </Card.Body>
           </Card>
 
