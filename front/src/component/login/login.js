@@ -21,6 +21,15 @@ const Login = () => {
       alert("Email ou mot de passe Incorrect")
     }
     if(tableau === 1){
+      
+      
+      axios.get('https://localhost:8000/api/paniers?user='+id_user)
+      .then((rep)=>{
+        const path = rep.data["hydra:member"][0]["@id"]
+        let array = path.split("/")
+        const id_panier = array.pop()
+        localStorage.setItem('id_panier',id_panier);
+      }) 
     localStorage.setItem('role',role)
     localStorage.setItem('id',id_user)
 

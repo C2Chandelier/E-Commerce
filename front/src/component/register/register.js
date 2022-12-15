@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import "./register.css";
@@ -12,13 +12,32 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [genre, setGenre] = useState("Homme");
   const [role] = useState(0);
-  const [isActive] = useState(0);
+  const [isActive] = useState(1);
+  const [id_user,setId_user] = useState(null)
   const navigate = useNavigate();
 
- 
+  useEffect(() => {
+    if(id_user !== null){
+      axios.post('https://localhost:8000/api/paniers',{
+          "user": "api/users/"+id_user 
+        })
+        .then((res)=>{
+          console.log(res);
+          const path = res.data["@id"]
+        let array = path.split("/")
+        const id_panier = array.pop()
+        localStorage.setItem('id_panier',id_panier);
+        localStorage.setItem('id',id_user);
 
+          navigate("/")
+        })
+    }
+  }, [id_user,navigate])
+
+  
   function inscription()
   {
+  
     
      if(email === "" || password === "" || username === "") // n'affiche pas le return 
      {
@@ -26,14 +45,12 @@ const Register = () => {
      }
      else
      {
-      console.log("oui");
-      console.log(email,password,genre,username);
       const configuration = {headers:{'Content-Type': "application/json", Accept: "application/json"}}
       axios.post('https://localhost:8000/api/users', { email,password,username,genre,role,isActive}, configuration)
-      .then(res => {
-        
-      })
-      navigate("/");
+      .then((res) => {
+        setId_user(res.data.id)
+      });
+      
     }
 }
   return (

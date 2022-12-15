@@ -30,7 +30,7 @@ class PanierArticles
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('panierarticles')]
     private ?Articles $articles = null;
-
+    #[Groups('panierarticles')]
     #[ORM\Column]
     private ?int $quantity = null;
 

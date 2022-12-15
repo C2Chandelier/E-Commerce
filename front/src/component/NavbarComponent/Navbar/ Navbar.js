@@ -27,7 +27,6 @@ export default function Navbar() {
 
   }, []);
   if (error) return <p>An error occurred</p>
-  console.log(categorie)
   return (
     <nav className="Navbar">
      {categorie ?
@@ -42,7 +41,7 @@ export default function Navbar() {
         <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png'alt="fleche"></img><CardCollection /></li> 
 
 
-        <li><Link to={"/"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>
+        <li><Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>
         <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
         <BarreRecherche></BarreRecherche>
       
