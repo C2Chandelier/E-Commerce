@@ -10,26 +10,32 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
+
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false)]
-#[ApiResource]
-#[ApiFilter(SearchFilter::class, properties:["titre"=>"partial"])]
 #[ApiFilter(SearchFilter::class, properties: ['categorie'=>'exact', 'souscategorie'=>'exact','titre'=>'partial'])]
 
 class Articles
 {
+    
+
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('panierarticles')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('panierarticles')]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('panierarticles')]
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('panierarticles')]
     private ?string $prix = null;
 
     #[ORM\Column(length: 4000)]
