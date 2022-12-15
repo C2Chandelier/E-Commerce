@@ -32,7 +32,6 @@ export default function SingleProduct() {
         axios("https://localhost:8000/api/panier_articles?panier=" + id_panier + "&articles=" + id_article)
             .then((response) => {
                 let NumberArticle = response.data["hydra:totalItems"];
-                let id = response.data["hydra:member"][0].id
 
                 if (NumberArticle === 0) {
                     const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/json" } }
@@ -40,6 +39,7 @@ export default function SingleProduct() {
                 }
 
                 if (NumberArticle !== 0) {
+                    let id = response.data["hydra:member"][0].id
                     axios("https://localhost:8000/api/panier_articles/" + id)
                         .then((response) => {
                             const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
@@ -48,7 +48,7 @@ export default function SingleProduct() {
                 }
             })
 
-            alert("article bien ajouté au panier !")
+        alert("article bien ajouté au panier !")
     }
 
     return (
