@@ -47,9 +47,9 @@ const Login = () => {
         setTableau(res.data["hydra:member"].length)
         setRole(res.data["hydra:member"][0].role);
         setId_user(res.data["hydra:member"][0].id);
-
+        
     })
-     .catch(setError);
+     .catch(setError); 
     if (error) return <p>An error occurred</p>
     if (email === "" || password === "")
     {
