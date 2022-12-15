@@ -6,6 +6,7 @@ export default function Title() {
    <div className='titre'>
     <h1>Découvrir ...</h1>
    </div>
-
+ 
   )
 }
+  
