@@ -11,12 +11,13 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: PanierArticlesRepository::class)]
 #[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['panierarticles']])]
-#[ApiFilter(SearchFilter::class, properties:["panier"=>"exact"])]
+#[ApiFilter(SearchFilter::class, properties:["panier"=>"exact","articles"=>"exact"])]
 class PanierArticles
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('panierarticles')]
     private ?int $id = null;
 
     #[ORM\ManyToOne]
@@ -30,8 +31,9 @@ class PanierArticles
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('panierarticles')]
     private ?Articles $articles = null;
+
     #[Groups('panierarticles')]
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => 1])]
     private ?int $quantity = null;
 
     public function getId(): ?int

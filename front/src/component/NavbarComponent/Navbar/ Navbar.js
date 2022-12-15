@@ -4,8 +4,8 @@ import './Navbar.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardCollection from '../card_collection/card_collection'
-
 import BarreRecherche from '../Barre/barre'
+import ButtonAdmin from '../admin/admin';
 
 export default function Navbar() {
 
@@ -27,8 +27,10 @@ export default function Navbar() {
 
   }, []);
   if (error) return <p>An error occurred</p>
+  
   return (
     <nav className="Navbar">
+                <ButtonAdmin></ButtonAdmin>
      {categorie ?
     
       <ul className="liste">
