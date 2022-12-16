@@ -17,21 +17,30 @@ const Login = () => {
   const [id_user, setId_user] = useState(null);
 
   useEffect(() => {
-    if(tableau === 0){
+    if (tableau === 0) {
       alert("Email ou mot de passe Incorrect")
     }
-    if(tableau === 1){
-    localStorage.setItem('role',role)
-    localStorage.setItem('id',id_user)
+    if (tableau === 1) {
 
-     navigate("/")
+
+      axios.get('https://localhost:8000/api/paniers?user=' + id_user)
+        .then((rep) => {
+          const path = rep.data["hydra:member"][0]["@id"]
+          let array = path.split("/")
+          const id_panier = array.pop()
+          localStorage.setItem('role', role)
+          localStorage.setItem('id', id_user)
+          localStorage.setItem('id_panier', id_panier)
+        })
+
+
+      navigate("/")
     }
 
-  }, [tableau,navigate,role,id_user])
-  
-  
-   async function  connection(e) 
-  { 
+  }, [tableau, navigate, role, id_user])
+
+
+  async function connection(e) {
     e.preventDefault()
     await axios('https://localhost:8000/api/users?email=' + email + '&password=' + password)
       .then((res) => {
@@ -39,14 +48,13 @@ const Login = () => {
         setRole(res.data["hydra:member"][0].role);
         setId_user(res.data["hydra:member"][0].id);
 
-    })
-     .catch(setError);
+      })
+      .catch(setError);
     if (error) return <p>An error occurred</p>
-    if (email === "" || password === "")
-    {
+    if (email === "" || password === "") {
       alert("Champs vide")
     }
-    
+
 
   }
   return (
@@ -60,17 +68,17 @@ const Login = () => {
           <label htmlFor="exampleInputPassword1">Password</label>
           <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
         </div>
-        <button  id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
+        <button id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
         <div className='form-register link-register'>
-        <p>Pas encore de compte ?</p>
-        <Link to="/register" className='btn btn-primary'>Inscrivez-vous</Link>
-        <Link to ="/" className='btn btn-primary btn-retour'>Retour</Link>
-      </div>
+          <p>Pas encore de compte ?</p>
+          <Link to="/register" className='btn btn-primary'>Inscrivez-vous</Link>
+          <Link to="/" className='btn btn-primary btn-retour'>Retour</Link>
+        </div>
       </form>
- 
+
     </div>
-  
- 
+
+
   );
 }
 export default Login;

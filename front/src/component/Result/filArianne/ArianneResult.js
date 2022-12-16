@@ -51,7 +51,6 @@ export default function ArianneResult() {
 
     return (
         <div className='aria'>
-            {console.log(idcategorie)}
 
             <Breadcrumb>
                 <BreadcrumbItem><Link to={"/"}>Accueil</Link></BreadcrumbItem>

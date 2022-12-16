@@ -2,7 +2,6 @@ import CardProduct from "./card_product/Card_product";
 import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import Slider from "../NavbarComponent/Carousel/Carousel";
 import Title from "../NavbarComponent/h1/title";
-import ButtonAdmin from "./admin/admin"
 import { useEffect } from "react";
     
 
@@ -11,6 +10,7 @@ export default function Home() {
         const handleTabClose = event => {
           localStorage.removeItem('role');
           localStorage.removeItem('id');
+          localStorage.removeItem('id_panier');
         };
     
         window.addEventListener('beforeunload', handleTabClose);
@@ -19,7 +19,6 @@ export default function Home() {
         <div>
             <header>
                 <Navbar></Navbar>
-                <ButtonAdmin></ButtonAdmin>
             </header>
             <div>
                 <Slider />
