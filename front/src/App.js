@@ -11,6 +11,7 @@ import ResultSearch from './component/Result/ResultTitre/ResultTitre';
 import Panier from './component/panier/panier';
 
 import Home from './component/Home/Home';
+import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 
 export default class App extends Component {
   render() {
@@ -27,6 +28,8 @@ export default class App extends Component {
           <Route path="/result/categorie/:id" element={<ResultCategorie />}></Route>
           <Route path="/result/souscategorie/:id" element={<ResultSousCategorie />}></Route>
           <Route path="/result/:titre" element={<ResultSearch />}></Route>
+          <Route path="/result/:titre/CAT/:cat" element={<ResultFilter />}></Route>
+          <Route path="/result/:titre/SCAT/:cat" element={<ResultFilter />}></Route>
           <Route path="/panier" element={<Panier />}></Route>
         </Routes>
       </Router>
