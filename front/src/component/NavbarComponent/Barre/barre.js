@@ -47,7 +47,8 @@ export default function BarreRecherche() {
   function SearchArticle() {
     let valInput = document.getElementById("searchBarre").value;
     if (valInput !== "") {
-
+      SetLoupe(true)
+      SetBarre(false)
       navigate("/result/" + valInput);
     } else {
       alert("Veuillez écrire quelques choses dans la barre de recherche!");
