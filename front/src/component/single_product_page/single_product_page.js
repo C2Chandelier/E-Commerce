@@ -6,7 +6,7 @@ import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
 import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
-import PanierHover from '../panierHover/panierHover';
+import PanierHover from '../NavbarComponent/panierHover/panierHover';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
