@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 function CardProduct() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
-  const [promo, setPromo] = useState(null);
+  let promo = 0;
 
 
 
@@ -27,16 +27,16 @@ function CardProduct() {
 
   product.filter(res => {
     if (res.promo === true) {
-      setPromo(promo + 1)
+      promo = (promo + 1)
     }
   })
 
   return (
-    <div class="contenaire">
-      {promo === null ? null :
-        <div class="promo">
+    <div className="contenaire">
+      {promo !== 0 ?
+        <div className="promo">
           <h2>Promotion !</h2>
-          <div class="container-product-promo">
+          <div className="container-product-promo">
             {product.map((item) => (
               item.promo === true ?
                 <Card id={"produit-" + item.id} key={item.id} className="card">
@@ -53,7 +53,9 @@ function CardProduct() {
             ))}
           </div>
         </div>
+        : null
       }
+
 
 
       <div className='container-product'>
