@@ -57,6 +57,9 @@ class Articles
     #[ORM\Column]
     private ?int $click = null;
 
+    #[ORM\Column]
+    private ?bool $Promo = null;
+
     
     public function getId(): ?int
     {
@@ -169,6 +172,18 @@ class Articles
     public function setClick(int $click): self
     {
         $this->click = $click;
+
+        return $this;
+    }
+
+    public function isPromo(): ?bool
+    {
+        return $this->Promo;
+    }
+
+    public function setPromo(bool $Promo): self
+    {
+        $this->Promo = $Promo;
 
         return $this;
     }   

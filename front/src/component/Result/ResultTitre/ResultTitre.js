@@ -6,7 +6,8 @@ import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "../../NavbarComponent/Navbar/ Navbar"
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import Sidebar from "../../sidebar/SideBar";
+import Sidebar from "../sidebar/SideBar";
+import ArianneResult from "../filArianne/ArianneResult";
 
 function ResultSearch() {
   const [error, setError] = useState(null);
@@ -35,6 +36,7 @@ function ResultSearch() {
   return (
     <div>
       <header className="navResult"><Navbar/></header>
+      <ArianneResult></ArianneResult>
       <div className="container-product">
       <div className="SideBarResult"><Sidebar/></div>
 
