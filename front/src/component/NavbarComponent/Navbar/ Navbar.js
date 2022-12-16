@@ -6,14 +6,11 @@ import axios from 'axios';
 import CardCollection from '../card_collection/card_collection'
 import BarreRecherche from '../Barre/barre'
 import ButtonAdmin from '../admin/admin';
-import PanierHover from '../../panierHover/panierHover';
+import PanierHover from '../panierHover/panierHover';
 import PanierQuantity from '../quantity/quantity';
 export default function Navbar() {
-
-  const [error, setError] = useState(false);
   const [categorie, setCategorie] = useState(null);
   const [isShown, setIsShown] = useState(false);
-  const [article, setArticle] =useState([]);
 
   
  
@@ -22,9 +19,7 @@ export default function Navbar() {
       .then((response) => {
         setCategorie(response.data["hydra:member"])
        
-        setError(null);
       })
-      .catch(setError);
   }, []);
 
   return (

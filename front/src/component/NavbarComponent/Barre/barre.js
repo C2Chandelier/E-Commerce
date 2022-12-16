@@ -14,7 +14,6 @@ export default function BarreRecherche() {
   const [loupe, SetLoupe] = useState(true);
   const [barre, SetBarre] = useState(false);
   const [product, setProduct] = useState(null);
-  // const[filterData, setFilterData] = useState([]);
 
 
   useEffect(() => {
@@ -76,37 +75,6 @@ export default function BarreRecherche() {
           <div className='searchIcon2'> <button onClick={SearchArticle}><SearchIcon className='icon' /></button> </div>
 
         </div>
-<<<<<<< HEAD
-        {(article.length !== 0 ?
-        <div className='InstResult'>
-          {article.map((item)=>(
-                    // <a href="#">{item.titre}</a> 
-                    <>
-                <div className='imageCd'>
-                <Link to={"/article/" + item.id} className="link_none">
-              <Card.Img className='searchCard__img' src={item.image} alt={item.titre}  />
-              </Link>
-              </div>
-              <div className='bodyCd'>
-              <Card id={"produit-" + item.id} key={item.id} className="searchCadre" >
-                <Link to={"/article/" + item.id} className="link_none">
-
-                  <Card.Body className='searchCard__body'>
-                    <Card.Title className='searchCard__title'>{item.titre}</Card.Title>
-                    <Card.Subtitle className='searchCard__price'>{item.prix}</Card.Subtitle>
-                  </Card.Body>
-                </Link>
-
-              </Card>
-              </div></>
-
-          ))}
-   
-          </div>: null)}</> 
-    : null)}
-    </div>
-    {/* <div className='resultIns'></div> */}
-=======
           {(article.length !== 0 ?
             <div className='InstResult'>
               {article.map((item) => (
@@ -134,7 +102,6 @@ export default function BarreRecherche() {
             </div> : null)}</>
           : null)}
       </div>
->>>>>>> feature/Sort
     </div>
   )
 }

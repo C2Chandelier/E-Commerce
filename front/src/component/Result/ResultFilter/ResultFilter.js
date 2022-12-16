@@ -4,7 +4,6 @@ import axios from "axios";
 import Card from "react-bootstrap/Card";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "../../NavbarComponent/Navbar/ Navbar"
-import Sidebar from "../sidebar/SideBar";
 import ArianneResult from "../filArianne/ArianneResult";
 
 export default function ResultFilter() {
