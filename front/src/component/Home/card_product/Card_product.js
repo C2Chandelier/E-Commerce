@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 function CardProduct() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
-  let promo = 0;
+  let promotion = 0;
 
 
 
@@ -27,24 +27,25 @@ function CardProduct() {
 
   product.filter(res => {
     if (res.promo === true) {
-      promo = (promo + 1)
+      promotion = (promotion + 1)
     }
   })
 
   return (
     <div className="contenaire">
-      {promo !== 0 ?
+      {promotion !== 0 ?
         <div className="promo">
           <h2>Promotion !</h2>
           <div className="container-product-promo">
             {product.map((item) => (
-              item.promo === true ?
+              item.Promo === true ?
                 <Card id={"produit-" + item.id} key={item.id} className="card">
                   <Link to={"/article/" + item.id} className="link_none">
                     <Card.Img className='card__img' src={item.image} alt={item.titre} />
                     <Card.Body className='card__body'>
                       <Card.Title className='card__title' >{item.titre}</Card.Title>
                       <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                      <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                     </Card.Body>
                   </Link>
                 </Card>
@@ -78,7 +79,7 @@ function CardProduct() {
 
       <div className='container-product'>
         {product.map((item) => (
-          item.promo === false ?
+          item.Promo === false ?
             <Card id={"produit-" + item.id} key={item.id} className="card">
               <Link to={"/article/" + item.id} className="link_none">
                 <Card.Img className='card__img' src={item.image} alt={item.titre} />

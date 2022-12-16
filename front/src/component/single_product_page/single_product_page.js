@@ -85,6 +85,9 @@ export default function SingleProduct() {
                     <div className="product_title"><h2>{product.titre}</h2></div>
                     <hr className="col-md-12"></hr>
                     <div className="product_price">{product.prix}€</div>
+                    {product.Promo === true ?
+                        <div className='product_promo'>Promo !</div>
+                        : null}
                     <div className="product-btn">
                         {(() => {
                             if (product.nbStock === 0 || product.enRupture === true) {
