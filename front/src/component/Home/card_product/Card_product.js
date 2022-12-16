@@ -34,7 +34,7 @@ function CardProduct() {
           <Card.Img className='card__img' src={item.image} alt={item.titre} />
           <Card.Body className='card__body'> 
             <Card.Title className='card__title' >{item.titre}</Card.Title>
-            <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+            <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
           </Card.Body>
         </Link>
         </Card>

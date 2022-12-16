@@ -6,19 +6,17 @@ import axios from 'axios';
 import CardCollection from '../card_collection/card_collection'
 import BarreRecherche from '../Barre/barre'
 import ButtonAdmin from '../admin/admin';
-import Card from 'react-bootstrap/Card';
-
+import PanierHover from '../../panierHover/panierHover';
+import PanierQuantity from '../quantity/quantity';
 export default function Navbar() {
 
   const [error, setError] = useState(false);
   const [categorie, setCategorie] = useState(null);
   const [isShown, setIsShown] = useState(false);
-  const [product, setProduct] =useState(null)
+  const [article, setArticle] =useState([]);
 
-
-
-
-
+  
+ 
   useEffect(() => {
     axios("https://localhost:8000/api/categories")
       .then((response) => {
@@ -27,20 +25,8 @@ export default function Navbar() {
         setError(null);
       })
       .catch(setError);
-
-
-      axios("https://localhost:8000/api/panier")
-      .then((res)=>{
-        setProduct(res.data["hydra:member"])
-        
-        setError(null);
-      })
-      .catch(setError);
   }, []);
 
-
-  if (error) return <p>An error occurred</p>
-  
   return (
     <><nav className="Navbar">
       <ButtonAdmin></ButtonAdmin>
@@ -57,46 +43,26 @@ export default function Navbar() {
 
 
           <li onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}><Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>
+           ><Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+              <PanierQuantity/>
+           </Link></li>
           <li>
 
           </li>
           <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
 
+        
           <BarreRecherche></BarreRecherche>
-
+    
         </ul>
         : null}
 
     </nav>
-      {isShown ? (
-        <div className='contenuPanier'>
-             {product.map((item)=>(
-                    // <a href="#">{item.titre}</a>
-                    <>
-                <div className='imageCd'>
-                <Link to={"/article/" + item.id} className="link_none">
-              <Card.Img className='searchCard__img' src={item.image} alt={item.titre}  />
-              </Link>
-              </div>
-              <div className='bodyCd'>
-              <Card id={"produit-" + item.id} key={item.id} className="searchCadre" >
-                <Link to={"/article/" + item.id} className="link_none">
-
-                  <Card.Body className='searchCard__body'>
-                    <Card.Title className='searchCard__title'>{item.titre}</Card.Title>
-                    <Card.Subtitle className='searchCard__price'>{item.prix}</Card.Subtitle>
-                  </Card.Body>
-                </Link>
-
-              </Card>
-              </div></>
-
-          ))}
+    {isShown ? (
+      <div onMouseLeave={() => setIsShown(false)}>
+        <PanierHover ></PanierHover>
         </div>
-      ) : null}
+        ) : null}
     </>
-    
-    
   )
 }

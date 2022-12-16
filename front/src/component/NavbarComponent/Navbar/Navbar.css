@@ -152,14 +152,3 @@ ul{
 .liste li a:hover{
   font-size: 27px;  
 }
-.contenuPanier{
-  position: absolute;
-  background-color: red;
-  width: 24%;
-  min-height: 240px;
-  max-height: auto;
-  right: 220px;
-  z-index: 1;
-  top: 70px;
-
-}

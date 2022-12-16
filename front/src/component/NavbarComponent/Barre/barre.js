@@ -79,7 +79,7 @@ export default function BarreRecherche() {
         {(article.length !== 0 ?
         <div className='InstResult'>
           {article.map((item)=>(
-                    // <a href="#">{item.titre}</a>
+                    // <a href="#">{item.titre}</a> 
                     <>
                 <div className='imageCd'>
                 <Link to={"/article/" + item.id} className="link_none">
@@ -100,7 +100,7 @@ export default function BarreRecherche() {
               </div></>
 
           ))}
-  
+   
           </div>: null)}</> 
     : null)}
     </div>
