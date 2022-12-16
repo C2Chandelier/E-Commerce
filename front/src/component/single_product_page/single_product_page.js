@@ -6,11 +6,15 @@ import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import 'bootstrap/dist/css/bootstrap.css';
 import './single_card.css';
 import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
+import PanierHover from '../panierHover/panierHover';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
-    const path = useParams()
+    const path = useParams();
+    const [isShown, setIsShown] = useState(false);
+
+
 
     useEffect(() => {
         axios("https://localhost:8000/api/articles/" + path.id)
@@ -21,6 +25,10 @@ export default function SingleProduct() {
                 setError(null);
             })
             .catch(setError);
+
+            setInterval(()=>{
+                setIsShown(false);
+            },10000);
 
     }, [path]);
     if (error) return <p>An error occurred</p>
@@ -45,16 +53,25 @@ export default function SingleProduct() {
                             const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
                             axios.patch('https://localhost:8000/api/panier_articles/' + id, { quantity: response.data["quantity"] + 1 }, configuration)
                         })
+                        
                 }
             })
-
-        alert("article bien ajouté au panier !")
+        setIsShown(true);
+      
     }
 
     return (
         <div className='main'>
             <header>
-                <Navbar></Navbar>
+                <Navbar>
+
+ 
+                </Navbar>
+                {isShown ? (
+      <div onMouseLeave={() => setIsShown(false)}>
+        <PanierHover ></PanierHover>
+        </div>
+        ) : null}
             </header>
             <Bread />
             <div className="Single_product">

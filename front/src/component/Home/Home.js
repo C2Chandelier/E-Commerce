@@ -6,6 +6,7 @@ import { useEffect } from "react";
     
 
 export default function Home() {
+    
     useEffect(() => {
         const handleTabClose = event => {
           localStorage.removeItem('role');
