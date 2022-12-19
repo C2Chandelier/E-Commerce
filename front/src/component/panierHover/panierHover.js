@@ -6,45 +6,28 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 
 export default function PanierHover() {
-
   const [error, setError] = useState(false);
-//   const [isShown, setIsShown] = useState(false);
   const [article, setArticle] =useState([]);
-  // const[somme,setSomme]=useState(0);
- 
-
-
-
-
-
   useEffect(() => {
       let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
       axios("https://localhost:8000/api/panier_articles?panier=" + id_panier)
           .then((res)=>{
         setArticle(res.data["hydra:member"])
-        // console.log(res);
-        
         setError(null);
       })
       .catch(setError);
   }, []);
-
-
   if (error) return <p>An error occurred</p>
   let totale = [];
   article.forEach(item=>{
     totale.push(item.articles.prix)
   })
-
   let compt = 0;
   for(let i=0; i<totale.length; i++){
     compt += Number(totale[i]);
   }
-  
   return (
     <>
-
-        
         <div className='contenuPanier'  >
     
                    <>
@@ -69,27 +52,20 @@ export default function PanierHover() {
                     </div>
                     </>
         ))
-
           :
           <div>
             <p className='vide'>Votre panier est vide.</p>
           </div>
         }
               </>
-          
           </>
           <div className='total'>
               <p>Votre Total : {compt}€</p>
               <Link to={"/panier/"} className="link_none">
-
             <button>Voir le panier</button>
               </Link>
           </div>
         </div>
-   
-       
-     
-
     </>
   )
 }
