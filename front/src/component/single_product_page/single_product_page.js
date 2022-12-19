@@ -33,7 +33,7 @@ export default function SingleProduct() {
 
             setInterval(()=>{
                 setIsShown(false);
-            },10000);
+            },3000);
 
     }, [path]);
     if (error) return <p>An error occurred</p>
