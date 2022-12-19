@@ -75,7 +75,6 @@ function Panier() {
       })
   }
 
-
   return (
     <div>
       <header><Navbar /></header>
@@ -87,6 +86,7 @@ function Panier() {
               <Link to={"/article/" + item.articles.id} className="link_none">
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
               </Link>
+              <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
               <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
               {item.articles.Promo === true ?
                 <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>

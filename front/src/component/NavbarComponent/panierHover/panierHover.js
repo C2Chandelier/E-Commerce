@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 
-export default function PanierHover() {
+export default function PanierHover(ajout) {
 
   const [error, setError] = useState(false);
   const [article, setArticle] =useState([]);
+  let compt = 0;
  
 
 
@@ -23,19 +24,15 @@ export default function PanierHover() {
         setError(null);
       })
       .catch(setError);
-  }, []);
+  }, [ajout]);
 
 
   if (error) return <p>An error occurred</p>
-  let totale = [];
-  article.forEach(item=>{
-    totale.push(item.articles.prix)
-  })
 
-  let compt = 0;
-  for(let i=0; i<totale.length; i++){
-    compt += Number(totale[i]);
-  }
+  article.map((item) => {
+
+    compt = compt + parseFloat(item.articles.prix) * parseInt(item.quantity);
+  })
   
   return (
     <>
@@ -58,6 +55,7 @@ export default function PanierHover() {
                         <Link to={"/article/" + item.articles.id} className="link_none">
                           <Card.Title className='panierCard__title'>{item.articles.titre}</Card.Title>
                         </Link>
+                        <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
                         <Card.Subtitle className='panierCard__price'>{item.articles.prix}€</Card.Subtitle>
                         <Card.Subtitle className='panierCard__quantity'>Q:{item.quantity}</Card.Subtitle>
                       </Card.Body>

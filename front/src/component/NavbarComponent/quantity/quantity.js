@@ -3,15 +3,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function PanierQuantity() {
+export default function PanierQuantity(ajout) {
     const [error, setError] = useState(false);
     const [article, setArticle] =useState([]);
   
     
  
   useEffect(() => {
-
-
       let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
       axios("https://localhost:8000/api/panier_articles?panier=" + id_panier)
           .then((res)=>{
@@ -20,7 +18,7 @@ export default function PanierQuantity() {
         setError(null);
       })
       .catch(setError);
-  }, []);
+  }, [ajout]);
 
 
   if (error) return <p>An error occurred</p>
@@ -28,12 +26,10 @@ export default function PanierQuantity() {
   article.forEach(item=>{
     totale.push(item.quantity)
   })
-  console.log("totale:", totale)
   let comptQuantity = 0;
   for(let i=0; i<totale.length; i++){
     comptQuantity += Number(totale[i]);
   }
-  console.log(comptQuantity);
 
   return(
     <>

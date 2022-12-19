@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from "../../NavbarComponent/Navbar/ Navbar";
 import ArianneResult from "../filArianne/ArianneResult";
-import Sidebar from "../sidebar/SideBar";
 
 
 export default function ResultCategorie() {
@@ -30,7 +29,6 @@ export default function ResultCategorie() {
             <header className="navResult"><Navbar /></header>
             <ArianneResult></ArianneResult>
             <div className='container-product'>
-                <div className="SideBarResult"><Sidebar /></div>
 
                 {product.map((item) => (
                     <Link to={"/article/" + item.id} key={item.id}>
