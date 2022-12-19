@@ -12,52 +12,56 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
-#[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false)]
+#[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false,normalizationContext: ['groups' => ['articles']])]
 #[ApiFilter(SearchFilter::class, properties: ['categorie'=>'exact', 'souscategorie'=>'exact','titre'=>'partial'])]
 
 class Articles
 {
-    
-
-    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('panierarticles')]
+    #[Groups(['panierarticles','articles'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('panierarticles')]
+    #[Groups(['panierarticles','articles'])]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('panierarticles')]
+    #[Groups(['panierarticles','articles'])]
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('panierarticles')]
+    #[Groups(['panierarticles','articles'])]
     private ?string $prix = null;
 
     #[ORM\Column(length: 4000)]
+    #[Groups('articles')]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('articles')]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[Groups('articles')]
     private ?Souscategorie $souscategorie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('articles')]
     private ?string $nbStock = null;
 
     #[ORM\Column]
+    #[Groups('articles')]
     private ?bool $enRupture = null;
 
     #[ORM\Column]
+    #[Groups('articles')]
     private ?int $click = null;
 
     #[ORM\Column]
+    #[Groups('articles')]
     private ?bool $Promo = null;
 
     

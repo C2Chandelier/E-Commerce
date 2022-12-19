@@ -39,7 +39,7 @@ const Register = () => {
   {
   
     
-     if(email === "" || password === "" || username === "") // n'affiche pas le return 
+     if(email === "" || password === "" || username === "")
      {
         alert("Veuillez renseigner tous les champs")
      }

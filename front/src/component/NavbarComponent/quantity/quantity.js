@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -17,7 +16,6 @@ export default function PanierQuantity() {
       axios("https://localhost:8000/api/panier_articles?panier=" + id_panier)
           .then((res)=>{
         setArticle(res.data["hydra:member"])
-        // console.log(res);
         
         setError(null);
       })
