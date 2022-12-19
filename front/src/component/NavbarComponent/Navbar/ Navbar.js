@@ -6,11 +6,13 @@ import axios from 'axios';
 import CardCollection from '../card_collection/card_collection'
 import BarreRecherche from '../Barre/barre'
 import ButtonAdmin from '../admin/admin';
+import PanierVisiteur from '../../paniervisiteur/paniervisiteur';
 import PanierHover from '../panierHover/panierHover';
 import PanierQuantity from '../quantity/quantity';
 export default function Navbar() {
   const [categorie, setCategorie] = useState(null);
   const [isShown, setIsShown] = useState(false);
+  let id_user = localStorage.getItem('id')
 
   
  
@@ -36,11 +38,15 @@ export default function Navbar() {
 
           <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png' alt="fleche"></img><CardCollection /></li>
 
-
-          <li onMouseEnter={() => setIsShown(true)}
-           ><Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+          {id_user === null ? <li><Link to={"/paniervisiteur"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" /></Link></li>
+          :
+          <li onMouseEnter={() => setIsShown(true)}>
+            <Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
               <PanierQuantity/>
-           </Link></li>
+            </Link>
+           </li>
+          }
+
           <li>
 
           </li>

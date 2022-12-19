@@ -1,0 +1,10 @@
+.containeur{
+    display: grid;
+    gap: 6rem;
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+    height: auto;
+    margin: auto;
+    margin-top: 2%;
+  }
+  
