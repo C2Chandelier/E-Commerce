@@ -8,6 +8,7 @@ import './single_card.css';
 import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
 import PanierHover from '../NavbarComponent/panierHover/panierHover';
 import PanierQuantity from '../NavbarComponent/quantity/quantity';
+import Cookies from 'universal-cookie';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
@@ -15,7 +16,9 @@ export default function SingleProduct() {
     const path = useParams();
     const [isShown, setIsShown] = useState(false);
     const [size, setSize] = useState(2);
+    
 
+   let id = localStorage.getItem('id')
 
 
     useEffect(() => {
@@ -62,6 +65,39 @@ export default function SingleProduct() {
         setIsShown(true);
       
     }
+    function AddPanierVisiteur() 
+    {
+        const cookies = new Cookies();
+        if(cookies.get('article')==undefined)
+        {
+            product.quantity = 1
+            cookies.set('article', [product])
+        }
+        else
+        {
+            let compt = 0
+            let mookie = cookies.get('article')
+            mookie.map((item)=>{
+                if(item.id == product.id)
+                {
+                    item.quantity = item.quantity + 1;
+                    compt ++;
+                }
+            })
+            if(compt > 0)
+            {
+                cookies.set('article', mookie)
+            }
+            else
+            {
+                let value = cookies.get("article")
+                product.quantity = 1
+                value.push(product)
+                cookies.set('article', value)
+            }
+        }
+        console.log(cookies.get("article"))
+    }
     return (
         <div className='main'>
             <header>
@@ -94,7 +130,7 @@ export default function SingleProduct() {
                                     <div>
                                         <div>
                                             <button className='btn btn-light achat' disabled>Acheter</button>
-                                            <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>
+                                            <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>   
                                         </div>
                                         <div>
                                             <p className='indisponible'>Article indisponible</p>
@@ -118,7 +154,13 @@ export default function SingleProduct() {
                                     </div>
                                     <div>
                                         <button className='btn btn-light achat'>Acheter</button>
-                                        <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanier(e)}>Ajouter au panier</button>
+
+                                        {id === null
+                                        ?
+                                        <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanierVisiteur(e)}>Ajouter au panierVisiteur</button>
+                                        :
+                                        <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanier(e)}>Ajouter au panier</button> 
+                                        }   
                                     </div>
                                         <div>
                                             <p>Il en reste {product.nbStock}</p>
