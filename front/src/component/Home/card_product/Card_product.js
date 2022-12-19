@@ -26,10 +26,11 @@ function CardProduct() {
   if (error) return <p>An error occurred</p>
 
   product.filter(res => {
-    if (res.promo === true) {
+    if (res.Promo === true) {
       promotion = (promotion + 1)
     }
   })
+  console.log(product)
 
   return (
     <div className="contenaire">
@@ -57,22 +58,22 @@ function CardProduct() {
         : null
       }
 
-   
-    <div className='container-product'>
-      {product.map((item) => (
-     
-        <Card id={"produit-" + item.id} key={item.id} className="card">
-        <Link to={"/article/" + item.id} className="link_none">
-          <Card.Img className='card__img' src={item.image} alt={item.titre} />
-          <Card.Body className='card__body'> 
-            <Card.Title className='card__title' >{item.titre}</Card.Title>
-            <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
-          </Card.Body>
-        </Link>
-        </Card>
-       
-      ))};
-     
+
+      <div className='container-product'>
+        {product.map((item) => (
+          item.Promo === false ?
+            <Card id={"produit-" + item.id} key={item.id} className="card">
+              <Link to={"/article/" + item.id} className="link_none">
+                <Card.Img className='card__img' src={item.image} alt={item.titre} />
+                <Card.Body className='card__body'>
+                  <Card.Title className='card__title' >{item.titre}</Card.Title>
+                  <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
+                </Card.Body>
+              </Link>
+            </Card>
+            : null
+        ))};
+
       </div>
     </div >
   );
