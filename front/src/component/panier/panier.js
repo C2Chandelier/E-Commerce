@@ -27,10 +27,10 @@ function Panier() {
   })
 
   async function DeleteItem(id) {
-    const id_article = id
-    console.log(id_article)
+    const id_panier = id
     article.filter((res) => {
-      if (parseInt(res.articles.id) === parseInt(id_article)) {
+      console.log(res)
+      if (parseInt(res.id) === parseInt(id_panier)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
           .then((res) => {
