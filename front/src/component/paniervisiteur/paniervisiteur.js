@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import './paniervisiteur.css';
+import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Navbar from '../NavbarComponent/Navbar/ Navbar';
@@ -12,10 +13,19 @@ function PanierVisiteur() {
   const [length, setLength] = useState(null)
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
+  const [articlevide, setArticlevide]= useState([])
 
   useEffect(() => {
     setArray(cookies.get('article'))
   }, [length]);
+
+
+  if(array === null){
+    axios.get("https://localhost:8000/api/articles")
+    .then((res) => {
+      setArticlevide(res.data["hydra:member"])
+    })
+  }
 
   if (array !== null && array !== undefined) {
     array.map((item) => {
@@ -69,12 +79,30 @@ function PanierVisiteur() {
       }
     })
   }
+  const element = articlevide.splice(0,3);
   
   return (
     <div>
       <header><Navbar /></header>
-      {array === undefined || array === null || array.length === 0 ?
-        <p>Votre panier est vide</p>
+      {array === undefined || array ===null || array.length === 0 ? 
+          <div>
+          <p>Votre panier est vide</p>
+          <div className='containeur'>
+          {element.map((item) => ( 
+          
+          <Card id={"produit-" + item.id} key={item.id} className="card">
+            <Card.Img className='card__img' src={item.image} alt={item.titre} />
+            <Card.Body className='card__body'>
+              <Link to={"/article/" + item.id} className="link_none">
+                <Card.Title className='card__title' >{item.titre}</Card.Title>
+              </Link>
+              <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        ))
+          }  
+        </div>
+        </div>
 
         :
 

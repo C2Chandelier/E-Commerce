@@ -9,6 +9,7 @@ import Navbar from '../NavbarComponent/Navbar/ Navbar';
 function Panier() {
   const [article, setArticle] = useState([]);
   const [length, setLength] = useState(null)
+  const [articlevide, setArticlevide] = useState([]);
   let total = 0;
   let id_panier = localStorage.getItem("id_panier")
 
@@ -16,10 +17,15 @@ function Panier() {
     if (id_panier !== null) {
       axios.get("https://localhost:8000/api/panier_articles?panier=" + id_panier)
         .then((response) => {
+          if (response.data["hydra:totalItems"] === 0) {
+            axios.get("https://localhost:8000/api/articles")
+              .then((res) => {
+                setArticlevide(res.data["hydra:member"])
+              })
+          }
           setArticle(response.data["hydra:member"]);
         })
-
-    }
+        }
   }, [id_panier, length]);
 
   article.map((item) => {
@@ -74,7 +80,10 @@ function Panier() {
             setLength(length - 1);
           })
       })
+      
   }
+
+  const element = articlevide.splice(0,3);
 
   return (
     <div>
@@ -109,6 +118,25 @@ function Panier() {
       {article.length > 0 ? <button>Passer commande</button> : null}
       <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
+      <div className='contenairedetails'>
+      {element.map((item) => (
+         <Link to={"/article/" + item.id} key={item.id} className="link_none">
+        <Card id={"produit-" + item.id} className="card">
+        <Card.Img className='card__img' src={item.image} alt={item.titre} />
+        <Card.Body className='card__body'>
+            <Card.Title className='card__title' >{item.titre}</Card.Title>
+          <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+          {item.Promo === true ?
+            <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+            : null}
+        </Card.Body>
+      </Card>
+      </Link>
+      
+        
+      ))}
+        
+      </div>
     </div>
   );
 
