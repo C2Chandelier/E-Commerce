@@ -13,19 +13,20 @@ function PanierVisiteur() {
   const [length, setLength] = useState(null)
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
-  const [articlevide, setArticlevide]= useState([])
+  const [articlevide, setArticlevide] = useState([])
 
   useEffect(() => {
     setArray(cookies.get('article'))
+
+    if (array === null || array.length === 0 || array === []) {
+      axios.get("https://localhost:8000/api/articles")
+        .then((res) => {
+          setArticlevide(res.data["hydra:member"])
+        })
+    }
   }, [length]);
 
 
-  if(array === null){
-    axios.get("https://localhost:8000/api/articles")
-    .then((res) => {
-      setArticlevide(res.data["hydra:member"])
-    })
-  }
 
   if (array !== null && array !== undefined) {
     array.map((item) => {
@@ -79,30 +80,30 @@ function PanierVisiteur() {
       }
     })
   }
-  const element = articlevide.splice(0,3);
-  
+  const element = articlevide.splice(0, 3);
+  console.log(array)
   return (
     <div>
       <header><Navbar /></header>
-      {array === undefined || array ===null || array.length === 0 ? 
-          <div>
+      {array === undefined || array === null || array.length === 0 ?
+        <div>
           <p>Votre panier est vide</p>
           <div className='containeur'>
-          {element.map((item) => ( 
-          <Link to={"/article/" + item.id} key={item.id} className="link_none">
-          <Card id={"produit-" + item.id} className="card">
-            <Card.Img className='card__img' src={item.image} alt={item.titre} />
-            <Card.Body className='card__body'>
-              
-                <Card.Title className='card__title' >{item.titre}</Card.Title>
-              
-              <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-            </Card.Body>
-          </Card>
-          </Link>
-        ))
-          }  
-        </div>
+            {element.map((item) => (
+              <Link to={"/article/" + item.id} key={item.id} className="link_none">
+                <Card id={"produit-" + item.id} className="card">
+                  <Card.Img className='card__img' src={item.image} alt={item.titre} />
+                  <Card.Body className='card__body'>
+
+                    <Card.Title className='card__title' >{item.titre}</Card.Title>
+
+                    <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                  </Card.Body>
+                </Card>
+              </Link>
+            ))
+            }
+          </div>
         </div>
 
         :
@@ -118,7 +119,7 @@ function PanierVisiteur() {
                 {item.size === 1 ? <Card.Subtitle className='card__size'>Taille : S</Card.Subtitle> : null}
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
-                {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}               
+                {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                 <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
                 <input type="text" value={item.quantity} readOnly></input>

@@ -95,7 +95,7 @@ export default function SingleProduct() {
                 let value = cookies.get("article")
                 product.quantity = 1
                 if(product.Size === true){
-                    product.Newid = product.id + size
+                    product.Newid = product.id + size.toString()
                     product.size = parseInt(size)
                 }
                 value.push(product)

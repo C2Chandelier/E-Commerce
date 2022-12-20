@@ -11,9 +11,7 @@ export default function PanierHover(ajout) {
     const [error, setError] = useState(false);
     const [article, setArticle] = useState([]);
     const cookies = new Cookies();
-
     let compt = 0;
-
 
     useEffect(() => {
         if (cookies.get('article') !== undefined) {
