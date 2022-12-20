@@ -1,69 +1,71 @@
 import React from "react"
+import { Link } from "react-router-dom";
 import "./SideBar.css"
 
 
-export default function Sidebar(){
+export default function Sidebar(props) {
+  const { titre, cat, souscat } = props
+  let catname = [];
+  let souscatname = [];
 
-  return(
-<div>
-        <div className="sideBarre">
-          <h1 className="t-name">Cotumichioo</h1>
-          <hr className="t-hr"></hr>
-          <div className="divSelect">
-            {/* <select>
-              <option value="0">Categorie:</option>
-              <option value="1">Costumes</option>
-              <option value="2">Chemise</option>
-              <option value="3">Accéssoires</option>
-            </select>
+  
 
-            <select>
-              <option value="0">Vêtements:</option>
-              <option value="1">Veste</option>
-              <option value="2">Gilet</option>
-              <option value="3">Gilet</option>
-            </select> */}
+  cat.map((item) => {
+    if (catname.indexOf(item.name) === -1) {
+      catname.push(item.name)
+    }
+  })
+  cat.map((item) => {
+    for(let i =0; i < catname.length; i++){
+      if(item.name === catname[i]){
+        catname[i] = [item.id,catname[i]]
+      }
+    }
+  })
 
-            <div className="user-box">
+  souscat.map((item) => {
+    if (souscatname.indexOf(item.name) === -1) {
+      souscatname.push(item.name)
+    }
+  })
+  souscat.map((item) => {
+    for(let i =0; i < souscatname.length; i++){
+      if(item.name === souscatname[i]){
+        souscatname[i] = [item.id,souscatname[i],item["categorie"].name]
+      }
+    }
+  })
+
+  return (
+    <div>
+      <div className="sideBarre">
+        <h1 className="t-name">Cotumichioo</h1>
+        <hr className="t-hr"></hr>
+        <div className="divSelect">
+          {catname.map((item) => (
+            <div className="user-box" key={item[0]}>
               <div className="user-id">
-                <div className="user-name">Catégorie</div>
+                <div className="user-name"><Link to={"/result/"+titre+"/CAT/"+item[0]}>{item[1]}</Link></div>
+                {item[1] !== "Chemise" && item[1] !== "Costumes" ?  
+                <div>
                 <div className="dropdown-arrow"></div>
                 <div className="dropdown-menu">
                   <ul>
-                    <li>Costumes</li>
-                    <li>Chemise</li>
-                    <li>Vêtements</li>
+                    {souscatname.map((value) => (
+                      value[2] === item[1] ?
+                        <li key={value[0]}><Link to={"/result/"+titre+"/SCAT/"+value[0]}>{value[1]}</Link></li>
+                        : null
+                    ))}
                   </ul>
                 </div>
-              </div>
-            </div>
-            <div className="user-box">
-              <div className="user-id">
-                <div className="user-name">Vêtements</div>
-                <div className="dropdown-arrow"></div>
-                <div className="dropdown-menu">
-                  <ul>
-                    <li>Veste</li>
-                    <li>Gilet</li>
-                    <li>Gilet</li>
-                  </ul>
                 </div>
+                : null
+                }
               </div>
             </div>
-            <div className="user-box">
-              <div className="user-id">
-                <div className="user-name">Accéssoires</div>
-                <div className="dropdown-arrow"></div>
-                <div className="dropdown-menu">
-                  <ul>
-                    <li>Ceinture</li>
-                    <li>Cravate</li>
-                    <li>Pull</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-        </div>
-       ) }
+      </div>
+    </div>
+  )
+}

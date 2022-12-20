@@ -26,10 +26,11 @@ function Panier() {
     total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
   })
 
-  async function DeleteItem(e) {
-    const id_article = e.target.id.substring(4)
+  async function DeleteItem(id) {
+    const id_panier = id
     article.filter((res) => {
-      if (parseInt(res.articles.id) === parseInt(id_article)) {
+      console.log(res)
+      if (parseInt(res.id) === parseInt(id_panier)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
           .then((res) => {
@@ -40,16 +41,22 @@ function Panier() {
     })
   }
 
+  article.filter((product) => {
+    if(parseInt(product.quantity) === 0 ){
+      DeleteItem(product.id)
+    }
+  })
+
   async function setMoreQuantity(e) {
     let id_panier = e.target.value.substring(21)
     axios("https://localhost:8000/api/panier_articles/" + id_panier)
       .then((response) => {
-        let quantité = parseInt(response.data.quantity)+1
+        let quantité = parseInt(response.data.quantity) + 1
         const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
         axios.patch('https://localhost:8000/api/panier_articles/' + id_panier, { quantity: quantité }, configuration)
           .then((res) => {
             setArticle(article)
-            setLength(length+1);
+            setLength(length + 1);
           })
       })
   }
@@ -58,43 +65,44 @@ function Panier() {
     let id_panier = e.target.value.substring(21)
     axios("https://localhost:8000/api/panier_articles/" + id_panier)
       .then((response) => {
-        let quantité = parseInt(response.data.quantity)-1
+        let quantité = parseInt(response.data.quantity) - 1
         const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
         axios.patch('https://localhost:8000/api/panier_articles/' + id_panier, { quantity: quantité }, configuration)
           .then((res) => {
             setArticle(article)
-            setLength(length-1);
+            setLength(length - 1);
           })
       })
   }
-
 
   return (
     <div>
       <header><Navbar /></header>
       <div className='contenairedetails'>
-        {article.length > 0 ? article.map((item) => (
+        {article.length > 0  ? article.filter(product => product.quantity > 0).map((item) => (
           <Card id={"produit-" + item.articles.id} key={article.indexOf(item)} className="card">
             <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
             <Card.Body className='card__body'>
               <Link to={"/article/" + item.articles.id} className="link_none">
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
               </Link>
+              <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
               <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
-              <button id={"btn_" + item.articles.id} onClick={(e) => DeleteItem(e)}>&#x2716;</button>
+              {item.articles.Promo === true ?
+                <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                : null}
+              <button id={"btn_"+item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
               <input id={item["@id"]} type="text" value={item.quantity} readOnly></input>
               <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
               <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
             </Card.Body>
           </Card>
-
         ))
-
           :
           <div>
             <p>Votre panier est vide.</p>
           </div>
-        };
+        }
       </div>
       <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>

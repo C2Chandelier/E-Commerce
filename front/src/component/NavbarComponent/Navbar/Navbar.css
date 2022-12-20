@@ -148,8 +148,7 @@ ul{
   text-decoration: none;
   font-size: 25px;
   transition: 0.5s;
-}.liste li a:hover{
-  font-size: 27px;
-
-  
+}
+.liste li a:hover{
+  font-size: 27px;  
 }

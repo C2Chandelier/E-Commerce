@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from "../../NavbarComponent/Navbar/ Navbar";
 import ArianneResult from "../filArianne/ArianneResult";
-import Sidebar from "../sidebar/SideBar";
 
 
 
@@ -32,7 +31,6 @@ export default function ResultSousCategorie() {
             <header className="navResult"><Navbar /></header>
             <ArianneResult></ArianneResult>
             <div className='container-product'>
-                <div className="SideBarResult"><Sidebar /></div>
                 {product.map((item) => (
                     <Link to={"/article/" + item.id} key={item.id}>
                         <Card id={"produit-" + item.id} className="card">
@@ -40,9 +38,9 @@ export default function ResultSousCategorie() {
                             <Card.Body className='card__body'>
                                 <Card.Title className='card__title'>{item.titre}</Card.Title>
                                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                                <Card.Text className='card__description'>
-                                    {item.description.substring(0, 20) + "..."}
-                                </Card.Text>
+                                {item.Promo === true ?
+                                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                                    : null}
                             </Card.Body>
                         </Card>
                     </Link>

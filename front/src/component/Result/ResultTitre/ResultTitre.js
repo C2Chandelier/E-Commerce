@@ -12,6 +12,9 @@ import ArianneResult from "../filArianne/ArianneResult";
 function ResultSearch() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState(null);
+  let categorie = [];
+  let souscategorie = [];
+
 
   const path = useLocation().pathname.substring(
     useLocation().pathname.lastIndexOf("/") + 1
@@ -32,13 +35,24 @@ function ResultSearch() {
   if (product === null) {
     return <p>Loading...</p>;
   }
+  
+  product.map((element) => {
+    categorie.push(element["categorie"])
+    if(element["souscategorie"] !== undefined){
+      souscategorie.push(element["souscategorie"])
+    }
+  });
 
   return (
     <div>
-      <header className="navResult"><Navbar/></header>
+      <header className="navResult"><Navbar /></header>
       <ArianneResult></ArianneResult>
       <div className="container-product">
-      <div className="SideBarResult"><Sidebar/></div>
+        <div className="SideBarResult"><Sidebar
+        titre={path} 
+        cat={categorie}
+        souscat={souscategorie}
+        /></div>
 
         {product.length > 0 ? product.map((item) => (
 
@@ -55,9 +69,9 @@ function ResultSearch() {
                 <Card.Subtitle className="card__price">
                   {item.prix}
                 </Card.Subtitle>
-                <Card.Text className="card__description">
-                  {item.description.substring(0, 20) + "..."}
-                </Card.Text>
+                {item.Promo === true ?
+                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                  : null}
               </Card.Body>
             </Card>
           </Link>
