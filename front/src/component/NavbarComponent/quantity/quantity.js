@@ -23,7 +23,7 @@ export default function PanierQuantity(ajout) {
         })
         .catch(setError);
     }
-    else{
+    else {
       setArticle(cookies.get('article'))
     }
   }, [ajout]);
@@ -31,9 +31,11 @@ export default function PanierQuantity(ajout) {
 
   if (error) return <p>An error occurred</p>
   let totale = [];
-  article.forEach(item => {
-    totale.push(item.quantity)
-  })
+  if (article !== null && article !== undefined && article !== []) {
+    article.forEach(item => {
+      totale.push(item.quantity)
+    })
+  }
   let comptQuantity = 0;
   for (let i = 0; i < totale.length; i++) {
     comptQuantity += Number(totale[i]);

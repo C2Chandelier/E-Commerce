@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import './paniervisiteur.css';
-import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Navbar from '../NavbarComponent/Navbar/ Navbar';
@@ -27,15 +26,16 @@ function PanierVisiteur() {
   if (array !== null && array !== undefined) {
     array.filter((item) => {
       if (parseInt(item.quantity) === 0) {
-        DeleteItem(item.id)
+        DeleteItem(item.Newid)
       }
-
     })
   }
+
   function DeleteItem(id) {
     const id_article = id
     array.filter((res) => {
-      if (parseInt(res.id) === parseInt(id_article)) {
+      console.log(res)
+      if (parseInt(res.Newid) === parseInt(id_article)) {
         delete array.splice(array.indexOf(res), 1)
         setArray(array)
         cookies.set('article', array)
@@ -69,7 +69,7 @@ function PanierVisiteur() {
       }
     })
   }
-
+  
   return (
     <div>
       <header><Navbar /></header>
@@ -77,17 +77,21 @@ function PanierVisiteur() {
         <p>Votre panier est vide</p>
 
         :
+
         <div className='containeur'>
           {array.map((item) => (
-
-            <Card id={"produit-" + item.id} key={item.id} className="card">
+            <Card id={"produit-" + item.id} key={array.indexOf(item)} className="card">
               <Card.Img className='card__img' src={item.image} alt={item.titre} />
               <Card.Body className='card__body'>
                 <Link to={"/article/" + item.id} className="link_none">
                   <Card.Title className='card__title' >{item.titre}</Card.Title>
                 </Link>
+                {item.size === 1 ? <Card.Subtitle className='card__size'>Taille : S</Card.Subtitle> : null}
+                {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
+                {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
+                {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}               
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                <button id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
+                <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
                 <input type="text" value={item.quantity} readOnly></input>
                 <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
                 <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>

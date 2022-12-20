@@ -70,20 +70,12 @@ export default function SingleProduct() {
     }
     function AddPanierVisiteur() {
         const cookies = new Cookies();
-        if (cookies.get('article') == undefined) {
+        if (cookies.get('article') === undefined) {
+
             product.quantity = 1
-            switch (size) {
-                case "1":
-                    product.Size = "S"
-                    break;
-                case "3":
-                    product.Size = "L"
-                    break;
-                case "4":
-                    product.Size = "XL"
-                    break;
-                default:
-                    product.Size = "M"
+            if(product.Size === true){
+                product.Newid = product.id + size.toString()
+                product.size = parseInt(size)
             }
             cookies.set('article', [product])
         }
@@ -91,21 +83,8 @@ export default function SingleProduct() {
             let compt = 0
             let mookie = cookies.get('article')
             mookie.map((item) => {
-                if (item.id == product.id) {
+                if (item.id === product.id && parseInt(item.size) === parseInt(size)) {
                     item.quantity = item.quantity + 1;
-                    switch (size) {
-                        case "1":
-                            product.Size = "S"
-                            break;
-                        case "3":
-                            product.Size = "L"
-                            break;
-                        case "4":
-                            product.Size = "XL"
-                            break;
-                        default:
-                            product.Size = "M"
-                    }
                     compt++;
                 }
             })
@@ -115,21 +94,14 @@ export default function SingleProduct() {
             else {
                 let value = cookies.get("article")
                 product.quantity = 1
-                switch (size) {
-                    case "1":
-                        product.Size = "S"
-                        break;
-                    case "3":
-                        product.Size = "L"
-                        break;
-                    case "4":
-                        product.Size = "XL"
-                        break;
-                    default:
-                        product.Size = "M"
+                if(product.Size === true){
+                    product.Newid = product.id + size
+                    product.size = parseInt(size)
                 }
                 value.push(product)
+                console.log(value)
                 cookies.set('article', value)
+                console.log(cookies.get('article'))
             }
         }
         setIsShownVisit(true);

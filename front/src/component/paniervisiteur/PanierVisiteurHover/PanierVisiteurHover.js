@@ -17,12 +17,11 @@ export default function PanierHover(ajout) {
 
 
     useEffect(() => {
-        if(cookies.get('article') !== undefined){
+        if (cookies.get('article') !== undefined) {
             setArticle(cookies.get('article'))
         }
     }, [ajout]);
 
-    console.log(article)
     if (error) return <p>An error occurred</p>
 
     if (article !== undefined) {
@@ -52,7 +51,10 @@ export default function PanierHover(ajout) {
                                             <Link to={"/article/" + item.id} className="link_none">
                                                 <Card.Title className='panierCard__title'>{item.titre}</Card.Title>
                                             </Link>
-                                            <Card.Subtitle className='card__size'>Taille : {item.Size}</Card.Subtitle>
+                                            {item.size === 1 ? <Card.Subtitle className='card__size'>Taille : S</Card.Subtitle> : null}
+                                            {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
+                                            {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
+                                            {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
                                             <Card.Subtitle className='panierCard__price'>{item.prix}€</Card.Subtitle>
                                             <Card.Subtitle className='panierCard__quantity'>Q:{item.quantity}</Card.Subtitle>
                                         </Card.Body>
@@ -77,10 +79,6 @@ export default function PanierHover(ajout) {
                     </Link>
                 </div>
             </div>
-
-
-
-
         </>
     )
 }
