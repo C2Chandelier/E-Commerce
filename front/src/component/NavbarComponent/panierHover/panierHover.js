@@ -42,12 +42,12 @@ export default function PanierHover(ajout) {
         <>
           <>
             {article.length > 0 ? article.map((item) => (
-              <><div className='imgPanier' key={item.articles.id}>
+              <><div className='imgPanier'>
                 <Link to={"/article/" + item.articles.id} className="link_none" >
                   <Card.Img className='panierCard__img' src={item.articles.image} alt={item.articles.titre} />
                 </Link>
               </div>
-                <div className='bodyPanier' key={article.indexOf(item)}>
+                <div className='bodyPanier'>
                   <Card id={"produit-" + item.articles.id} className="MainCard">
 
                     <Card.Body className='panierCard__body'>
@@ -79,9 +79,6 @@ export default function PanierHover(ajout) {
           </Link>
         </div>
       </div>
-
-
-
 
     </>
   )

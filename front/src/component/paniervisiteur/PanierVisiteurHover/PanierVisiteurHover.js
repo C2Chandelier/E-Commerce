@@ -8,7 +8,6 @@ import Cookies from 'universal-cookie';
 
 
 export default function PanierHover(ajout) {
-
     const [error, setError] = useState(false);
     const [article, setArticle] = useState([]);
     const cookies = new Cookies();
@@ -39,12 +38,12 @@ export default function PanierHover(ajout) {
                 <>
                     <>
                         {article.length > 0 ? article.map((item) => (
-                            <><div className='imgPanier' key={item.id}>
+                            <><div className='imgPanier'>
                                 <Link to={"/article/" + item.id} className="link_none" >
                                     <Card.Img className='panierCard__img' src={item.image} alt={item.titre} />
                                 </Link>
                             </div>
-                                <div className='bodyPanier' key={article.indexOf(item)}>
+                                <div className='bodyPanier'>
                                     <Card id={"produit-" + item.id} className="MainCard">
 
                                         <Card.Body className='panierCard__body'>

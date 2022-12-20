@@ -89,16 +89,17 @@ function PanierVisiteur() {
           <p>Votre panier est vide</p>
           <div className='containeur'>
           {element.map((item) => ( 
-          
-          <Card id={"produit-" + item.id} key={item.id} className="card">
+          <Link to={"/article/" + item.id} key={item.id} className="link_none">
+          <Card id={"produit-" + item.id} className="card">
             <Card.Img className='card__img' src={item.image} alt={item.titre} />
             <Card.Body className='card__body'>
-              <Link to={"/article/" + item.id} className="link_none">
+              
                 <Card.Title className='card__title' >{item.titre}</Card.Title>
-              </Link>
+              
               <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
             </Card.Body>
           </Card>
+          </Link>
         ))
           }  
         </div>
