@@ -12,6 +12,7 @@ import Panier from './component/panier/panier';
 import Home from './component/Home/Home';
 import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
+import Connect from './component/paniervisiteur/connect/connect';
 
 export default class App extends Component {
   render() {
@@ -32,6 +33,7 @@ export default class App extends Component {
           <Route path="/result/:titre/SCAT/:cat" element={<ResultFilter />}></Route>
           <Route path="/panier" element={<Panier />}></Route>
           <Route path="/paniervisiteur" element={<PanierVisiteur />}></Route>
+          <Route path="/connect" element={<Connect />}></Route>
         </Routes>
       </Router>
       

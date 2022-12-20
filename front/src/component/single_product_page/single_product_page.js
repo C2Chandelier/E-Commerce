@@ -9,16 +9,18 @@ import Bread from '../Result/breadcrumpSingle/breadcrumpSingle';
 import PanierHover from '../NavbarComponent/panierHover/panierHover';
 import PanierQuantity from '../NavbarComponent/quantity/quantity';
 import Cookies from 'universal-cookie';
+import PanierVisiteurHover from '../paniervisiteur/PanierVisiteurHover/PanierVisiteurHover'
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
     const path = useParams();
     const [isShown, setIsShown] = useState(false);
+    const [isShownVisit, setIsShownVisit] = useState(false);
     const [size, setSize] = useState(2);
-    
 
-   let id = localStorage.getItem('id')
+
+    let id = localStorage.getItem('id')
 
 
     useEffect(() => {
@@ -31,9 +33,10 @@ export default function SingleProduct() {
             })
             .catch(setError);
 
-            setInterval(()=>{
-                setIsShown(false);
-            },3000);
+        setInterval(() => {
+            setIsShown(false);
+            setIsShownVisit(false)
+        }, 3000);
 
     }, [path]);
     if (error) return <p>An error occurred</p>
@@ -41,7 +44,7 @@ export default function SingleProduct() {
     function AddPanier(e) {
         let id_article = "api/articles/" + e.currentTarget.id.substring(4);
         let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
-        let id_size = "api/sizes/"+size;
+        let id_size = "api/sizes/" + size;
 
         axios("https://localhost:8000/api/panier_articles?panier=" + id_panier + "&articles=" + id_article + "&size=" + id_size)
             .then((response) => {
@@ -49,7 +52,7 @@ export default function SingleProduct() {
 
                 if (NumberArticle === 0) {
                     const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/json" } }
-                    axios.post("https://localhost:8000/api/panier_articles", { "panier": id_panier, "articles": id_article, "quantity": 1,"size": id_size }, configuration)
+                    axios.post("https://localhost:8000/api/panier_articles", { "panier": id_panier, "articles": id_article, "quantity": 1, "size": id_size }, configuration)
                 }
 
                 if (NumberArticle !== 0) {
@@ -59,54 +62,92 @@ export default function SingleProduct() {
                             const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
                             axios.patch('https://localhost:8000/api/panier_articles/' + id, { quantity: response.data["quantity"] + 1 }, configuration)
                         })
-                        
+
                 }
             })
         setIsShown(true);
-      
+
     }
-    function AddPanierVisiteur() 
-    {
+    function AddPanierVisiteur() {
         const cookies = new Cookies();
-        if(cookies.get('article')==undefined)
-        {
+        if (cookies.get('article') == undefined) {
             product.quantity = 1
+            switch (size) {
+                case "1":
+                    product.Size = "S"
+                    break;
+                case "3":
+                    product.Size = "L"
+                    break;
+                case "4":
+                    product.Size = "XL"
+                    break;
+                default:
+                    product.Size = "M"
+            }
             cookies.set('article', [product])
         }
-        else
-        {
+        else {
             let compt = 0
             let mookie = cookies.get('article')
-            mookie.map((item)=>{
-                if(item.id == product.id)
-                {
+            mookie.map((item) => {
+                if (item.id == product.id) {
                     item.quantity = item.quantity + 1;
-                    compt ++;
+                    switch (size) {
+                        case "1":
+                            product.Size = "S"
+                            break;
+                        case "3":
+                            product.Size = "L"
+                            break;
+                        case "4":
+                            product.Size = "XL"
+                            break;
+                        default:
+                            product.Size = "M"
+                    }
+                    compt++;
                 }
             })
-            if(compt > 0)
-            {
+            if (compt > 0) {
                 cookies.set('article', mookie)
             }
-            else
-            {
+            else {
                 let value = cookies.get("article")
                 product.quantity = 1
+                switch (size) {
+                    case "1":
+                        product.Size = "S"
+                        break;
+                    case "3":
+                        product.Size = "L"
+                        break;
+                    case "4":
+                        product.Size = "XL"
+                        break;
+                    default:
+                        product.Size = "M"
+                }
                 value.push(product)
                 cookies.set('article', value)
             }
         }
-        console.log(cookies.get("article"))
+        setIsShownVisit(true);
     }
     return (
         <div className='main'>
             <header>
                 <Navbar> <PanierQuantity ajout={1}></PanierQuantity></Navbar>
                 {isShown ? (
-      <div onMouseLeave={() => setIsShown(false)}>
-        <PanierHover ajout={1}></PanierHover>
-        </div>
-        ) : null}
+                    <div onMouseLeave={() => setIsShown(false)}>
+                        <PanierHover ajout={1}></PanierHover>
+                    </div>
+                ) : null}
+                {isShownVisit ? (
+                    <div onMouseLeave={() => setIsShownVisit(false)}>
+                        <PanierVisiteurHover ajout={1}></PanierVisiteurHover>
+                    </div>
+                ) : null}
             </header>
             <Bread></Bread>
             <div className="Single_product">
@@ -130,7 +171,7 @@ export default function SingleProduct() {
                                     <div>
                                         <div>
                                             <button className='btn btn-light achat' disabled>Acheter</button>
-                                            <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>   
+                                            <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>
                                         </div>
                                         <div>
                                             <p className='indisponible'>Article indisponible</p>
@@ -142,26 +183,26 @@ export default function SingleProduct() {
                             else {
                                 return (
                                     <>
-                                    <div>
-                                        {product.Size === true ? 
-                                        <select onChange={(e) => setSize(e.target.value)} defaultValue="2">
-                                            <option value="1">S</option>
-                                            <option value="2">M</option>
-                                            <option value="3">L</option>
-                                            <option value="4">XL</option>
-                                        </select>
-                                        : null}
-                                    </div>
-                                    <div>
-                                        <button className='btn btn-light achat'>Acheter</button>
+                                        <div>
+                                            {product.Size === true ?
+                                                <select onChange={(e) => setSize(e.target.value)} defaultValue="2">
+                                                    <option value="1">S</option>
+                                                    <option value="2">M</option>
+                                                    <option value="3">L</option>
+                                                    <option value="4">XL</option>
+                                                </select>
+                                                : null}
+                                        </div>
+                                        <div>
+                                            <button className='btn btn-light achat'>Acheter</button>
 
-                                        {id === null
-                                        ?
-                                        <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanierVisiteur(e)}>Ajouter au panierVisiteur</button>
-                                        :
-                                        <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanier(e)}>Ajouter au panier</button> 
-                                        }   
-                                    </div>
+                                            {id === null
+                                                ?
+                                                <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanierVisiteur(e)}>Ajouter au panier</button>
+                                                :
+                                                <button id={"btn_" + product.id} className='btn btn-light ajout-panier' onClick={(e) => AddPanier(e)}>Ajouter au panier</button>
+                                            }
+                                        </div>
                                         <div>
                                             <p>Il en reste {product.nbStock}</p>
                                         </div>
