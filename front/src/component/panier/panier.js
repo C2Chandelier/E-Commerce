@@ -18,6 +18,7 @@ function Panier() {
         .then((response) => {
           setArticle(response.data["hydra:member"]);
         })
+
     }
   }, [id_panier, length]);
 
@@ -42,7 +43,7 @@ function Panier() {
   }
 
   article.filter((product) => {
-    if(parseInt(product.quantity) === 0 ){
+    if (parseInt(product.quantity) === 0) {
       DeleteItem(product.id)
     }
   })
@@ -79,7 +80,7 @@ function Panier() {
     <div>
       <header><Navbar /></header>
       <div className='contenairedetails'>
-        {article.length > 0  ? article.filter(product => product.quantity > 0).map((item) => (
+        {article.length > 0 ? article.filter(product => product.quantity > 0).map((item) => (
           <Card id={"produit-" + item.articles.id} key={article.indexOf(item)} className="card">
             <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
             <Card.Body className='card__body'>
@@ -91,19 +92,21 @@ function Panier() {
               {item.articles.Promo === true ?
                 <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                 : null}
-              <button id={"btn_"+item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
+              <button id={"btn_" + item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
               <input id={item["@id"]} type="text" value={item.quantity} readOnly></input>
               <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
               <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
             </Card.Body>
           </Card>
-        ))
+          ))
+          
           :
           <div>
             <p>Votre panier est vide.</p>
           </div>
         }
       </div>
+      {article.length > 0 ? <button>Passer commande</button> : null}
       <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
     </div>
