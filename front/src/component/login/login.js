@@ -28,10 +28,12 @@ const Login = () => {
           const path = rep.data["hydra:member"][0]["@id"]
           let array = path.split("/")
           const id_panier = array.pop()
+          
           localStorage.setItem('role', role)
           localStorage.setItem('id', id_user)
           localStorage.setItem('id_panier', id_panier)
         })
+
 
 
       navigate("/")

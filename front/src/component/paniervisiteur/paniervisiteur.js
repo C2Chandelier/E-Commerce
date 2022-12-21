@@ -98,6 +98,9 @@ function PanierVisiteur() {
                     <Card.Title className='card__title' >{item.titre}</Card.Title>
 
                     <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                    {item.Promo === true ?
+                      <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                      : null}
                   </Card.Body>
                 </Card>
               </Link>
@@ -121,6 +124,9 @@ function PanierVisiteur() {
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                {item.Promo === true ?
+                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                  : null}
                 <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
                 <input type="text" value={item.quantity} readOnly></input>
                 <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
