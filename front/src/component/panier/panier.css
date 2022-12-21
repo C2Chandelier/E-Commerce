@@ -55,7 +55,10 @@
     text-decoration: none;
     color: black;
   } 
-  p{
-    color: white;
-  }
+#totalarticle{
+  color: white;
+}
+#totalfrais{
+  color: white;
+}
   

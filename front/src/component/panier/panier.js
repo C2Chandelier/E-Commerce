@@ -10,8 +10,12 @@ function Panier() {
   const [article, setArticle] = useState([]);
   const [length, setLength] = useState(null)
   const [articlevide, setArticlevide] = useState([]);
+  const [PrixPays, setPrixPays] = useState(0);
+  const [PrixPoid, setPrixPoid] = useState(0)
+
   let total = 0;
   let weight = 0;
+  let weighttotal = parseFloat(PrixPays) + parseFloat(PrixPoid);
   let id_panier = localStorage.getItem("id_panier")
 
   useEffect(() => {
@@ -38,15 +42,22 @@ function Panier() {
   total = total.toFixed(2)
   weight = weight.toFixed(1)
   weight = parseFloat(weight)
+  weight = Math.round(weight)
+  if(weight > 6){
+    weight = 6
+  }
   console.log(weight);
 
-  if(article !== []){
+  if(article.length > 0){
     let country = article[0]['panier']['user'].Pays
     axios("https://localhost:8000/api/pays?pays=" + country)
       .then((res) => {
         console.log(res.data["hydra:member"][0].prix)
-        let PrixPays = res.data["hydra:member"][0].prix
-        
+        setPrixPays(res.data["hydra:member"][0].prix)
+        axios('https://localhost:8000/api/poids?poid='+weight)
+          .then((response) => {
+            setPrixPoid(response.data["hydra:member"][0].prix)
+          })
       })
   }
 
@@ -102,7 +113,7 @@ function Panier() {
   }
 
   const element = articlevide.splice(0, 3);
-
+  console.log(weighttotal)
   return (
     <div>
       <header><Navbar /></header>
@@ -118,7 +129,7 @@ function Panier() {
               {item.quantity === 1 ?
                 <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
                 :
-                <Card.Subtitle className='card__price'>{item.articles.prix * item.quantity}</Card.Subtitle>
+                <Card.Subtitle className='card__price'>{(item.articles.prix * item.quantity).toFixed(2)}</Card.Subtitle>
               }
               {item.articles.Promo === true ?
                 <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
@@ -138,7 +149,10 @@ function Panier() {
         }
       </div>
       {article.length > 0 ? <button>Passer commande</button> : null}
-      <p>total : {total}€</p>
+      <p id="totalarticle">total : {total}€</p>
+      {weighttotal !== 0 ? 
+      <p id="totalfrais">Frais de port : {weighttotal}€</p>
+      : null}
       <Link className="btn-back" to={"/"}>Retour</Link>
       <div className='contenairedetails'>
         {element.map((item) => (
