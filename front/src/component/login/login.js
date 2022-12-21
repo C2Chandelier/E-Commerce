@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import "./login.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie'
 
 
 
 const Login = () => {
+  const cookies = new Cookies();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -28,16 +30,27 @@ const Login = () => {
           const path = rep.data["hydra:member"][0]["@id"]
           let array = path.split("/")
           const id_panier = array.pop()
+          if (cookies.get("article") !== undefined) {
+            let cook = cookies.get("article")
+            for (let i = 0; i < cook.length; i++) {
+              axios.post('https://localhost:8000/api/panier_articles', {
+                "panier": "api/paniers/" + id_panier,
+                "articles": cook[i]['@id'],
+                "quantity": cook[i].quantity,
+                "size": "api/sizes/" + cook[i].size
+              })
+            }
+            navigate('/paiement')
+          }
+          else {
+            navigate('/')
+          }
           localStorage.setItem('role', role)
           localStorage.setItem('id', id_user)
           localStorage.setItem('id_panier', id_panier)
         })
-
-
-      navigate("/")
     }
-
-  }, [tableau, navigate, role, id_user])
+  }, [tableau, navigate, role, id_user, cookies])
 
 
   async function connection(e) {
@@ -47,6 +60,7 @@ const Login = () => {
         setTableau(res.data["hydra:member"].length)
         setRole(res.data["hydra:member"][0].role);
         setId_user(res.data["hydra:member"][0].id);
+        setError(null)
 
       })
       .catch(setError);
