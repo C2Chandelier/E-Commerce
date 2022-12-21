@@ -68,6 +68,7 @@ class Articles
     #[Groups('articles')]
     private ?bool $Size = null;
 
+    #[Groups(['panierarticles','articles'])]
     #[ORM\Column(length: 255)]
     private ?string $Poid = null;
 

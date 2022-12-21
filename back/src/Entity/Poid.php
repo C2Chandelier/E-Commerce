@@ -5,9 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PoidRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: PoidRepository::class)]
-#[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['poid'=>'exact'])]
+#[ApiResource(paginationEnabled: false)]
+
 class Poid
 {
     #[ORM\Id]
@@ -16,34 +20,34 @@ class Poid
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $poid = null;
+    private ?string $poid = null;
 
     #[ORM\Column]
-    private ?int $prix = null;
+    private ?string $prix = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPoid(): ?int
+    public function getPoid(): ?string
     {
         return $this->poid;
     }
 
-    public function setPoid(int $poid): self
+    public function setPoid(string $poid): self
     {
         $this->poid = $poid;
 
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?string
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(string $prix): self
     {
         $this->prix = $prix;
 

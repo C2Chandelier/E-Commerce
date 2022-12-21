@@ -50,6 +50,7 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $Adresse = null;
 
+    #[Groups(['panier','panierarticles'])]
     #[ORM\Column(length: 255)]
     private ?string $Pays = null;
 

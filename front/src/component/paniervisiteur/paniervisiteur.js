@@ -127,7 +127,7 @@ function PanierVisiteur() {
                 {item.quantity === 1 ?                
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                 :
-                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                <Card.Subtitle className='card__price'>{item.prix * item.quantity}</Card.Subtitle>
                 }   
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>

@@ -11,6 +11,7 @@ function Panier() {
   const [length, setLength] = useState(null)
   const [articlevide, setArticlevide] = useState([]);
   let total = 0;
+  let weight = 0;
   let id_panier = localStorage.getItem("id_panier")
 
   useEffect(() => {
@@ -25,13 +26,30 @@ function Panier() {
           }
           setArticle(response.data["hydra:member"]);
         })
-        }
+
+    }
   }, [id_panier, length]);
 
   article.map((item) => {
 
     total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
+    weight = weight + parseFloat(item.articles.Poid) * parseInt(item.quantity);
   })
+  total = total.toFixed(2)
+  weight = weight.toFixed(1)
+  weight = parseFloat(weight)
+  console.log(weight);
+
+  if(article !== []){
+    let country = article[0]['panier']['user'].Pays
+    axios("https://localhost:8000/api/pays?pays=" + country)
+      .then((res) => {
+        console.log(res.data["hydra:member"][0].prix)
+        let PrixPays = res.data["hydra:member"][0].prix
+        
+      })
+  }
+
 
   async function DeleteItem(id) {
     const id_panier = id
@@ -80,10 +98,10 @@ function Panier() {
             setLength(length - 1);
           })
       })
-      
+
   }
 
-  const element = articlevide.splice(0,3);
+  const element = articlevide.splice(0, 3);
 
   return (
     <div>
@@ -97,7 +115,11 @@ function Panier() {
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
               </Link>
               <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
-              <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
+              {item.quantity === 1 ?
+                <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
+                :
+                <Card.Subtitle className='card__price'>{item.articles.prix * item.quantity}</Card.Subtitle>
+              }
               {item.articles.Promo === true ?
                 <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                 : null}
@@ -107,8 +129,8 @@ function Panier() {
               <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
             </Card.Body>
           </Card>
-          ))
-          
+        ))
+
           :
           <div>
             <p>Votre panier est vide.</p>
@@ -119,23 +141,23 @@ function Panier() {
       <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
       <div className='contenairedetails'>
-      {element.map((item) => (
-         <Link to={"/article/" + item.id} key={item.id} className="link_none">
-        <Card id={"produit-" + item.id} className="card">
-        <Card.Img className='card__img' src={item.image} alt={item.titre} />
-        <Card.Body className='card__body'>
-            <Card.Title className='card__title' >{item.titre}</Card.Title>
-          <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-          {item.Promo === true ?
-            <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-            : null}
-        </Card.Body>
-      </Card>
-      </Link>
-      
-        
-      ))}
-        
+        {element.map((item) => (
+          <Link to={"/article/" + item.id} key={item.id} className="link_none">
+            <Card id={"produit-" + item.id} className="card">
+              <Card.Img className='card__img' src={item.image} alt={item.titre} />
+              <Card.Body className='card__body'>
+                <Card.Title className='card__title' >{item.titre}</Card.Title>
+                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                {item.Promo === true ?
+                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                  : null}
+              </Card.Body>
+            </Card>
+          </Link>
+
+
+        ))}
+
       </div>
     </div>
   );

@@ -5,9 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+
 
 #[ORM\Entity(repositoryClass: PaysRepository::class)]
-#[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['pays'=>'exact'])]
+#[ApiResource(paginationEnabled: false)]
+
 class Pays
 {
     #[ORM\Id]
@@ -19,7 +24,7 @@ class Pays
     private ?string $pays = null;
 
     #[ORM\Column]
-    private ?int $prix = null;
+    private ?string $prix = null;
 
     public function getId(): ?int
     {
@@ -38,12 +43,12 @@ class Pays
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?string
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(string $prix): self
     {
         $this->prix = $prix;
 
