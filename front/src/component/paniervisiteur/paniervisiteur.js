@@ -10,10 +10,12 @@ import Cookies from 'universal-cookie';
 
 function PanierVisiteur() {
   let total = 0;
-  const [length, setLength] = useState(null)
+  let poid = 0;
+  const [length, setLength] = useState(null);
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
-  const [articlevide, setArticlevide] = useState([])
+  const [articlevide, setArticlevide] = useState([]);
+
 
   useEffect(() => {
     setArray(cookies.get('article'))
@@ -26,14 +28,27 @@ function PanierVisiteur() {
     }
   }, [length]);
 
-
+  
 
   if (array !== null && array !== undefined) {
     array.map((item) => {
       total = total + parseFloat(item.prix) * parseInt(item.quantity);
+      poid = poid + parseInt(item.Poid);
+
     })
+    
     total = total.toFixed(2)
+
+    console.log("Poids :",poid);
   }
+
+  if(array.length > 0){
+    axios.get('http://localhost:8000/api/poid')
+    .then((res)=>{
+
+    })
+  }
+
 
   if (array !== null && array !== undefined) {
     array.filter((item) => {
@@ -56,10 +71,10 @@ function PanierVisiteur() {
     })
   }
   function setMoreQuantity(e) {
-    let id_article = e.target.value
-    console.log(id_article)
+    let id_article = e.target.value.substring(14)
+
     array.map((item) => {
-      if (parseInt(id_article) === parseInt(item.Newid)) {
+      if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
         cookies.set('article', array)
@@ -70,10 +85,10 @@ function PanierVisiteur() {
 
 
   function setLessQuantity(e) {
-    let id_article = e.target.value
+    let id_article = e.target.value.substring(14)
 
     array.map((item) => {
-      if (parseInt(id_article) === parseInt(item.Newid)) {
+      if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity - 1;
         setArray(array)
         cookies.set('article', array)
@@ -127,15 +142,15 @@ function PanierVisiteur() {
                 {item.quantity === 1 ?                
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                 :
-                <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                <Card.Subtitle className='card__price'>{item.prix * item.quantity}</Card.Subtitle>
                 }   
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                   : null}
                 <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
                 <input type="text" value={item.quantity} readOnly></input>
-                <button value={item.Newid} onClick={(e) => setMoreQuantity(e)}>+</button>
-                <button value={item.Newid} onClick={(e) => setLessQuantity(e)}>-</button>
+                <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
+                <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
               </Card.Body>
             </Card>
           ))

@@ -30,7 +30,7 @@ const Login = () => {
           const path = rep.data["hydra:member"][0]["@id"]
           let array = path.split("/")
           const id_panier = array.pop()
-          if (cookies.get("article") !== undefined) {
+          if (cookies.get("article") !== undefined && cookies.get('article').length > 0) {
             let cook = cookies.get("article")
             for (let i = 0; i < cook.length; i++) {
               axios.post('https://localhost:8000/api/panier_articles', {
