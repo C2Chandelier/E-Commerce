@@ -69,6 +69,13 @@ export default function SingleProduct() {
 
     }
     function AddPanierVisiteur() {
+        delete product.description
+        delete product["@context"]
+        delete product["@type"]
+        delete product.categorie
+        delete product.click
+        delete product.nbStock
+        delete product.enRupture
         const cookies = new Cookies();
         if (cookies.get('article') === undefined) {
 
@@ -100,9 +107,10 @@ export default function SingleProduct() {
                 }
                 value.push(product)
                 cookies.set('article', value)
-                console.log(cookies.get('article'))
+                
             }
         }
+        console.log(cookies.get('article'))
         setIsShownVisit(true);
     }
     return (
