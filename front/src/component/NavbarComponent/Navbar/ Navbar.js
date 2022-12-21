@@ -8,17 +8,21 @@ import BarreRecherche from '../Barre/barre'
 import ButtonAdmin from '../admin/admin';
 import PanierHover from '../panierHover/panierHover';
 import PanierQuantity from '../quantity/quantity';
+import PanierVisiteurHover from '../../paniervisiteur/PanierVisiteurHover/PanierVisiteurHover'
+
 export default function Navbar() {
   const [categorie, setCategorie] = useState(null);
   const [isShown, setIsShown] = useState(false);
+  const [isShownVisit, setIsShownVisit] = useState(false);
+  let id_user = localStorage.getItem('id')
 
-  
- 
+
+
   useEffect(() => {
     axios("https://localhost:8000/api/categories")
       .then((response) => {
         setCategorie(response.data["hydra:member"])
-       
+
       })
   }, []);
 
@@ -36,28 +40,43 @@ export default function Navbar() {
 
           <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png' alt="fleche"></img><CardCollection /></li>
 
+          {id_user === null ?
+            <li onMouseEnter={() => setIsShownVisit(true)}>
+              <Link to={"/paniervisiteur"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+                <PanierQuantity />
+              </Link>
+            </li>
+            :
+            <li onMouseEnter={() => setIsShown(true)}>
+              <Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+                <PanierQuantity />
+              </Link>
+            </li>
+          }
 
-          <li onMouseEnter={() => setIsShown(true)}
-           ><Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
-              <PanierQuantity/>
-           </Link></li>
           <li>
 
           </li>
           <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
 
-        
+
           <BarreRecherche></BarreRecherche>
-    
+
         </ul>
         : null}
 
     </nav>
-    {isShown ? (
-      <div onMouseLeave={() => setIsShown(false)}>
-        <PanierHover ></PanierHover>
+      {isShown ? (
+        <div onMouseLeave={() => setIsShown(false)}>
+          <PanierHover ></PanierHover>
         </div>
-        ) : null}
+      ) : null}
+
+      {isShownVisit ? (
+        <div onMouseLeave={() => setIsShownVisit(false)}>
+          <PanierVisiteurHover ></PanierVisiteurHover>
+        </div>
+      ) : null}
     </>
   )
 }

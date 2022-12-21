@@ -4,13 +4,17 @@ nav{
     background-color: #061F37; 
 
 }
+
 .liste{
     list-style-type: none;
     height: 100%;
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    
+    align-items: center;    
+}
+
+.liste li a:hover{
+  text-decoration: underline;
 }
 
 .items{
@@ -32,7 +36,6 @@ nav{
     cursor: pointer;
 }
 .logo2{
-    /* width: auto; */
     height: 30px;
     filter: contrast(0);
     cursor: pointer;

@@ -9,6 +9,7 @@ import Navbar from '../NavbarComponent/Navbar/ Navbar';
 function Panier() {
   const [article, setArticle] = useState([]);
   const [length, setLength] = useState(null)
+  const [articlevide, setArticlevide] = useState([]);
   let total = 0;
   let id_panier = localStorage.getItem("id_panier")
 
@@ -16,9 +17,15 @@ function Panier() {
     if (id_panier !== null) {
       axios.get("https://localhost:8000/api/panier_articles?panier=" + id_panier)
         .then((response) => {
+          if (response.data["hydra:totalItems"] === 0) {
+            axios.get("https://localhost:8000/api/articles")
+              .then((res) => {
+                setArticlevide(res.data["hydra:member"])
+              })
+          }
           setArticle(response.data["hydra:member"]);
         })
-    }
+        }
   }, [id_panier, length]);
 
   article.map((item) => {
@@ -27,10 +34,10 @@ function Panier() {
   })
 
   async function DeleteItem(id) {
-    const id_article = id
-    console.log(id_article)
+    const id_panier = id
     article.filter((res) => {
-      if (parseInt(res.articles.id) === parseInt(id_article)) {
+      console.log(res)
+      if (parseInt(res.id) === parseInt(id_panier)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
           .then((res) => {
@@ -42,7 +49,7 @@ function Panier() {
   }
 
   article.filter((product) => {
-    if(parseInt(product.quantity) === 0 ){
+    if (parseInt(product.quantity) === 0) {
       DeleteItem(product.id)
     }
   })
@@ -73,39 +80,63 @@ function Panier() {
             setLength(length - 1);
           })
       })
+      
   }
 
+  const element = articlevide.splice(0,3);
 
   return (
     <div>
       <header><Navbar /></header>
       <div className='contenairedetails'>
-        {article.length > 0  ? article.filter(product => product.quantity > 0).map((item) => (
+        {article.length > 0 ? article.filter(product => product.quantity > 0).map((item) => (
           <Card id={"produit-" + item.articles.id} key={article.indexOf(item)} className="card">
             <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
             <Card.Body className='card__body'>
               <Link to={"/article/" + item.articles.id} className="link_none">
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
               </Link>
+              <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
               <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
               {item.articles.Promo === true ?
                 <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                 : null}
-              <button id={"btn_"+item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
+              <button id={"btn_" + item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
               <input id={item["@id"]} type="text" value={item.quantity} readOnly></input>
               <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
               <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
             </Card.Body>
           </Card>
-        ))
+          ))
+          
           :
           <div>
             <p>Votre panier est vide.</p>
           </div>
         }
       </div>
+      {article.length > 0 ? <button>Passer commande</button> : null}
       <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
+      <div className='contenairedetails'>
+      {element.map((item) => (
+         <Link to={"/article/" + item.id} key={item.id} className="link_none">
+        <Card id={"produit-" + item.id} className="card">
+        <Card.Img className='card__img' src={item.image} alt={item.titre} />
+        <Card.Body className='card__body'>
+            <Card.Title className='card__title' >{item.titre}</Card.Title>
+          <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+          {item.Promo === true ?
+            <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+            : null}
+        </Card.Body>
+      </Card>
+      </Link>
+      
+        
+      ))}
+        
+      </div>
     </div>
   );
 

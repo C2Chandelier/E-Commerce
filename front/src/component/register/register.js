@@ -9,8 +9,12 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [genre, setGenre] = useState("Homme");
+  const [Nom, setNom] = useState("");
+  const [Prenom, setPrenom] = useState("");
+  const [Tel, setTel] = useState("");
+  const [Adresse, setAdresse] = useState("");
+  const [Pays, setPays] = useState("");
+  const [Ville, setVille] = useState("");
   const [role] = useState(0);
   const [isActive] = useState(1);
   const [id_user,setId_user] = useState(null)
@@ -39,14 +43,14 @@ const Register = () => {
   {
   
     
-     if(email === "" || password === "" || username === "")
+     if(email === "" || password === "" || Nom === "" || Prenom === "" || Tel === "" || Adresse === "" || Pays === "" || Ville === "")
      {
         alert("Veuillez renseigner tous les champs")
      }
      else
      {
       const configuration = {headers:{'Content-Type': "application/json", Accept: "application/json"}}
-      axios.post('https://localhost:8000/api/users', { email,password,username,genre,role,isActive}, configuration)
+      axios.post('https://localhost:8000/api/users', { email,password,role,isActive,Nom,Prenom,Tel,Adresse,Pays,Ville}, configuration)
       .then((res) => {
         setId_user(res.data.id)
       });
@@ -67,18 +71,34 @@ const Register = () => {
   </div>
 
   <div className="form-group">
-    <label htmlFor="text">Username</label>
-    <input type="text" className="form-control" onChange={(e)=>setUsername(e.target.value)}  value={username} id="Username" aria-describedby="text" placeholder="Enter username" required></input>
+    <label htmlFor="text">Nom</label>
+    <input type="text" className="form-control" onChange={(e)=>setNom(e.target.value)}  value={Nom} id="nom" aria-describedby="text" placeholder="Enter nom" required></input>
   </div>
 
-  <div className="form-group col-md-6">
-      <label htmlFor="inputGenre">Genre</label>
-      <select id="inputGenre" className="form-control"  value={genre} onChange={(e)=>setGenre(e.target.value)} required>
-        <option value="Homme" >Homme</option>
-        <option value="Femme">Femme</option>
-        <option value="Autres">Autres</option>
-      </select>
-    </div>
+  <div className="form-group">
+    <label htmlFor="text">Prenom</label>
+    <input type="text" className="form-control" onChange={(e)=>setPrenom(e.target.value)}  value={Prenom} id="prenom" aria-describedby="text" placeholder="Enter prenom" required></input>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="text">Tel</label>
+    <input type="text" className="form-control" onChange={(e)=>setTel(e.target.value)}  value={Tel} id="tel" aria-describedby="text" placeholder="Enter tel" required></input>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="text">Adresse</label>
+    <input type="text" className="form-control" onChange={(e)=>setAdresse(e.target.value)}  value={Adresse} id="adress" aria-describedby="text" placeholder="Enter adress" required></input>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="text">City</label>
+    <input type="text" className="form-control" onChange={(e)=>setVille(e.target.value)}  value={Ville} id="city" aria-describedby="text" placeholder="Enter city" required></input>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="text">Country</label>
+    <input type="text" className="form-control" onChange={(e)=>setPays(e.target.value)}  value={Pays} id="country" aria-describedby="text" placeholder="Enter country" required></input>
+  </div>
 
   <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
   <div className="form-group btn-ret">

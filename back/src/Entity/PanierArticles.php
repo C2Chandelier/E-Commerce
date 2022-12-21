@@ -11,7 +11,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: PanierArticlesRepository::class)]
 #[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['panierarticles']])]
-#[ApiFilter(SearchFilter::class, properties:["panier"=>"exact","articles"=>"exact"])]
+#[ApiFilter(SearchFilter::class, properties:["panier"=>"exact","articles"=>"exact","size"=>"exact"])]
 class PanierArticles
 {
     #[ORM\Id]
@@ -35,6 +35,10 @@ class PanierArticles
     #[Groups('panierarticles')]
     #[ORM\Column(options: ['default' => 1])]
     private ?int $quantity = null;
+    
+    #[Groups('panierarticles')]
+    #[ORM\ManyToOne(inversedBy: 'size')]
+    private ?Size $size = null;
 
     public function getId(): ?int
     {
@@ -73,6 +77,18 @@ class PanierArticles
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getSize(): ?Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(?Size $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }

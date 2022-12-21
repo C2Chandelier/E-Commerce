@@ -64,6 +64,13 @@ class Articles
     #[Groups('articles')]
     private ?bool $Promo = null;
 
+    #[ORM\Column]
+    #[Groups('articles')]
+    private ?bool $Size = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Poid = null;
+
     
     public function getId(): ?int
     {
@@ -188,6 +195,30 @@ class Articles
     public function setPromo(bool $Promo): self
     {
         $this->Promo = $Promo;
+
+        return $this;
+    }
+
+    public function isSize(): ?bool
+    {
+        return $this->Size;
+    }
+
+    public function setSize(bool $Size): self
+    {
+        $this->Size = $Size;
+
+        return $this;
+    }
+
+    public function getPoid(): ?string
+    {
+        return $this->Poid;
+    }
+
+    public function setPoid(string $Poid): self
+    {
+        $this->Poid = $Poid;
 
         return $this;
     }   
