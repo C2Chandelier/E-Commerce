@@ -15,6 +15,7 @@ function Panier() {
 
   let total = 0;
   let weight = 0;
+  let quantityTotal = 0;
   let weighttotal = parseFloat(PrixPays) + parseFloat(PrixPoid);
   let id_panier = localStorage.getItem("id_panier")
 
@@ -38,6 +39,7 @@ function Panier() {
 
     total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
     weight = weight + parseFloat(item.articles.Poid) * parseInt(item.quantity);
+    quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
   })
   total = total.toFixed(2)
   weight = weight.toFixed(1)
@@ -148,10 +150,13 @@ function Panier() {
           </div>
         }
       </div>
-      {article.length > 0 ? <button>Passer commande</button> : null}
-      <p id="totalarticle">total : {total}€</p>
-      {weighttotal !== 0 ? 
-      <p id="totalfrais">Frais de port : {weighttotal}€</p>
+      <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
+      {article.length > 0 ? 
+      <div>
+      <p id="totalfrais">Livraison : {weighttotal}€</p>
+      <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
+      <button>Passer commande</button> 
+      </div>
       : null}
       <Link className="btn-back" to={"/"}>Retour</Link>
       <div className='contenairedetails'>

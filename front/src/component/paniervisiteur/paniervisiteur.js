@@ -10,10 +10,13 @@ import Cookies from 'universal-cookie';
 
 function PanierVisiteur() {
   let total = 0;
+  let weight = 0;
+  let quantityTotal = 0;
   const [length, setLength] = useState(null)
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
   const [articlevide, setArticlevide] = useState([])
+  const [PrixPoid, setPrixPoid] = useState(0)
 
   useEffect(() => {
     setArray(cookies.get('article'))
@@ -31,8 +34,23 @@ function PanierVisiteur() {
   if (array !== null && array !== undefined) {
     array.map((item) => {
       total = total + parseFloat(item.prix) * parseInt(item.quantity);
+      weight = weight + parseFloat(item.Poid) * parseInt(item.quantity)
+      quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
+
     })
     total = total.toFixed(2)
+    weight = weight.toFixed(2)
+    weight = parseFloat(weight)
+    weight = Math.round(weight)
+    if (weight > 6) {
+      weight = 6
+    }
+  }
+  if (array !== null) {
+    axios('https://localhost:8000/api/poids?poid='+weight)
+    .then((res) => {
+      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix)+4)
+    })
   }
 
   if (array !== null && array !== undefined) {
@@ -124,11 +142,11 @@ function PanierVisiteur() {
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
-                {item.quantity === 1 ?                
-                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                :
-                <Card.Subtitle className='card__price'>{item.prix * item.quantity}</Card.Subtitle>
-                }   
+                {item.quantity === 1 ?
+                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                  :
+                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                }
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                   : null}
@@ -142,14 +160,17 @@ function PanierVisiteur() {
           }
         </div>
       }
-      <p>total : {total}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
+      <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
+      <div>
+        <p id="totalfrais">Livraison : {PrixPoid}€</p>
+        <p id="totalTTC">Total TTC : {parseFloat(total + PrixPoid).toFixed(2)}€</p>
         <Link to={"/connect"}>Passer commande</Link>
+        </div>
         : null}
     </div>
   )
-
-
 }
+
 export default PanierVisiteur;
