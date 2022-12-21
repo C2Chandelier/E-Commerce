@@ -48,13 +48,11 @@ function Panier() {
   if(weight > 6){
     weight = 6
   }
-  console.log(weight);
 
   if(article.length > 0){
     let country = article[0]['panier']['user'].Pays
     axios("https://localhost:8000/api/pays?pays=" + country)
       .then((res) => {
-        console.log(res.data["hydra:member"][0].prix)
         setPrixPays(res.data["hydra:member"][0].prix)
         axios('https://localhost:8000/api/poids?poid='+weight)
           .then((response) => {
@@ -67,7 +65,6 @@ function Panier() {
   async function DeleteItem(id) {
     const id_panier = id
     article.filter((res) => {
-      console.log(res)
       if (parseInt(res.id) === parseInt(id_panier)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
@@ -115,7 +112,6 @@ function Panier() {
   }
 
   const element = articlevide.splice(0, 3);
-  console.log(weighttotal)
   return (
     <div>
       <header><Navbar /></header>
@@ -155,7 +151,7 @@ function Panier() {
       <div>
       <p id="totalfrais">Livraison : {weighttotal}€</p>
       <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
-      <button>Passer commande</button> 
+      <Link to={"/paiement"}>Passer commande</Link> 
       </div>
       : null}
       <Link className="btn-back" to={"/"}>Retour</Link>

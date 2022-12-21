@@ -30,7 +30,6 @@ function CardProduct() {
       promotion = (promotion + 1)
     }
   })
-  console.log(product)
 
   return (
     <div className="contenaire">

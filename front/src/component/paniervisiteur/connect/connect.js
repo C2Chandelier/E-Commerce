@@ -15,7 +15,7 @@ export default function Connect(){
             <Link  to={"/login"}><button className="submit" name="register"> Se Connecter</button></Link>
             </div>
             <div className="text-centerSansCo">
-                <button className="sansconnection">Passer au paiement sans me connecter</button>
+                <Link to={"/paiementVisiteur"} className="sansconnection">Passer au paiement sans me connecter</Link>
             </div>
         </form>
         </div>

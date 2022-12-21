@@ -9,13 +9,13 @@ import ResultCategorie from './component/Result/ResultCategorie/ResultCategorie'
 import ResultSousCategorie from './component/Result/ResultSousCategorie/ResultSousCategorie';
 import ResultSearch from './component/Result/ResultTitre/ResultTitre';
 import Panier from './component/panier/panier';
-import Shipping from './component/shipping_cost/shipping';
 
 import Home from './component/Home/Home';
 import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
 import Connect from './component/paniervisiteur/connect/connect';
 import Paiement from './component/paiement/paiement';
+import PaiementVisiteur from './component/paniervisiteur/paiementVisiteur/paiementVisiteur';
 
 export default class App extends Component {
   render() {
@@ -35,10 +35,10 @@ export default class App extends Component {
           <Route path="/result/:titre/CAT/:cat" element={<ResultFilter />}></Route>
           <Route path="/result/:titre/SCAT/:cat" element={<ResultFilter />}></Route>
           <Route path="/panier" element={<Panier />}></Route>
-          <Route path="/shipping" element={<Shipping />}></Route>
           <Route path="/paniervisiteur" element={<PanierVisiteur />}></Route>
           <Route path="/connect" element={<Connect />}></Route>
           <Route path="/paiement" element={<Paiement />}></Route>
+          <Route path="/paiementVisiteur" element={<PaiementVisiteur />}></Route>
         </Routes>
       </Router>
       

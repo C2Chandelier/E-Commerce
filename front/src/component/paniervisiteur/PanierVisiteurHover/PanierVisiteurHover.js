@@ -69,9 +69,8 @@ export default function PanierHover(ajout) {
 
                 </>
                 <div className='total'>
-                    <p>Votre Total : {compt}€</p>
+                    <p>Votre Total : {compt.toFixed(2)}€</p>
                     <Link to={"/paniervisiteur"} className="link_none">
-
                         <button>Voir le panier</button>
                     </Link>
                 </div>

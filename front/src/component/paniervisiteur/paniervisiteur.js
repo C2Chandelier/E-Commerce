@@ -64,7 +64,6 @@ function PanierVisiteur() {
   function DeleteItem(id) {
     const id_article = id
     array.filter((res) => {
-      console.log(res)
       if (parseInt(res.Newid) === parseInt(id_article)) {
         delete array.splice(array.indexOf(res), 1)
         setArray(array)
@@ -100,7 +99,6 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
-  console.log(array)
   return (
     <div>
       <header><Navbar /></header>
@@ -165,7 +163,7 @@ function PanierVisiteur() {
       {array !== undefined && array !== null && array.length > 0 ?
       <div>
         <p id="totalfrais">Livraison : {PrixPoid}€</p>
-        <p id="totalTTC">Total TTC : {parseFloat(total + PrixPoid).toFixed(2)}€</p>
+        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)).toFixed(2)}€</p>
         <Link to={"/connect"}>Passer commande</Link>
         </div>
         : null}

@@ -23,9 +23,8 @@ export default function PanierHover(ajout) {
         })
         .catch(setError);
     }
-  }, [ajout]);
+  }, [ajout,id_panier]);
 
-  console.log(article)
   if (error) return <p>An error occurred</p>
 
   article.map((item) => {

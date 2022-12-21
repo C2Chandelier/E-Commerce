@@ -28,7 +28,6 @@ const Register = () => {
           "user": "api/users/"+id_user 
         })
         .then((res)=>{
-          console.log(res);
           const path = res.data["@id"]
         let array = path.split("/")
         const id_panier = array.pop()
