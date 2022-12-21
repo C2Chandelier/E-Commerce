@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 
 const Register = () => {
+  const cookies = new Cookies();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Nom, setNom] = useState("");
@@ -30,10 +32,24 @@ const Register = () => {
           const path = res.data["@id"]
         let array = path.split("/")
         const id_panier = array.pop()
+        if (cookies.get("article") !== undefined && cookies.get('article').length > 0) {
+          let cook = cookies.get("article")
+          for (let i = 0; i < cook.length; i++) {
+            axios.post('https://localhost:8000/api/panier_articles', {
+              "panier": "api/paniers/" + id_panier,
+              "articles": cook[i]['@id'],
+              "quantity": cook[i].quantity,
+              "size": "api/sizes/" + cook[i].size
+            })
+          }
+          navigate('/paiement')
+        }
+        else
+        {
+          navigate("/")
+        }
         localStorage.setItem('id_panier',id_panier);
         localStorage.setItem('id',id_user);
-
-          navigate("/")
         })
     }
   }, [id_user,navigate])
