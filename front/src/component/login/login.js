@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./login.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 
 
