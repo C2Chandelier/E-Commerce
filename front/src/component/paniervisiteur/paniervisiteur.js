@@ -32,6 +32,7 @@ function PanierVisiteur() {
     array.map((item) => {
       total = total + parseFloat(item.prix) * parseInt(item.quantity);
     })
+    total = total.toFixed(2)
   }
 
   if (array !== null && array !== undefined) {
@@ -123,7 +124,11 @@ function PanierVisiteur() {
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
+                {item.quantity === 1 ?                
                 <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                :
+                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                }   
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                   : null}
