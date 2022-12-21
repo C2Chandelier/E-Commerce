@@ -99,7 +99,6 @@ export default function SingleProduct() {
                     product.size = parseInt(size)
                 }
                 value.push(product)
-                console.log(value)
                 cookies.set('article', value)
                 console.log(cookies.get('article'))
             }

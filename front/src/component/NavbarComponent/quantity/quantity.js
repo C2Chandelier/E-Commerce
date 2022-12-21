@@ -36,6 +36,7 @@ export default function PanierQuantity(ajout) {
       totale.push(item.quantity)
     })
   }
+  
   let comptQuantity = 0;
   for (let i = 0; i < totale.length; i++) {
     comptQuantity += Number(totale[i]);
