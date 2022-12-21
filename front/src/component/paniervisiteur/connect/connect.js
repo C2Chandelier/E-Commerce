@@ -22,8 +22,8 @@ export default function Connect(){
         <h1 class="text-center">Vous n'etes pas connecté !</h1>
         <form class="registration-form">
             <div class="text-center">
-            <Link  to={"/login"}><button class="submit" name="register">S'inscrire</button></Link>
-            <Link  to={"/register"}><button class="submit" name="register"> Se Connecter</button></Link>
+            <Link  to={"/register"}><button class="submit" name="register">S'inscrire</button></Link>
+            <Link  to={"/login"}><button class="submit" name="register"> Se Connecter</button></Link>
             </div>
             <div className="text-centerSansCo">
                 <button className="sansconnection">Passer au paiement sans me connecter</button>
