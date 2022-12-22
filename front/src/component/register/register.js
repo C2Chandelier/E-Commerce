@@ -17,6 +17,7 @@ const Register = () => {
   const [Adresse, setAdresse] = useState("");
   const [Pays, setPays] = useState("");
   const [Ville, setVille] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const [role] = useState(0);
   const [isActive] = useState(1);
   const [id_user,setId_user] = useState(null)
@@ -58,14 +59,14 @@ const Register = () => {
   {
   
     
-     if(email === "" || password === "" || Nom === "" || Prenom === "" || Tel === "" || Adresse === "" || Pays === "" || Ville === "")
+     if(email === "" || password === "" || Nom === "" || Prenom === "" || Tel === "" || Adresse === "" || Pays === "" || Ville === "" || zipcode === "")
      {
         alert("Veuillez renseigner tous les champs")
      }
      else
      {
       const configuration = {headers:{'Content-Type': "application/json", Accept: "application/json"}}
-      axios.post('https://localhost:8000/api/users', { email,password,role,isActive,Nom,Prenom,Tel,Adresse,Pays,Ville}, configuration)
+      axios.post('https://localhost:8000/api/users', { email,password,role,isActive,Nom,Prenom,Tel,Adresse,Pays,Ville,zipcode}, configuration)
       .then((res) => {
         setId_user(res.data.id)
       });
@@ -108,6 +109,11 @@ const Register = () => {
   <div className="form-group">
     <label htmlFor="text">City</label>
     <input type="text" className="form-control" onChange={(e)=>setVille(e.target.value)}  value={Ville} id="city" aria-describedby="text" placeholder="Enter city" required></input>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="text">Code Postal</label>
+    <input type="text" className="form-control" onChange={(e)=>setZipcode(e.target.value)}  value={Ville} id="zipcode" aria-describedby="text" placeholder="Code Postal" required></input>
   </div>
 
   <div className="form-group">

@@ -57,6 +57,9 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $Ville = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $zipcode = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -177,6 +180,18 @@ class User
     public function setVille(string $Ville): self
     {
         $this->Ville = $Ville;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
 
         return $this;
     }
