@@ -11,10 +11,13 @@ import Cookies from 'universal-cookie';
 function PanierVisiteur() {
   let total = 0;
   let poid = 0;
+  let totalArticle = 0;
+  let totalHttc = 0;  
   const [length, setLength] = useState(null);
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
   const [articlevide, setArticlevide] = useState([]);
+  const [poidPrix, setPoidprix] = useState(0);
 
 
   useEffect(() => {
@@ -34,24 +37,32 @@ function PanierVisiteur() {
     array.map((item) => {
       total = total + parseFloat(item.prix) * parseInt(item.quantity);
       poid = poid + parseInt(item.Poid);
+      totalArticle = totalArticle + item.quantity;
 
     })
     
     total = total.toFixed(2)
+    poid = poid.toFixed(2)
+    poid = Math.round(poid);
 
-    console.log("Poids :",poid);
+    totalHttc =parseFloat(total) + parseFloat(poidPrix);
+    if(poid > 6 ){
+      poid = 6;
+    }
+
   }
 
-  if(array.length > 0){
-    axios.get('http://localhost:8000/api/poid')
+  if(array !== null){
+    axios.get('https://127.0.0.1:8000/api/poids?poid=' + poid )
     .then((res)=>{
-
+      setPoidprix(parseFloat(res.data["hydra:member"][0].prix) + 4) 
     })
   }
 
 
   if (array !== null && array !== undefined) {
     array.filter((item) => {
+    
       if (parseInt(item.quantity) === 0) {
         DeleteItem(item.Newid)
       }
@@ -74,6 +85,7 @@ function PanierVisiteur() {
     let id_article = e.target.value.substring(14)
 
     array.map((item) => {
+    
       if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
@@ -157,7 +169,12 @@ function PanierVisiteur() {
           }
         </div>
       }
-      <p>total : {total}€</p>
+
+      <p id="totalArticle">{totalArticle} Articles : {total}€</p>
+      {poidPrix !== 0 ? 
+        <p id="totalFraisDePort">Frais de port à partir de : {poidPrix}€</p>
+      :null}
+      <p>Total HTTC : {totalHttc}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
       {array !== undefined && array !== null && array.length > 0 ?
         <Link to={"/connect"}>Passer commande</Link>
