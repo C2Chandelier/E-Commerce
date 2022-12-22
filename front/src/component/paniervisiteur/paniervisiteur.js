@@ -29,7 +29,7 @@ function PanierVisiteur() {
     }
   }, [length]);
 
-
+  
 
   if (array !== null && array !== undefined) {
     array.map((item) => {
@@ -38,6 +38,7 @@ function PanierVisiteur() {
       quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
 
     })
+    
     total = total.toFixed(2)
     weight = weight.toFixed(2)
     weight = parseFloat(weight)
@@ -53,8 +54,11 @@ function PanierVisiteur() {
     })
   }
 
+ 
+
   if (array !== null && array !== undefined) {
     array.filter((item) => {
+    
       if (parseInt(item.quantity) === 0) {
         DeleteItem(item.Newid)
       }
@@ -76,6 +80,7 @@ function PanierVisiteur() {
     let id_article = e.target.value.substring(14)
 
     array.map((item) => {
+    
       if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
