@@ -11,7 +11,7 @@ export default function Connect(){
         //        <Link  to={"/register"}>Pas encore de compte ?</Link>
         //    </div>
         //</div>
-        <div class="containerr">
+    <div class="containerr">
         <header>
             <h1>
                 <a href="#">
@@ -29,6 +29,6 @@ export default function Connect(){
                 <button className="sansconnection">Passer au paiement sans me connecter</button>
             </div>
         </form>
-        </div>
+    </div>   
     )
 }
