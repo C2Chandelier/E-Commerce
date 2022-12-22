@@ -157,7 +157,7 @@ function Panier() {
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {article.length > 0 ? 
       <div>
-      <p id="totalfrais">Livraison : {weighttotal}€</p>
+      <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
       <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
       <Link to={"/paiement"}>Passer commande</Link> 
       </div>
