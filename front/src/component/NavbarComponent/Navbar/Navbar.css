@@ -17,6 +17,10 @@ nav{
   text-decoration: underline;
 }
 
+#panier a:hover{
+  text-decoration: none !important;
+}
+
 .items{
     color: #AA974C;
     cursor: pointer;
