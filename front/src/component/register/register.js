@@ -17,6 +17,7 @@ const Register = () => {
   const [Adresse, setAdresse] = useState("");
   const [Pays, setPays] = useState("");
   const [Ville, setVille] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const [role] = useState(0);
   const [isActive] = useState(1);
   const [id_user,setId_user] = useState(null)
@@ -58,14 +59,14 @@ const Register = () => {
   {
   
     
-     if(email === "" || password === "" || Nom === "" || Prenom === "" || Tel === "" || Adresse === "" || Pays === "" || Ville === "")
+     if(email === "" || password === "" || Nom === "" || Prenom === "" || Tel === "" || Adresse === "" || Pays === "" || Ville === "" || zipcode === "")
      {
         alert("Veuillez renseigner tous les champs")
      }
      else
      {
       const configuration = {headers:{'Content-Type': "application/json", Accept: "application/json"}}
-      axios.post('https://localhost:8000/api/users', { email,password,role,isActive,Nom,Prenom,Tel,Adresse,Pays,Ville}, configuration)
+      axios.post('https://localhost:8000/api/users', { email,password,role,isActive,Nom,Prenom,Tel,Adresse,Pays,Ville,zipcode}, configuration)
       .then((res) => {
         setId_user(res.data.id)
       });
@@ -94,17 +95,14 @@ const Register = () => {
     <label htmlFor="text">Prenom</label>
     <input type="text" className="form-control" onChange={(e)=>setPrenom(e.target.value)}  value={Prenom} id="prenom" aria-describedby="text" placeholder="Enter prenom" required></input>
   </div>
-  <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
-  <div className="form-group btn-ret">
-  <Link to ="/" className='btn btn-primary'>Retour</Link>
-  </div>
-  
-  </form>
-  <form className='form col-md-3 '>
   <div className="form-group">
     <label htmlFor="text">Tel</label>
     <input type="text" className="form-control" onChange={(e)=>setTel(e.target.value)}  value={Tel} id="tel" aria-describedby="text" placeholder="Enter tel" required></input>
   </div>
+  
+  </form>
+  <form className='form col-md-3 '>
+ 
 
   <div className="form-group">
     <label htmlFor="text">Adresse</label>
@@ -117,12 +115,21 @@ const Register = () => {
   </div>
 
   <div className="form-group">
+    <label htmlFor="text">Code Postal</label>
+    <input type="text" className="form-control" onChange={(e)=>setZipcode(e.target.value)}  value={Ville} id="zipcode" aria-describedby="text" placeholder="Code Postal" required></input>
+  </div>
+
+  <div className="form-group">
     <label htmlFor="text">Country</label>
     <input type="text" className="form-control" onChange={(e)=>setPays(e.target.value)}  value={Pays} id="country" aria-describedby="text" placeholder="Enter country" required></input>
   </div>
 
-
+  <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <div className="form-group btn-ret">
+  <Link to ="/" className='btn btn-primary'>Retour</Link>
+  </div>
 </form>
+
       </div>
   );
 };

@@ -50,8 +50,9 @@ function PanierVisiteur() {
   if (array !== null) {
     axios('https://localhost:8000/api/poids?poid='+weight)
     .then((res) => {
-      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix)+4)
+      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
     })
+    cookies.set('Frais',PrixPoid)
   }
 
  
@@ -167,8 +168,8 @@ function PanierVisiteur() {
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
       <div>
-        <p id="totalfrais">Livraison : {PrixPoid}€</p>
-        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)).toFixed(2)}€</p>
+        <p id="totalfrais">Livraison : {parseFloat(PrixPoid)+4}€</p>
+        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)+4).toFixed(2)}€</p>
         <Link to={"/connect"}>Passer commande</Link>
         </div>
         : null}

@@ -41,14 +41,14 @@ export default function Navbar() {
           <li className="items" id="collection_btn">Collection <img className='fleche' src='/images/Image_Navbar/fleche-removebg-preview.png' alt="fleche"></img><CardCollection /></li>
 
           {id_user === null ?
-            <li onMouseEnter={() => setIsShownVisit(true)}>
-              <Link to={"/paniervisiteur"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+            <li id="panier" onMouseEnter={() => setIsShownVisit(true)}>
+              <Link to={"/paniervisiteur"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="panier" />
                 <PanierQuantity />
               </Link>
             </li>
             :
-            <li onMouseEnter={() => setIsShown(true)}>
-              <Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="costume" />
+            <li id="panier" onMouseEnter={() => setIsShown(true)}>
+              <Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="panier" />
                 <PanierQuantity />
               </Link>
             </li>

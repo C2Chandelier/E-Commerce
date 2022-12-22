@@ -9,9 +9,9 @@ body{
     background-image: url(./images/back.png);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 39vw;
+    height: 41vw;
     border-radius: 20px;
-    margin-top: 85px;
+    margin-top: 55px;
     box-shadow:5px 10px 8px 10px #000000bb;
     display: flex;
     margin-left: auto;
@@ -31,7 +31,7 @@ body{
     padding-left: 30px;
 }
  #button{
-    margin-top: 15px;
+    margin-top: 60px !important;
     margin-left: 30px;
     background-color: rgb(7, 3, 36);
     border-color: rgb(7, 3, 36) ;
@@ -80,7 +80,9 @@ body{
     border-color: rgb(7, 3, 36) ;
     transition: 0.5s;
     width: 30%;
-    font-size: 13px;
+    position: relative;
+    bottom: 12px;
+    font-size: 0.7rem;
 }
 .btn-ret> .btn:hover{
     background-color: #203647;

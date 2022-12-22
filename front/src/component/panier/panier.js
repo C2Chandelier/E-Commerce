@@ -53,7 +53,15 @@ function Panier() {
     let country = article[0]['panier']['user'].Pays
     axios("https://localhost:8000/api/pays?pays=" + country)
       .then((res) => {
-        setPrixPays(res.data["hydra:member"][0].prix)
+        if(res.data["hydra:totalItems"] !== 0){
+          setPrixPays(res.data["hydra:member"][0].prix)
+        }
+        else{
+          axios("https://localhost:8000/api/pays?pays=autre")
+            .then((resp) => {
+              setPrixPays(resp.data["hydra:member"][0].prix)
+            })
+        }
         axios('https://localhost:8000/api/poids?poid='+weight)
           .then((response) => {
             setPrixPoid(response.data["hydra:member"][0].prix)
@@ -149,7 +157,7 @@ function Panier() {
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {article.length > 0 ? 
       <div>
-      <p id="totalfrais">Livraison : {weighttotal}€</p>
+      <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
       <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
       <Link to={"/paiement"}>Passer commande</Link> 
       </div>
