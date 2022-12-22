@@ -47,11 +47,11 @@ function PanierVisiteur() {
     }
   }
   if (array !== null) {
-    axios('https://localhost:8000/api/poids?poid='+weight)
-    .then((res) => {
-      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
-    })
-    cookies.set('Frais',PrixPoid)
+    axios('https://localhost:8000/api/poids?poid=' + weight)
+      .then((res) => {
+        setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
+      })
+    cookies.set('Frais', PrixPoid)
   }
 
   if (array !== null && array !== undefined) {
@@ -65,11 +65,21 @@ function PanierVisiteur() {
   function DeleteItem(id) {
     const id_article = id
     array.filter((res) => {
-      if (parseInt(res.Newid) === parseInt(id_article)) {
-        delete array.splice(array.indexOf(res), 1)
-        setArray(array)
-        cookies.set('article', array)
-        setLength(array.length)
+      if (res.Newid !== undefined) {
+        if (parseInt(res.Newid) === parseInt(id_article)) {
+          delete array.splice(array.indexOf(res), 1)
+          setArray(array)
+          cookies.set('article', array)
+          setLength(array.length)
+        }
+      }
+      else{
+        if (parseInt(res.id) === parseInt(id_article)) {
+          delete array.splice(array.indexOf(res), 1)
+          setArray(array)
+          cookies.set('article', array)
+          setLength(array.length)
+        }
       }
     })
   }
@@ -100,6 +110,7 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
+  
   return (
     <div>
       <header><Navbar /></header>
@@ -149,7 +160,11 @@ function PanierVisiteur() {
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                   : null}
-                <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
+                {item.Newid !== undefined ?
+                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
+                  :
+                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
+                }
                 <input type="text" value={item.quantity} readOnly></input>
                 <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
                 <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
@@ -162,10 +177,10 @@ function PanierVisiteur() {
       <Link className="btn-back" to={"/"}>Retour</Link>
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
-      <div>
-        <p id="totalfrais">Livraison : {parseFloat(PrixPoid)+4}€</p>
-        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)+4).toFixed(2)}€</p>
-        <Link to={"/connect"}>Passer commande</Link>
+        <div>
+          <p id="totalfrais">Livraison : {parseFloat(PrixPoid) + 4}€</p>
+          <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
+          <Link to={"/connect"}>Passer commande</Link>
         </div>
         : null}
     </div>
