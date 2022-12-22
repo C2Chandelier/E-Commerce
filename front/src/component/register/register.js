@@ -70,13 +70,13 @@ const Register = () => {
       .then((res) => {
         setId_user(res.data.id)
       });
-      
+      // navigate("./");
     }
 }
   return (
-      <div className='container col-md-7'>
+      <div className='containerRgister col-md-8'>
         
-      <form className='form col-md-5'>
+      <form className='form col-md-3'>
   <div className="form-group">
     <label htmlFor="exampleInputEmail1">Email address</label>
     <input type="email" className="form-control" onChange={(e)=>setEmail(e.target.value)}  value={email} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required></input>
@@ -95,11 +95,14 @@ const Register = () => {
     <label htmlFor="text">Prenom</label>
     <input type="text" className="form-control" onChange={(e)=>setPrenom(e.target.value)}  value={Prenom} id="prenom" aria-describedby="text" placeholder="Enter prenom" required></input>
   </div>
-
   <div className="form-group">
     <label htmlFor="text">Tel</label>
     <input type="text" className="form-control" onChange={(e)=>setTel(e.target.value)}  value={Tel} id="tel" aria-describedby="text" placeholder="Enter tel" required></input>
   </div>
+  
+  </form>
+  <form className='form col-md-3 '>
+ 
 
   <div className="form-group">
     <label htmlFor="text">Adresse</label>
@@ -125,8 +128,8 @@ const Register = () => {
   <div className="form-group btn-ret">
   <Link to ="/" className='btn btn-primary'>Retour</Link>
   </div>
-  
 </form>
+
       </div>
   );
 };

@@ -29,7 +29,7 @@ function PanierVisiteur() {
     }
   }, [length]);
 
-
+  
 
   if (array !== null && array !== undefined) {
     array.map((item) => {
@@ -38,6 +38,7 @@ function PanierVisiteur() {
       quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
 
     })
+    
     total = total.toFixed(2)
     weight = weight.toFixed(2)
     weight = parseFloat(weight)
@@ -54,8 +55,11 @@ function PanierVisiteur() {
     cookies.set('Frais', PrixPoid)
   }
 
+ 
+
   if (array !== null && array !== undefined) {
     array.filter((item) => {
+    
       if (parseInt(item.quantity) === 0) {
         DeleteItem(item.Newid)
       }
@@ -87,6 +91,7 @@ function PanierVisiteur() {
     let id_article = e.target.value.substring(14)
 
     array.map((item) => {
+    
       if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
@@ -153,7 +158,7 @@ function PanierVisiteur() {
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
                 {item.quantity === 1 ?
-                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                  <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
                   :
                   <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
                 }

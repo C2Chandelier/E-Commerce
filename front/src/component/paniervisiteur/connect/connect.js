@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './connect.css'
+import './connect.js';
 export default function Connect(){
     return (
     <div class="containerr">
