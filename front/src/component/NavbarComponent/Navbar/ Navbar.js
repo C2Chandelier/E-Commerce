@@ -57,7 +57,11 @@ export default function Navbar() {
           <li>
 
           </li>
+          {id_user === null ?
           <li><Link to={"/login"}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
+          : 
+          <li><Link to={"/disconnect"}><img className="logo2" src="/images/Image_Navbar/close-door.png" alt="deconnexion" /></Link></li>
+          }
 
 
           <BarreRecherche></BarreRecherche>

@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import "./register.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 
 const Register = () => {
+  const cookies = new Cookies();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Nom, setNom] = useState("");
@@ -26,14 +28,27 @@ const Register = () => {
           "user": "api/users/"+id_user 
         })
         .then((res)=>{
-          console.log(res);
           const path = res.data["@id"]
         let array = path.split("/")
         const id_panier = array.pop()
+        if (cookies.get("article") !== undefined && cookies.get('article').length > 0) {
+          let cook = cookies.get("article")
+          for (let i = 0; i < cook.length; i++) {
+            axios.post('https://localhost:8000/api/panier_articles', {
+              "panier": "api/paniers/" + id_panier,
+              "articles": cook[i]['@id'],
+              "quantity": cook[i].quantity,
+              "size": "api/sizes/" + cook[i].size
+            })
+          }
+          navigate('/paiement')
+        }
+        else
+        {
+          navigate("/")
+        }
         localStorage.setItem('id_panier',id_panier);
         localStorage.setItem('id',id_user);
-
-          navigate("/")
         })
     }
   }, [id_user,navigate])
@@ -54,13 +69,13 @@ const Register = () => {
       .then((res) => {
         setId_user(res.data.id)
       });
-      
+      // navigate("./");
     }
 }
   return (
-      <div className='container col-md-7'>
+      <div className='containerRgister col-md-8'>
         
-      <form className='form col-md-5'>
+      <form className='form col-md-3'>
   <div className="form-group">
     <label htmlFor="exampleInputEmail1">Email address</label>
     <input type="email" className="form-control" onChange={(e)=>setEmail(e.target.value)}  value={email} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required></input>
@@ -79,7 +94,13 @@ const Register = () => {
     <label htmlFor="text">Prenom</label>
     <input type="text" className="form-control" onChange={(e)=>setPrenom(e.target.value)}  value={Prenom} id="prenom" aria-describedby="text" placeholder="Enter prenom" required></input>
   </div>
-
+  <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
+  <div className="form-group btn-ret">
+  <Link to ="/" className='btn btn-primary'>Retour</Link>
+  </div>
+  
+  </form>
+  <form className='form col-md-3 '>
   <div className="form-group">
     <label htmlFor="text">Tel</label>
     <input type="text" className="form-control" onChange={(e)=>setTel(e.target.value)}  value={Tel} id="tel" aria-describedby="text" placeholder="Enter tel" required></input>
@@ -100,11 +121,7 @@ const Register = () => {
     <input type="text" className="form-control" onChange={(e)=>setPays(e.target.value)}  value={Pays} id="country" aria-describedby="text" placeholder="Enter country" required></input>
   </div>
 
-  <button id='button' type="button" className="btn btn-primary" onClick={() =>  inscription()}>S'inscrire</button>
-  <div className="form-group btn-ret">
-  <Link to ="/" className='btn btn-primary'>Retour</Link>
-  </div>
-  
+
 </form>
       </div>
   );

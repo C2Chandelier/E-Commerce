@@ -10,15 +10,13 @@ import Cookies from 'universal-cookie';
 
 function PanierVisiteur() {
   let total = 0;
-  let poid = 0;
-  let totalArticle = 0;
-  let totalHttc = 0;  
-  const [length, setLength] = useState(null);
+  let weight = 0;
+  let quantityTotal = 0;
+  const [length, setLength] = useState(null)
   const cookies = new Cookies();
   const [array, setArray] = useState(null);
-  const [articlevide, setArticlevide] = useState([]);
-  const [poidPrix, setPoidprix] = useState(0);
-
+  const [articlevide, setArticlevide] = useState([])
+  const [PrixPoid, setPrixPoid] = useState(0)
 
   useEffect(() => {
     setArray(cookies.get('article'))
@@ -36,29 +34,27 @@ function PanierVisiteur() {
   if (array !== null && array !== undefined) {
     array.map((item) => {
       total = total + parseFloat(item.prix) * parseInt(item.quantity);
-      poid = poid + parseInt(item.Poid);
-      totalArticle = totalArticle + item.quantity;
+      weight = weight + parseFloat(item.Poid) * parseInt(item.quantity)
+      quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
 
     })
     
     total = total.toFixed(2)
-    poid = poid.toFixed(2)
-    poid = Math.round(poid);
-
-    totalHttc =parseFloat(total) + parseFloat(poidPrix);
-    if(poid > 6 ){
-      poid = 6;
+    weight = weight.toFixed(2)
+    weight = parseFloat(weight)
+    weight = Math.round(weight)
+    if (weight > 6) {
+      weight = 6
     }
-
   }
-
-  if(array !== null){
-    axios.get('https://127.0.0.1:8000/api/poids?poid=' + poid )
-    .then((res)=>{
-      setPoidprix(parseFloat(res.data["hydra:member"][0].prix) + 4) 
+  if (array !== null) {
+    axios('https://localhost:8000/api/poids?poid='+weight)
+    .then((res) => {
+      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix)+4)
     })
   }
 
+ 
 
   if (array !== null && array !== undefined) {
     array.filter((item) => {
@@ -72,7 +68,6 @@ function PanierVisiteur() {
   function DeleteItem(id) {
     const id_article = id
     array.filter((res) => {
-      console.log(res)
       if (parseInt(res.Newid) === parseInt(id_article)) {
         delete array.splice(array.indexOf(res), 1)
         setArray(array)
@@ -109,7 +104,6 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
-  console.log(array)
   return (
     <div>
       <header><Navbar /></header>
@@ -151,11 +145,11 @@ function PanierVisiteur() {
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
-                {item.quantity === 1 ?                
-                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                :
-                <Card.Subtitle className='card__price'>{item.prix * item.quantity}</Card.Subtitle>
-                }   
+                {item.quantity === 1 ?
+                  <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
+                  :
+                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                }
                 {item.Promo === true ?
                   <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                   : null}
@@ -169,19 +163,17 @@ function PanierVisiteur() {
           }
         </div>
       }
-
-      <p id="totalArticle">{totalArticle} Articles : {total}€</p>
-      {poidPrix !== 0 ? 
-        <p id="totalFraisDePort">Frais de port à partir de : {poidPrix}€</p>
-      :null}
-      <p>Total HTTC : {totalHttc}€</p>
       <Link className="btn-back" to={"/"}>Retour</Link>
+      <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
+      <div>
+        <p id="totalfrais">Livraison : {PrixPoid}€</p>
+        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)).toFixed(2)}€</p>
         <Link to={"/connect"}>Passer commande</Link>
+        </div>
         : null}
     </div>
   )
-
-
 }
+
 export default PanierVisiteur;

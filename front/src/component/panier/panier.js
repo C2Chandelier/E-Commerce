@@ -15,6 +15,7 @@ function Panier() {
 
   let total = 0;
   let weight = 0;
+  let quantityTotal = 0;
   let weighttotal = parseFloat(PrixPays) + parseFloat(PrixPoid);
   let id_panier = localStorage.getItem("id_panier")
 
@@ -38,6 +39,7 @@ function Panier() {
 
     total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
     weight = weight + parseFloat(item.articles.Poid) * parseInt(item.quantity);
+    quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
   })
   total = total.toFixed(2)
   weight = weight.toFixed(1)
@@ -46,13 +48,11 @@ function Panier() {
   if(weight > 6){
     weight = 6
   }
-  console.log(weight);
 
   if(article.length > 0){
     let country = article[0]['panier']['user'].Pays
     axios("https://localhost:8000/api/pays?pays=" + country)
       .then((res) => {
-        console.log(res.data["hydra:member"][0].prix)
         setPrixPays(res.data["hydra:member"][0].prix)
         axios('https://localhost:8000/api/poids?poid='+weight)
           .then((response) => {
@@ -65,7 +65,6 @@ function Panier() {
   async function DeleteItem(id) {
     const id_panier = id
     article.filter((res) => {
-      console.log(res)
       if (parseInt(res.id) === parseInt(id_panier)) {
         article.splice(article.indexOf(res), 1);
         axios.delete('https://localhost:8000' + res["@id"])
@@ -113,7 +112,6 @@ function Panier() {
   }
 
   const element = articlevide.splice(0, 3);
-  console.log(weighttotal)
   return (
     <div>
       <header><Navbar /></header>
@@ -148,10 +146,13 @@ function Panier() {
           </div>
         }
       </div>
-      {article.length > 0 ? <button>Passer commande</button> : null}
-      <p id="totalarticle">total : {total}€</p>
-      {weighttotal !== 0 ? 
-      <p id="totalfrais">Frais de port : {weighttotal}€</p>
+      <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
+      {article.length > 0 ? 
+      <div>
+      <p id="totalfrais">Livraison : {weighttotal}€</p>
+      <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
+      <Link to={"/paiement"}>Passer commande</Link> 
+      </div>
       : null}
       <Link className="btn-back" to={"/"}>Retour</Link>
       <div className='contenairedetails'>

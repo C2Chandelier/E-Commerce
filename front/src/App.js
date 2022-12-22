@@ -15,6 +15,7 @@ import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
 import Connect from './component/paniervisiteur/connect/connect';
 import Paiement from './component/paiement/paiement';
+import PaiementVisiteur from './component/paniervisiteur/paiementVisiteur/paiementVisiteur';
 
 export default class App extends Component {
   render() {
@@ -37,6 +38,7 @@ export default class App extends Component {
           <Route path="/paniervisiteur" element={<PanierVisiteur />}></Route>
           <Route path="/connect" element={<Connect />}></Route>
           <Route path="/paiement" element={<Paiement />}></Route>
+          <Route path="/paiementVisiteur" element={<PaiementVisiteur />}></Route>
         </Routes>
       </Router>
       

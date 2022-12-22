@@ -110,7 +110,6 @@ export default function SingleProduct() {
                 
             }
         }
-        console.log(cookies.get('article'))
         setIsShownVisit(true);
     }
     return (

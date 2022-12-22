@@ -5,14 +5,17 @@ body{
 #root{
     height: 48vw;
 }
-.container{
-    background-image: url(./images/back2.jpg);
+.containerRgister {
+    background-image: url(./images/back.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 39vw;
     border-radius: 20px;
     margin-top: 85px;
     box-shadow:5px 10px 8px 10px #000000bb;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 }
 .form{
 
@@ -22,6 +25,7 @@ body{
     color: white;
     font-size: 1vw;
 }
+
 .form-group{
     padding-top: 30px;
     padding-left: 30px;
@@ -38,7 +42,7 @@ body{
     border-color: #203647;
 }
 .form-group > input{
-    width: 90%;
+    width: 100% !important;
     font-size: 1vw;
     margin-top: 10px;
     color: white;
@@ -54,6 +58,7 @@ body{
     margin-top: 10px;
     color: white;
     border-width: 0 0 1px;
+    height: 40px;
 }
 .form-group > input:focus{
     outline: none;
