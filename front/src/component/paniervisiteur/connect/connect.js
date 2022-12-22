@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import './connect.css'
 export default function Connect(){
     return (
-        <div className="containerr">
+    <div class="containerr">
         <header>
             <h1>
                     <img src={"http://tfgms.com/sandbox/dailyui/logo-1.png"} alt={"Authentic Collection"}/>
@@ -18,6 +18,6 @@ export default function Connect(){
                 <Link to={"/paiementVisiteur"} className="sansconnection">Passer au paiement sans me connecter</Link>
             </div>
         </form>
-        </div>
+    </div>   
     )
 }
