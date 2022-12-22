@@ -9,7 +9,7 @@ import ResultCategorie from './component/Result/ResultCategorie/ResultCategorie'
 import ResultSousCategorie from './component/Result/ResultSousCategorie/ResultSousCategorie';
 import ResultSearch from './component/Result/ResultTitre/ResultTitre';
 import Panier from './component/panier/panier';
-
+import Disconnect from './component/disconnect';
 import Home from './component/Home/Home';
 import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
@@ -39,9 +39,9 @@ export default class App extends Component {
           <Route path="/connect" element={<Connect />}></Route>
           <Route path="/paiement" element={<Paiement />}></Route>
           <Route path="/paiementVisiteur" element={<PaiementVisiteur />}></Route>
+          <Route path="/disconnect" element={<Disconnect />}></Route>
         </Routes>
       </Router>
-      
     );
   }
 }
