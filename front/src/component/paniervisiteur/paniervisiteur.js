@@ -51,7 +51,7 @@ function PanierVisiteur() {
     .then((res) => {
       setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
     })
-    cookies.set('Frais',PrixPoid)
+    cookies.set('Frais',5)
   }
 
   if (array !== null && array !== undefined) {
