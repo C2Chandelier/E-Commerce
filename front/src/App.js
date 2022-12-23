@@ -14,7 +14,7 @@ import Home from './component/Home/Home';
 import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
 import Connect from './component/paniervisiteur/connect/connect';
-import Paiement from './component/paiement/paiement';
+import Paiement from './component/panier/paiement/paiement';
 import PaiementVisiteur from './component/paniervisiteur/paiementVisiteur/paiementVisiteur';
 
 export default class App extends Component {

@@ -5,6 +5,7 @@ import "./login.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -17,8 +18,11 @@ const Login = () => {
   const [tableau, setTableau] = useState(null);
   const [role, setRole] = useState(null);
   const [id_user, setId_user] = useState(null);
+  const location = useLocation()
+  const From = location.state.data
 
   useEffect(() => {
+    console.log(From)
     if (tableau === 0) {
       alert("Email ou mot de passe Incorrect")
     }
@@ -40,7 +44,12 @@ const Login = () => {
                 "size": "api/sizes/" + cook[i].size
               })
             }
-            navigate('/paiement')
+            if(From === "panier"){
+              navigate('/paiement')
+            }
+            else{
+              navigate("/")
+            }
           }
           else {
             navigate('/')

@@ -159,7 +159,7 @@ function Panier() {
       <div>
       <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
       <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
-      <Link to={"/paiement"}>Passer commande</Link> 
+      <Link to={"/paiement"} state={{data:article,frais:weighttotal}}>Passer commande</Link> 
       </div>
       : null}
       <Link className="btn-back" to={"/"}>Retour</Link>
