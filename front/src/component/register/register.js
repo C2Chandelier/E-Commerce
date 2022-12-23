@@ -70,7 +70,6 @@ const Register = () => {
       .then((res) => {
         setId_user(res.data.id)
       });
-      // navigate("./");
     }
 }
   return (
