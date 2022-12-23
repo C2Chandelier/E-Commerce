@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './connect.js';
+import './connect.css';
 export default function Connect(){
     return (
     <div className="containerr">
@@ -18,6 +18,10 @@ export default function Connect(){
                 <Link to={"/paiementVisiteur"} className="sansconnection">Passer au paiement sans me connecter</Link>
             </div>
         </form>
+        <div id="div-cnt-achat">
+        <Link to={"/"} id="cnt-achat">Continuer vos achats</Link>
+        </div>
+        
     </div>   
     )
 }
