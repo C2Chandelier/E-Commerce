@@ -183,7 +183,7 @@ function PanierVisiteur() {
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
         <div>
-          <p id="totalfrais">Livraison : {parseFloat(PrixPoid) + 4}€</p>
+          <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
           <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
           <Link to={"/connect"}>Passer commande</Link>
         </div>
