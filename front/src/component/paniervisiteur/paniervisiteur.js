@@ -29,16 +29,21 @@ function PanierVisiteur() {
     }
   }, [length]);
 
-  
 
+  console.log(array)
   if (array !== null && array !== undefined) {
     array.map((item) => {
-      total = total + parseFloat(item.prix) * parseInt(item.quantity);
       weight = weight + parseFloat(item.Poid) * parseInt(item.quantity)
       quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
 
+      item.Promo === true ?
+
+        total = total + (parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)) * parseInt(item.quantity)
+        :
+        total = total + parseFloat(item.prix) * parseInt(item.quantity)
+
     })
-    
+
     total = total.toFixed(2)
     weight = weight.toFixed(2)
     weight = parseFloat(weight)
@@ -55,11 +60,11 @@ function PanierVisiteur() {
     cookies.set('Frais', PrixPoid)
   }
 
- 
+
 
   if (array !== null && array !== undefined) {
     array.filter((item) => {
-    
+
       if (parseInt(item.quantity) === 0) {
         DeleteItem(item.Newid)
       }
@@ -77,7 +82,7 @@ function PanierVisiteur() {
           setLength(array.length)
         }
       }
-      else{
+      else {
         if (parseInt(res.id) === parseInt(id_article)) {
           delete array.splice(array.indexOf(res), 1)
           setArray(array)
@@ -91,7 +96,7 @@ function PanierVisiteur() {
     let id_article = e.target.value.substring(14)
 
     array.map((item) => {
-    
+
       if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
@@ -115,7 +120,7 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
-  
+
   return (
     <div>
       <header><Navbar /></header>
@@ -131,10 +136,16 @@ function PanierVisiteur() {
 
                     <Card.Title className='card__title' >{item.titre}</Card.Title>
 
-                    <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                     {item.Promo === true ?
-                      <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                      : null}
+                      <div>
+                        <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                        <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                        <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
+                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                      </div>
+                      :
+                      <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                    }
                   </Card.Body>
                 </Card>
               </Link>
@@ -157,14 +168,36 @@ function PanierVisiteur() {
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
-                {item.quantity === 1 ?
-                  <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
+
+                {item.quantity === 1 && item.Promo === false ?
+                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                   :
-                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                  null
                 }
-                {item.Promo === true ?
-                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                  : null}
+                {item.quantity !== 1 && item.Promo === false ?
+                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                  :
+                  null
+                }
+                {item.Promo === true && item.quantity === 1 ?
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  null
+                }
+                {item.Promo === true && item.quantity !== 1 ?
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  null
+                }
+
                 {item.Newid !== undefined ?
                   <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
                   :

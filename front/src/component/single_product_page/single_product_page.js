@@ -40,7 +40,6 @@ export default function SingleProduct() {
 
     }, [path]);
     if (error) return <p>An error occurred</p>
-
     function AddPanier(e) {
         let id_article = "api/articles/" + e.currentTarget.id.substring(4);
         let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
@@ -138,10 +137,15 @@ export default function SingleProduct() {
                 <div className="product">
                     <div className="product_title"><h2>{product.titre}</h2></div>
                     <hr className="col-md-12"></hr>
-                    <div className="product_price">{product.prix}€</div>
                     {product.Promo === true ?
+                    <div>
                         <div className='product_promo'>Promo !</div>
-                        : null}
+                        <div className="product_oldprice">{product.prix}€</div>
+                        <div className="product_newprice">{(parseFloat(product.prix)*(1-parseFloat(product.Reduction)/100)).toFixed(2)}€</div>
+                    </div>
+                        :
+                        <div className="product_price">{product.prix}€</div>
+                    }
                     <div className="product-btn">
                         {(() => {
                             if (product.nbStock === 0 || product.enRupture === true) {

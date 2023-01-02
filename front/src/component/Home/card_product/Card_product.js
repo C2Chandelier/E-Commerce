@@ -31,6 +31,8 @@ function CardProduct() {
     }
   })
 
+  console.log(product)
+
   return (
     <div className="contenaire">
       {promotion !== 0 ?
@@ -44,8 +46,10 @@ function CardProduct() {
                     <Card.Img className='card__img' src={item.image} alt={item.titre} />
                     <Card.Body className='card__body'>
                       <Card.Title className='card__title' >{item.titre}</Card.Title>
-                      <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                       <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                      <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                      <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
+                      <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix)*(1-parseFloat(item.Reduction)/100)).toFixed(2)}</Card.Subtitle>
                     </Card.Body>
                   </Link>
                 </Card>

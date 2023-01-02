@@ -53,6 +53,12 @@
   margin-top: 0.6rem;
   font-weight: 600!important;
 }
+.card__oldprice {
+  text-decoration: line-through;
+}
+.card__newprice {
+  color: red;
+}
 .link_none{
   text-decoration: none;
   color: black;

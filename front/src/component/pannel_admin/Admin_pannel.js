@@ -10,7 +10,10 @@ function AdminPannel() {
             <ResourceGuesser name={"articles"} />
             <ResourceGuesser name={"users"} />
             <ResourceGuesser name={"categories"} />
-            <ResourceGuesser name={"souscategories"} />
+            <ResourceGuesser name={"pays"} />
+            <ResourceGuesser name={"poid"} />
+            <ResourceGuesser name={"size"} />
+            <ResourceGuesser name={"livraison"} />
         </HydraAdmin>
         </div>
     )

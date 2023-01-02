@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Cookies from 'universal-cookie';
 import { useLocation } from 'react-router-dom';
 
 export default function Paiement() {
@@ -9,11 +8,16 @@ export default function Paiement() {
   const [date, setDate] = useState("");
   const [livraison, setLivraison] = useState("");
   const [fraistotal, setFraistotal] = useState(0);
-  const data = useLocation().state.data
+  const [tariflivraison, setTariflivraison] = useState([])
+  const articles = useLocation().state.data
   const frais = useLocation().state.frais
 
   useEffect(() => {
     console.log(fraistotal)
+    axios('https://localhost:8000/api/livraisons')
+      .then((res) => {
+        setTariflivraison(res.data['hydra:member'])
+      })
   }, [fraistotal])
 
   function radiochange(e) {
@@ -22,8 +26,7 @@ export default function Paiement() {
 
   function commande(e) {
     e.preventDefault()
-    /* if(numerocb === "" || cvc === "" || livraison === "" || date === "")
-    {
+    /* if (numerocb === "" || cvc === "" || livraison === "" || date === "") {
       alert("Veuillez renseigner tous les champs")
     } */
 
@@ -32,6 +35,7 @@ export default function Paiement() {
         setFraistotal(parseFloat(frais) + parseFloat(res.data['hydra:member'][0].prix))
       })
   }
+
   return (
     <div>
       <form>
@@ -60,26 +64,12 @@ export default function Paiement() {
           required
         />
         <div onChange={radiochange}>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Normal" />
-            <span>Normal</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Relais" />
-            <span>Normal Relais</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Suivis" />
-            <span>Normal suivis</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Recommande" />
-            <span>Recommandé</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Express" />
-            <span>Express</span>
-          </label>
+          {tariflivraison.map((item) => (
+            <label className='radio' key={item.id}>
+              <input name='livraison' type="radio" value={item.methode}></input>
+              <span>{item.methode} {item.prix}€</span>
+            </label>
+          ))}
         </div>
         <button type="submit" onClick={(e) => commande(e)}>Commander</button>
       </form>

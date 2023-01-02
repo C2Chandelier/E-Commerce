@@ -19,12 +19,16 @@ export default function PaiementVisiteur() {
   const [fraispays, setFraispays] = useState(0);
   const [fraislivraison, setFraislivraison] = useState(0);
   const [fraistotal, setFraistotal] = useState(parseFloat(cookies.get("Frais")));
+  const [tariflivraison, setTariflivraison] = useState([])
 
   useEffect(() => {
+    axios('https://localhost:8000/api/livraisons')
+      .then((res) => {
+        setTariflivraison(res.data['hydra:member'])
+      })
     setFraistotal(parseFloat(fraistotal) + parseFloat(fraislivraison) + parseFloat(fraispays))
   }, [fraislivraison])
 
-  console.log(fraistotal)
 
   if (fraistotal !== parseFloat(cookies.get('Frais'))) {
     let object = { "fullname": fullname, "email": email, "tel": tel, "ville": ville, "zipcode": zipcode, "pays": pays, "numerocb": numerocb, "cvc": cvc, "date": date, "livraison": livraison, "frais": fraistotal }
@@ -60,6 +64,10 @@ export default function PaiementVisiteur() {
         setFraislivraison(res.data['hydra:member'][0].prix)
       })
   }
+
+
+  console.log(fraistotal)
+
   return (
     <div>
       <form>
@@ -153,7 +161,13 @@ export default function PaiementVisiteur() {
           required
         />
         <div onChange={radiochange}>
-          <label className="radio">
+        {tariflivraison.map((item) => (
+            <label className='radio' key={item.id}>
+              <input name='livraison' type="radio" value={item.methode}></input>
+              <span>{item.methode} {item.prix}€</span>
+            </label>
+          ))}
+          {/* <label className="radio">
             <input name="livraison" type="radio" value="Normal" />
             <span>Normal</span>
           </label>
@@ -172,7 +186,7 @@ export default function PaiementVisiteur() {
           <label className="radio">
             <input name="livraison" type="radio" value="Express" />
             <span>Express</span>
-          </label>
+          </label> */}
         </div>
         <button type="submit" onClick={(e) => commande(e)}>Commander</button>
       </form>

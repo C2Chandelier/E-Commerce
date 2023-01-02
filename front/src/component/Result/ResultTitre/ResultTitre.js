@@ -35,10 +35,10 @@ function ResultSearch() {
   if (product === null) {
     return <p>Loading...</p>;
   }
-  
+
   product.map((element) => {
     categorie.push(element["categorie"])
-    if(element["souscategorie"] !== undefined){
+    if (element["souscategorie"] !== undefined) {
       souscategorie.push(element["souscategorie"])
     }
   });
@@ -49,9 +49,9 @@ function ResultSearch() {
       <ArianneResult></ArianneResult>
       <div className="container-product">
         <div className="SideBarResult"><Sidebar
-        titre={path} 
-        cat={categorie}
-        souscat={souscategorie}
+          titre={path}
+          cat={categorie}
+          souscat={souscategorie}
         /></div>
 
         {product.length > 0 ? product.map((item) => (
@@ -66,12 +66,16 @@ function ResultSearch() {
                 <Card.Title className="card__title">
                   {item.titre}
                 </Card.Title>
-                <Card.Subtitle className="card__price">
-                  {item.prix}
-                </Card.Subtitle>
                 {item.Promo === true ?
-                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                  : null}
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                }
               </Card.Body>
             </Card>
           </Link>
