@@ -37,12 +37,15 @@ export default function ResultSousCategorie() {
                             <Card.Img className='card__img' src={item.image} alt={item.titre} />
                             <Card.Body className='card__body'>
                                 <Card.Title className='card__title'>{item.titre}</Card.Title>
+                                {item.Nouveauté === true ?
+                                    <Card.Subtitle className='product_nouveau'>Nouveau !</Card.Subtitle>
+                                    : null}
                                 {item.Promo === true ?
                                     <div>
                                         <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
                                         <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
                                         <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
-                                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix)*(1-parseFloat(item.Reduction)/100)).toFixed(2)}</Card.Subtitle>
+                                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
                                     </div>
                                     :
                                     <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>

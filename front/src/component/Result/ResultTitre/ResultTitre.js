@@ -66,6 +66,9 @@ function ResultSearch() {
                 <Card.Title className="card__title">
                   {item.titre}
                 </Card.Title>
+                {item.Nouveauté === true ?
+                  <Card.Subtitle className='product_nouveau'>Nouveau !</Card.Subtitle>
+                  : null}
                 {item.Promo === true ?
                   <div>
                     <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>

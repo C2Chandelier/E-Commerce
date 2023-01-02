@@ -79,7 +79,7 @@ export default function SingleProduct() {
         if (cookies.get('article') === undefined) {
 
             product.quantity = 1
-            if(product.Size === true){
+            if (product.Size === true) {
                 product.Newid = product.id + size.toString()
                 product.size = parseInt(size)
             }
@@ -100,13 +100,13 @@ export default function SingleProduct() {
             else {
                 let value = cookies.get("article")
                 product.quantity = 1
-                if(product.Size === true){
+                if (product.Size === true) {
                     product.Newid = product.id + size.toString()
                     product.size = parseInt(size)
                 }
                 value.push(product)
                 cookies.set('article', value)
-                
+
             }
         }
         setIsShownVisit(true);
@@ -137,12 +137,17 @@ export default function SingleProduct() {
                 <div className="product">
                     <div className="product_title"><h2>{product.titre}</h2></div>
                     <hr className="col-md-12"></hr>
+                    
+                    {product.Nouveauté === true ?
+                        <div className='product_nouveau'>Nouveau !</div>
+                        : null}
+
                     {product.Promo === true ?
-                    <div>
-                        <div className='product_promo'>Promo !</div>
-                        <div className="product_oldprice">{product.prix}€</div>
-                        <div className="product_newprice">{(parseFloat(product.prix)*(1-parseFloat(product.Reduction)/100)).toFixed(2)}€</div>
-                    </div>
+                        <div>
+                            <div className='product_promo'>Promo !</div>
+                            <div className="product_oldprice">{product.prix}€</div>
+                            <div className="product_newprice">{(parseFloat(product.prix) * (1 - parseFloat(product.Reduction) / 100)).toFixed(2)}€</div>
+                        </div>
                         :
                         <div className="product_price">{product.prix}€</div>
                     }
