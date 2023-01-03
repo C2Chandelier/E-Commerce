@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function RecapCommande(){
     const location = useLocation()
     const frais = location.data
-    console.log(location)
+    console.log(frais)
     return(
         <p>Recap</p>
     )

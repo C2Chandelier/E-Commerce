@@ -68,6 +68,7 @@ export default function SingleProduct() {
 
     }
     function AddPanierVisiteur() {
+        const description = product.description;
         delete product.description
         delete product["@context"]
         delete product["@type"]
@@ -109,6 +110,7 @@ export default function SingleProduct() {
 
             }
         }
+        product.description = description;
         setIsShownVisit(true);
     }
     return (

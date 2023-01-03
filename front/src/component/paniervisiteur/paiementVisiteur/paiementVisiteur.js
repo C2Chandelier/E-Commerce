@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 export default function PaiementVisiteur() {
@@ -20,6 +21,7 @@ export default function PaiementVisiteur() {
   const [fraislivraison, setFraislivraison] = useState(0);
   const [fraistotal, setFraistotal] = useState(parseFloat(cookies.get("Frais")));
   const [tariflivraison, setTariflivraison] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios('https://localhost:8000/api/livraisons')
@@ -34,6 +36,7 @@ export default function PaiementVisiteur() {
     let object = { "fullname": fullname, "email": email, "tel": tel, "ville": ville, "zipcode": zipcode, "pays": pays, "numerocb": numerocb, "cvc": cvc, "date": date, "livraison": livraison, "frais": fraistotal }
     cookies.set("utilisateur", object)
     console.log("cookies utiliaateur", cookies.get('utilisateur'))
+    navigate("/recapitulatifVisiteur")
   }
 
   function radiochange(e) {

@@ -221,7 +221,7 @@ function PanierVisiteur() {
         <div>
           <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
           <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
-          <Link to={"/connect"}>Passer commande</Link>
+          <Link to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
         </div>
         : null}
     </div>

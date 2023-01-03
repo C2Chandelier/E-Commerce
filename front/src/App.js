@@ -17,6 +17,7 @@ import Connect from './component/paniervisiteur/connect/connect';
 import Paiement from './component/panier/paiement/paiement';
 import PaiementVisiteur from './component/paniervisiteur/paiementVisiteur/paiementVisiteur';
 import RecapCommande from './component/RecapCommande/RecapCommande'
+import RecapVisiteur from './component/paniervisiteur/RecapVisiteur/RecapVisiteur';
 
 export default class App extends Component {
   render() {
@@ -42,6 +43,7 @@ export default class App extends Component {
           <Route path="/paiementVisiteur" element={<PaiementVisiteur />}></Route>
           <Route path="/disconnect" element={<Disconnect />}></Route>
           <Route path="/recapitulatif" element={<RecapCommande />}></Route>
+          <Route path="/recapitulatifVisiteur" element={<RecapVisiteur />}></Route>
         </Routes>
       </Router>
     );
