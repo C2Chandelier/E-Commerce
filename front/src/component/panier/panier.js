@@ -139,7 +139,6 @@ function Panier() {
               </Link>
               <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
 
-
               {item.quantity === 1 && item.articles.Promo === false ?
                 <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
                 :
@@ -199,6 +198,9 @@ function Panier() {
               <Card.Img className='card__img' src={item.image} alt={item.titre} />
               <Card.Body className='card__body'>
                 <Card.Title className='card__title' >{item.titre}</Card.Title>
+                {item.Nouveauté === true ?
+                  <Card.Subtitle className='product_nouveau'>Nouveau !</Card.Subtitle>
+                  : null}
                 {item.Promo === true ?
                   <div>
                     <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>

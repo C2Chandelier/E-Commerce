@@ -9,13 +9,14 @@ import ResultCategorie from './component/Result/ResultCategorie/ResultCategorie'
 import ResultSousCategorie from './component/Result/ResultSousCategorie/ResultSousCategorie';
 import ResultSearch from './component/Result/ResultTitre/ResultTitre';
 import Panier from './component/panier/panier';
-import Disconnect from './component/disconnect';
+import Disconnect from './component/NavbarComponent/disconnect';
 import Home from './component/Home/Home';
 import ResultFilter from './component/Result/ResultFilter/ResultFilter';
 import PanierVisiteur from './component/paniervisiteur/paniervisiteur';
 import Connect from './component/paniervisiteur/connect/connect';
 import Paiement from './component/panier/paiement/paiement';
 import PaiementVisiteur from './component/paniervisiteur/paiementVisiteur/paiementVisiteur';
+import RecapCommande from './component/RecapCommande/RecapCommande'
 
 export default class App extends Component {
   render() {
@@ -40,6 +41,7 @@ export default class App extends Component {
           <Route path="/paiement" element={<Paiement />}></Route>
           <Route path="/paiementVisiteur" element={<PaiementVisiteur />}></Route>
           <Route path="/disconnect" element={<Disconnect />}></Route>
+          <Route path="/recapitulatif" element={<RecapCommande />}></Route>
         </Routes>
       </Router>
     );

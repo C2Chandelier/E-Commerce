@@ -13,52 +13,64 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
 #[ApiFilter(SearchFilter::class, properties: ['email'=>'exact',"password"=>"exact"])]
-#[ApiResource(paginationEnabled: false)]
+#[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['user']])]
 
 class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['panier','panierarticles'])]
+    #[Groups(['panier','panierarticles','user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-
+    #[Groups('user')]
     private ?string $password = null;
 
     #[ORM\Column]
+    #[Groups('user')]
     private ?int $is_active = null;
 
     #[ORM\Column]
+    #[Groups('user')]
     private ?int $role = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $Tel = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $Adresse = null;
 
-    #[Groups(['panier','panierarticles'])]
+    #[Groups(['panier','panierarticles','user'])]
     #[ORM\Column(length: 255)]
     private ?string $Pays = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $Ville = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('user')]
     private ?string $zipcode = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[Groups(['panier','panierarticles','user'])]
+    private ?Paiement $paiement = null;
 
     public function getId(): ?int
     {
@@ -192,6 +204,23 @@ class User
     public function setZipcode(string $zipcode): self
     {
         $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getPaiement(): ?Paiement
+    {
+        return $this->paiement;
+    }
+
+    public function setPaiement(Paiement $paiement): self
+    {
+        // set the owning side of the relation if necessary
+        if ($paiement->getUser() !== $this) {
+            $paiement->setUser($this);
+        }
+
+        $this->paiement = $paiement;
 
         return $this;
     }
