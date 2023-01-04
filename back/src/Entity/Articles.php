@@ -20,19 +20,19 @@ class Articles
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?string $prix = null;
 
     #[ORM\Column(length: 4000)]
@@ -61,7 +61,7 @@ class Articles
     private ?int $click = null;
 
     #[ORM\Column]
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?bool $Promo = null;
 
     #[ORM\Column]
@@ -72,12 +72,12 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $Poid = null;
 
-    #[Groups(['panierarticles','articles'])]
+    #[Groups(['panierarticles','articles','commande'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Reduction = null;
 
     #[ORM\Column]
-    #[Groups('articles')]
+    #[Groups(['articles','commande'])]
     private ?bool $Nouveauté = null;
 
     

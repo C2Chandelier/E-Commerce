@@ -21,7 +21,7 @@ class Size
     #[ORM\OneToMany(mappedBy: 'size', targetEntity: PanierArticles::class)]
     private Collection $size;
 
-    #[Groups('panierarticles')]
+    #[Groups(['panierarticles','commande'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 

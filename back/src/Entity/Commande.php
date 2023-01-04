@@ -8,31 +8,38 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
-#[ApiResource(paginationEnabled: false)]
+#[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['commande']])]
+#[ApiFilter(SearchFilter::class, properties: ['user'=>'exact'])]
+
+
 class Commande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    
+    #[Groups('commande')]
     private ?int $id = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    
+    #[Groups('commande')]
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
-    
+    #[Groups('commande')]
     private ?string $numero = null;
 
     #[ORM\Column(length: 255)]
-    
+    #[Groups('commande')]
     private ?string $montant = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: CommandeArticles::class)]
+    #[Groups('commande')]
     private Collection $commandeArticles;
 
     public function __construct()
