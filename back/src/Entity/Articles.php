@@ -61,7 +61,7 @@ class Articles
     private ?int $click = null;
 
     #[ORM\Column]
-    #[Groups('articles')]
+    #[Groups(['panierarticles','articles'])]
     private ?bool $Promo = null;
 
     #[ORM\Column]
@@ -71,6 +71,14 @@ class Articles
     #[Groups(['panierarticles','articles'])]
     #[ORM\Column(length: 255)]
     private ?string $Poid = null;
+
+    #[Groups(['panierarticles','articles'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Reduction = null;
+
+    #[ORM\Column]
+    #[Groups('articles')]
+    private ?bool $Nouveauté = null;
 
     
     public function getId(): ?int
@@ -220,6 +228,30 @@ class Articles
     public function setPoid(string $Poid): self
     {
         $this->Poid = $Poid;
+
+        return $this;
+    }
+
+    public function getReduction(): ?string
+    {
+        return $this->Reduction;
+    }
+
+    public function setReduction(?string $Reduction): self
+    {
+        $this->Reduction = $Reduction;
+
+        return $this;
+    }
+
+    public function isNouveauté(): ?bool
+    {
+        return $this->Nouveauté;
+    }
+
+    public function setNouveauté(bool $Nouveauté): self
+    {
+        $this->Nouveauté = $Nouveauté;
 
         return $this;
     }   

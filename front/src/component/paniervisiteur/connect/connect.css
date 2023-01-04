@@ -90,8 +90,8 @@ html{
     color: black;
 }
 .sansconnection{
-    
-    margin-top: 4%;
+	color: black;
+    text-decoration: none;
     background: rgba(255,255,255,0.25);
 	border: 1px solid #333;
 	line-height: 1em;
@@ -100,5 +100,19 @@ html{
 	transition: all 0.25s; 
 }
 .text-centerSansCo{
+	margin-top: 4%;
     text-align: center;
+}
+#cnt-achat{
+	color: black;
+	text-decoration: none;
+	transition: 0.5s;
+}
+#cnt-achat:hover{
+	text-decoration: underline;
+}
+#div-cnt-achat{
+	text-align: center;
+	position: relative;
+    top: 30px;
 }

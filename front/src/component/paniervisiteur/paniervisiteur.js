@@ -29,16 +29,21 @@ function PanierVisiteur() {
     }
   }, [length]);
 
-  
 
+  console.log(array)
   if (array !== null && array !== undefined) {
     array.map((item) => {
-      total = total + parseFloat(item.prix) * parseInt(item.quantity);
       weight = weight + parseFloat(item.Poid) * parseInt(item.quantity)
       quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
 
+      item.Promo === true ?
+
+        total = total + (parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)) * parseInt(item.quantity)
+        :
+        total = total + parseFloat(item.prix) * parseInt(item.quantity)
+
     })
-    
+
     total = total.toFixed(2)
     weight = weight.toFixed(2)
     weight = parseFloat(weight)
@@ -48,18 +53,18 @@ function PanierVisiteur() {
     }
   }
   if (array !== null) {
-    axios('https://localhost:8000/api/poids?poid='+weight)
-    .then((res) => {
-      setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
-    })
-    cookies.set('Frais',PrixPoid)
+    axios('https://localhost:8000/api/poids?poid=' + weight)
+      .then((res) => {
+        setPrixPoid(parseFloat(res.data["hydra:member"][0].prix))
+      })
+    cookies.set('Frais', PrixPoid)
   }
 
- 
+
 
   if (array !== null && array !== undefined) {
     array.filter((item) => {
-    
+
       if (parseInt(item.quantity) === 0) {
         DeleteItem(item.Newid)
       }
@@ -69,11 +74,21 @@ function PanierVisiteur() {
   function DeleteItem(id) {
     const id_article = id
     array.filter((res) => {
-      if (parseInt(res.Newid) === parseInt(id_article)) {
-        delete array.splice(array.indexOf(res), 1)
-        setArray(array)
-        cookies.set('article', array)
-        setLength(array.length)
+      if (res.Newid !== undefined) {
+        if (parseInt(res.Newid) === parseInt(id_article)) {
+          delete array.splice(array.indexOf(res), 1)
+          setArray(array)
+          cookies.set('article', array)
+          setLength(array.length)
+        }
+      }
+      else {
+        if (parseInt(res.id) === parseInt(id_article)) {
+          delete array.splice(array.indexOf(res), 1)
+          setArray(array)
+          cookies.set('article', array)
+          setLength(array.length)
+        }
       }
     })
   }
@@ -81,7 +96,7 @@ function PanierVisiteur() {
     let id_article = e.target.value.substring(14)
 
     array.map((item) => {
-    
+
       if (parseInt(id_article) === parseInt(item.id)) {
         item.quantity = item.quantity + 1;
         setArray(array)
@@ -105,7 +120,11 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
+<<<<<<< HEAD
   console.log(array);
+=======
+
+>>>>>>> a799bac5e2f0a9466fd4dd8b413bc4dc3dbc1960
   return (
     <div>
       <header><Navbar /></header>
@@ -120,11 +139,20 @@ function PanierVisiteur() {
                   <Card.Body className='card__body'>
 
                     <Card.Title className='card__title' >{item.titre}</Card.Title>
-
-                    <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                    {item.Promo === true ?
-                      <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    {item.Nouveauté === true ?
+                      <Card.Subtitle className='product_nouveau'>Nouveau !</Card.Subtitle>
                       : null}
+
+                    {item.Promo === true ?
+                      <div>
+                        <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                        <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                        <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
+                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                      </div>
+                      :
+                      <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                    }
                   </Card.Body>
                 </Card>
               </Link>
@@ -147,15 +175,41 @@ function PanierVisiteur() {
                 {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
                 {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
                 {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
-                {item.quantity === 1 ?
-                  <Card.Subtitle className='card__price'>{item.prix}€</Card.Subtitle>
+
+                {item.quantity === 1 && item.Promo === false ?
+                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
                   :
-                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                  null
                 }
-                {item.Promo === true ?
-                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                  : null}
-                <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
+                {item.quantity !== 1 && item.Promo === false ?
+                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                  :
+                  null
+                }
+                {item.Promo === true && item.quantity === 1 ?
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  null
+                }
+                {item.Promo === true && item.quantity !== 1 ?
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  null
+                }
+
+                {item.Newid !== undefined ?
+                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
+                  :
+                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
+                }
                 <input type="text" value={item.quantity} readOnly></input>
                 <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
                 <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
@@ -168,10 +222,10 @@ function PanierVisiteur() {
       <Link className="btn-back" to={"/"}>Retour</Link>
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
       {array !== undefined && array !== null && array.length > 0 ?
-      <div>
-        <p id="totalfrais">Livraison : {parseFloat(PrixPoid)+4}€</p>
-        <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid)+4).toFixed(2)}€</p>
-        <Link to={"/connect"}>Passer commande</Link>
+        <div>
+          <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
+          <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
+          <Link to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
         </div>
         : null}
     </div>

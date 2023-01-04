@@ -16,8 +16,13 @@
     font-size: 40px;
     text-align: center;
     height: 50px;
+}
 
-
+.product_oldprice{
+    text-decoration: line-through;
+}
+.product_newprice{
+    color: red;
 }
 .product_title{
     text-align: center;

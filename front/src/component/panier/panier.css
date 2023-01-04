@@ -51,6 +51,9 @@
     font-size: 1.4rem;
     margin-top: 0.6rem;
   }
+  .card__newprice {
+    color: red;
+  }
   .link_none{
     text-decoration: none;
     color: black;

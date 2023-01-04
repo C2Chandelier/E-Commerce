@@ -1,4 +1,4 @@
-.container-product,.container-product-promo {
+.container-product,.container-product-promo,.container-product-nouveau {
   display: grid;
   gap: 6rem;
   grid-template-columns: repeat(3, 1fr);
@@ -13,6 +13,12 @@
   color: #AA974C;
 }
 .promo{
+  border: 2px solid #AA974C;
+}
+.nouveau h2{
+  color: #AA974C;
+}
+.nouveau{
   border: 2px solid #AA974C;
 }
 
@@ -52,6 +58,12 @@
   font-size: 1rem!important;
   margin-top: 0.6rem;
   font-weight: 600!important;
+}
+.card__oldprice {
+  text-decoration: line-through;
+}
+.card__newprice {
+  color: red;
 }
 .link_none{
   text-decoration: none;

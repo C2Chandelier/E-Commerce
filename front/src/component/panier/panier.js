@@ -36,33 +36,37 @@ function Panier() {
   }, [id_panier, length]);
 
   article.map((item) => {
-
-    total = total + parseFloat(item.articles.prix) * parseInt(item.quantity);
     weight = weight + parseFloat(item.articles.Poid) * parseInt(item.quantity);
     quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
+
+    item.articles.Promo === true ?
+
+      total = total + (parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100)) * parseInt(item.quantity)
+      :
+      total = total + parseFloat(item.articles.prix) * parseInt(item.quantity)
   })
   total = total.toFixed(2)
   weight = weight.toFixed(1)
   weight = parseFloat(weight)
   weight = Math.round(weight)
-  if(weight > 6){
+  if (weight > 6) {
     weight = 6
   }
 
-  if(article.length > 0){
+  if (article.length > 0) {
     let country = article[0]['panier']['user'].Pays
     axios("https://localhost:8000/api/pays?pays=" + country)
       .then((res) => {
-        if(res.data["hydra:totalItems"] !== 0){
+        if (res.data["hydra:totalItems"] !== 0) {
           setPrixPays(res.data["hydra:member"][0].prix)
         }
-        else{
+        else {
           axios("https://localhost:8000/api/pays?pays=autre")
             .then((resp) => {
               setPrixPays(resp.data["hydra:member"][0].prix)
             })
         }
-        axios('https://localhost:8000/api/poids?poid='+weight)
+        axios('https://localhost:8000/api/poids?poid=' + weight)
           .then((response) => {
             setPrixPoid(response.data["hydra:member"][0].prix)
           })
@@ -120,6 +124,8 @@ function Panier() {
   }
 
   const element = articlevide.splice(0, 3);
+
+
   return (
     <div>
       <header><Navbar /></header>
@@ -132,14 +138,36 @@ function Panier() {
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
               </Link>
               <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
-              {item.quantity === 1 ?
+
+              {item.quantity === 1 && item.articles.Promo === false ?
                 <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
                 :
-                <Card.Subtitle className='card__price'>{(item.articles.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                null
               }
-              {item.articles.Promo === true ?
-                <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                : null}
+              {item.quantity !== 1 && item.articles.Promo === false ?
+                <Card.Subtitle className='card__price'>{(item.articles.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                :
+                null
+              }
+              {item.articles.Promo === true && item.quantity === 1 ?
+                <div>
+                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                  <Card.Subtitle className='card__reduc'>{item.articles.Reduction}%</Card.Subtitle>
+                  <Card.Subtitle className='card__newprice'>{(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                </div>
+                :
+                null
+              }
+              {item.articles.Promo === true && item.quantity !== 1 ?
+                <div>
+                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                  <Card.Subtitle className='card__reduc'>{item.articles.Reduction}%</Card.Subtitle>
+                  <Card.Subtitle className='card__newprice'>{(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                </div>
+                :
+                null
+              }
+
               <button id={"btn_" + item.articles.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
               <input id={item["@id"]} type="text" value={item.quantity} readOnly></input>
               <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
@@ -155,13 +183,13 @@ function Panier() {
         }
       </div>
       <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
-      {article.length > 0 ? 
-      <div>
-      <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
-      <p id="totalTTC">Total TTC :{parseFloat(total + weighttotal).toFixed(2)}€</p>
-      <Link to={"/paiement"}>Passer commande</Link> 
-      </div>
-      : null}
+      {article.length > 0 ?
+        <div>
+          <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
+          <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(weighttotal)).toFixed(2)}€</p>
+          <Link to={"/paiement"} state={{ data: article, frais: weighttotal, prix: total }}>Passer commande</Link>
+        </div>
+        : null}
       <Link className="btn-back" to={"/"}>Retour</Link>
       <div className='contenairedetails'>
         {element.map((item) => (
@@ -170,10 +198,19 @@ function Panier() {
               <Card.Img className='card__img' src={item.image} alt={item.titre} />
               <Card.Body className='card__body'>
                 <Card.Title className='card__title' >{item.titre}</Card.Title>
-                <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
-                {item.Promo === true ?
-                  <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                {item.Nouveauté === true ?
+                  <Card.Subtitle className='product_nouveau'>Nouveau !</Card.Subtitle>
                   : null}
+                {item.Promo === true ?
+                  <div>
+                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
+                    <Card.Subtitle className='card__oldprice'>{item.prix}</Card.Subtitle>
+                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                  </div>
+                  :
+                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                }
               </Card.Body>
             </Card>
           </Link>

@@ -5,9 +5,15 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LivraisonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+
+
 
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
-#[ApiResource]
+#[ApiResource(paginationEnabled: false)]
+#[ApiFilter(SearchFilter::class, properties: ['methode'=>'exact'])]
+
 class Livraison
 {
     #[ORM\Id]
