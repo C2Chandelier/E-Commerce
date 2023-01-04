@@ -132,11 +132,12 @@ function Panier() {
       <div className='contenairedetails'>
         {article.length > 0 ? article.filter(product => product.quantity > 0).map((item) => (
           <Card id={"produit-" + item.articles.id} key={article.indexOf(item)} className="card">
-            <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
-            <Card.Body className='card__body'>
               <Link to={"/article/" + item.articles.id} className="link_none">
+            <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
+            </Link>
+
+            <Card.Body className='card__body'>
                 <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
-              </Link>
               <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
 
               {item.quantity === 1 && item.articles.Promo === false ?
