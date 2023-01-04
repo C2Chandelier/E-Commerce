@@ -44,6 +44,7 @@ const Login = () => {
                 "size": "api/sizes/" + cook[i].size
               })
             }
+            cookies.remove('article')
             if(From === "panier"){
               navigate('/paiement')
             }
