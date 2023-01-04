@@ -23,7 +23,7 @@ export default function RecapVisiteur() {
           total = total + parseFloat(item.prix) * parseInt(item.quantity)
   
       })
-      
+
     cookies.remove('article')
 
     return (
@@ -72,6 +72,7 @@ export default function RecapVisiteur() {
             </div>
             <p id="totalarticle">{quantityTotal} Articles : {total.toFixed(2)}€</p>
             <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(utilisateur.frais)).toFixed(2)}€</p>
+            <Link to={'/'}>Revenir à l'accueil</Link>
         </div>
     )
 }
