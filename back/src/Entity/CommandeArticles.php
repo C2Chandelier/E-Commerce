@@ -14,30 +14,26 @@ class CommandeArticles
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    
+    #[Groups('commande')]
     private ?int $id = null;
 
 
     #[ORM\ManyToOne(inversedBy: 'commandeArticles')]
     #[ORM\JoinColumn(nullable: false)]
-   
-    
+    #[Groups('commande')]
     private ?Commande $commande = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    
-    
+    #[Groups('commande')]
     private ?Articles $articles = null;
 
     #[ORM\Column(length: 255)]
-    
-
+    #[Groups('commande')]
     private ?string $quantity = null;
 
     #[ORM\ManyToOne]
-   
-    
+    #[Groups('commande')]
     private ?Size $size = null;
 
     public function getId(): ?int
