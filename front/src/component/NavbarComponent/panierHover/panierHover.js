@@ -36,7 +36,7 @@ export default function PanierHover(ajout) {
     <>
 
 
-      <div className='contenuPanier'  >
+      <div className='contenuPanier1'  >
 
         <>
           <>
@@ -53,9 +53,10 @@ export default function PanierHover(ajout) {
                       <Link to={"/article/" + item.articles.id} className="link_none">
                         <Card.Title className='panierCard__title'>{item.articles.titre}</Card.Title>
                       </Link>
-                      <Card.Subtitle className='card__size'>Taille : {item.size.name}</Card.Subtitle>
-                      <Card.Subtitle className='panierCard__price'>{item.articles.prix}€</Card.Subtitle>
+                      <Card.Subtitle className='panierCard__size'>Taille : {item.size.name}</Card.Subtitle>
                       <Card.Subtitle className='panierCard__quantity'>Q:{item.quantity}</Card.Subtitle>
+                      <Card.Subtitle className='panierCard__price'>{item.articles.prix}€</Card.Subtitle>
+                      
                     </Card.Body>
                   </Card>
                 </div>

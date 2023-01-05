@@ -159,3 +159,9 @@ ul{
 .liste li a:hover{
   font-size: 27px;  
 }
+.profilIcon{
+  color: gray;
+  width: 35px !important;
+  height: 40px !important;
+  margin-top: 3px;
+}

@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
@@ -41,6 +42,10 @@ class Commande
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: CommandeArticles::class)]
     #[Groups('commande')]
     private Collection $commandeArticles;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('commande')]
+    private ?\DateTimeInterface $date = null;
 
     public function __construct()
     {
@@ -114,6 +119,18 @@ class Commande
                 $commandeArticle->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

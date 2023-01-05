@@ -120,11 +120,6 @@ function PanierVisiteur() {
     })
   }
   const element = articlevide.splice(0, 3);
-<<<<<<< HEAD
-  console.log(array);
-=======
-
->>>>>>> a799bac5e2f0a9466fd4dd8b413bc4dc3dbc1960
   return (
     <div>
       <header><Navbar /></header>

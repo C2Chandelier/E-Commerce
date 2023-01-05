@@ -8,11 +8,14 @@ import BarreRecherche from '../Barre/barre'
 import ButtonAdmin from '../admin/admin';
 import PanierHover from '../panierHover/panierHover';
 import PanierQuantity from '../quantity/quantity';
-import PanierVisiteurHover from '../../paniervisiteur/PanierVisiteurHover/PanierVisiteurHover'
+import PanierVisiteurHover from '../../paniervisiteur/PanierVisiteurHover/PanierVisiteurHover';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ProfilHover from '../../profil/profilHover/profilHover';
 
 export default function Navbar() {
   const [categorie, setCategorie] = useState(null);
   const [isShown, setIsShown] = useState(false);
+  const [isShownProfil, setIsShownProfil] = useState(false);
   const [isShownVisit, setIsShownVisit] = useState(false);
   let id_user = localStorage.getItem('id')
 
@@ -26,6 +29,14 @@ export default function Navbar() {
       })
   }, []);
 
+  function showPanierHover(){
+    setIsShown(true); 
+    setIsShownProfil(false);
+  }
+  function showProfilHover(){
+    setIsShown(false); 
+    setIsShownProfil(true);
+  }
   return (
     <><nav className="Navbar">
       <ButtonAdmin></ButtonAdmin>
@@ -47,16 +58,16 @@ export default function Navbar() {
               </Link>
             </li>
             :
-            <li id="panier" onMouseEnter={() => setIsShown(true)}>
+            <li id="panier" onMouseEnter={()=>showPanierHover() }>
               <Link to={"/panier"}><img className="logo2" src="/images/Image_Navbar/ajouter-au-panier.png" alt="panier" />
                 <PanierQuantity />
               </Link>
             </li>
           }
 
-          <li>
-
-          </li>
+          {id_user != null ?
+            <Link onMouseEnter={() => showProfilHover()}><AccountCircleIcon className='profilIcon'/></Link>
+          :null}
           {id_user === null ?
           <li><Link to={"/login"} state={{data: "home"}}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>
           : 
@@ -79,6 +90,12 @@ export default function Navbar() {
       {isShownVisit ? (
         <div onMouseLeave={() => setIsShownVisit(false)}>
           <PanierVisiteurHover ></PanierVisiteurHover>
+        </div>
+      ) : null}
+
+      {isShownProfil ? (
+        <div onMouseLeave={() => setIsShownProfil(false)}>
+          <ProfilHover></ProfilHover>
         </div>
       ) : null}
     </>
