@@ -20,7 +20,6 @@ export default function RecapCommande() {
     }
     let id_panier = localStorage.getItem("id_panier")
     const [id_delete, setId_delete] = useState(null)
-    console.log(frais.articles)
 
     let quantityTotal = 0;
 
@@ -40,6 +39,7 @@ export default function RecapCommande() {
             "montant": String(montant)
         }, configuration)
             .then((res) => {
+                
                 const apicommande = res.data['@id'].substring(1)
                 for (let i = 0; i < NBArticle.length; i++) {
                     axios.post('https://localhost:8000/api/commande_articles', {
@@ -50,7 +50,26 @@ export default function RecapCommande() {
                     })
                 }
             })
-
+            
+        for (let i = 0; i < NBArticle.length; i++) {
+            const id_size =   frais.articles[i].size["@id"].split("/").pop()
+            const id_article = parseInt(frais.articles[i].articles.id)
+            axios.get('https://localhost:8000/api/stocks?articles='+id_article+'&size='+id_size)
+            .then((reponse)=>{
+                const quantite = parseInt(frais.articles[i].quantity)
+                const id_stock = reponse.data['hydra:member'][0].id
+                const NBStock = parseInt(reponse.data['hydra:member'][0].NBStock)-quantite
+                const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+                const apiArticle = frais.articles[i].articles["@id"]
+                axios.patch('https://localhost:8000/api/stocks/'+id_stock,{"NBStock": NBStock},configuration) 
+                axios.get('https://localhost:8000'+apiArticle)
+                .then((ress)=>{
+                    const StockTotal = String(ress.data.nbStock-quantite)
+                    console.log(apiArticle)
+                    axios.patch('https://localhost:8000'+apiArticle,{"nbStock": StockTotal},configuration)
+                })
+            })
+        }
     }, []);
 
     if(id_delete !== null){
