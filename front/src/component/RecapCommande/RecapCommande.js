@@ -127,6 +127,7 @@ export default function RecapCommande() {
                 ))}
             </div>
             <p id="totalarticle">{quantityTotal} Articles : {frais.total}€</p>
+            <p id="totallivraison">Livraison :{frais.fraistotal}</p>
             <p id="totalTTC">Total TTC : {(parseFloat(frais.total) + parseFloat(frais.fraistotal)).toFixed(2)}€</p>
             <Link to={'/'}>Revenir à l'accueil</Link>
         </div>

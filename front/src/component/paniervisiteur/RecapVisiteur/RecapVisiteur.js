@@ -42,6 +42,27 @@ export default function RecapVisiteur() {
                 }
             })
 
+        for (let i = 0; i < articles.length; i++) {
+            const id_size = "api/sizes/"+frais.data[i].size
+            const id_article = frais.data[i].id
+            console.log(id_size,id_article)
+            axios.get('https://localhost:8000/api/stocks?articles=' + id_article + '&size=' + id_size)
+                .then((reponse) => {
+                    const quantite = parseInt(frais.data[i].quantity)
+                    const id_stock = reponse.data['hydra:member'][0].id
+                    const NBStock = parseInt(reponse.data['hydra:member'][0].NBStock) - quantite
+                    const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+                    const apiArticle = frais.data[i]["@id"]
+                    axios.patch('https://localhost:8000/api/stocks/' + id_stock, { "NBStock": NBStock }, configuration)
+                    axios.get('https://localhost:8000' + apiArticle)
+                        .then((ress) => {
+                            const StockTotal = String(ress.data.nbStock - quantite)
+                            console.log(apiArticle)
+                            axios.patch('https://localhost:8000' + apiArticle, { "nbStock": StockTotal }, configuration)
+                        })
+                })
+        }
+
     }, []);
 
 
@@ -106,6 +127,7 @@ export default function RecapVisiteur() {
                 ))}
             </div>
             <p id="totalarticle">{quantityTotal} Articles : {total.toFixed(2)}€</p>
+            <p id="totallivraison">Livraison : {utilisateur.frais}</p>
             <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(utilisateur.frais)).toFixed(2)}€</p>
             <Link to={'/'}>Revenir à l'accueil</Link>
         </div>
