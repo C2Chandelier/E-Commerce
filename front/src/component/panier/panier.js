@@ -179,7 +179,7 @@ function Panier() {
 
           :
           <div>
-            <p>Votre panier est vide.</p>
+              <p>Votre panier est vide.</p>
           </div>
         }
       </div>
@@ -227,3 +227,4 @@ function Panier() {
 
 
 export default Panier;
+

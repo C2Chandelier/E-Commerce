@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Navbar from '../NavbarComponent/Navbar/ Navbar';
 import Cookies from 'universal-cookie';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 function PanierVisiteur() {
@@ -126,8 +127,24 @@ function PanierVisiteur() {
       <header><Navbar /></header>
       {array === undefined || array === null || array.length === 0 ?
         <div>
-          <p>Votre panier est vide</p>
-          <div className='containeur'>
+          <div className='paniervisiteurdisplay'>
+            <p className='paniervide'>PANIER</p>
+            <p className='votrepanierestvide'>VOTRE PANIER EST VIDE</p>
+            <div className='panniervidenoconnect'>
+              <p>LIVRAISON : 0,00 € </p>
+              <p>0 Articles</p>
+
+              <p className='totalpaniervisiteur'>TOTAL TTC : {total}€</p>
+              {array !== undefined && array !== null && array.length > 0 ?
+                <button className='btn-commander'><Link className="link-decoration" to={"/connect"}>COMMANDER</Link></button>
+                : null}
+              <Link className="btn-cont" to={"/"}>Continuer mes achats</Link>
+
+            </div>
+            <h3>PRODUITS POPULAIRES</h3>
+          </div>
+
+          <div className='noproduitpanier'>
             {element.map((item) => (
               <Link to={"/article/" + item.id} key={item.id} className="link_none">
                 <Card id={"produit-" + item.id} className="card">
@@ -159,73 +176,139 @@ function PanierVisiteur() {
 
         :
 
-        <div className='containeur'>
-          {array.map((item) => (
-            <Card id={"produit-" + item.id} key={array.indexOf(item)} className="card">
-              <Card.Img className='card__img' src={item.image} alt={item.titre} />
-              <Card.Body className='card__body'>
-                <Link to={"/article/" + item.id} className="link_none">
-                  <Card.Title className='card__title' >{item.titre}</Card.Title>
-                </Link>
-                {item.size === 1 ? <Card.Subtitle className='card__size'>Taille : S</Card.Subtitle> : null}
-                {item.size === 2 ? <Card.Subtitle className='card__size'>Taille : M</Card.Subtitle> : null}
-                {item.size === 3 ? <Card.Subtitle className='card__size'>Taille : L</Card.Subtitle> : null}
-                {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL</Card.Subtitle> : null}
+        <div className='mainPanier'>
+          <div className='titrePanier'>
+            <h2>Panier</h2>
+          </div>
+          <div className='bodyCardPanier'>
+            <div className='containeur'>
+              {array.map((item) => (
+                <Card id={"produit-" + item.id} key={array.indexOf(item)} className="panniervisiteurcard">
+                  <Card.Img className='card__img' src={item.image} alt={item.titre} />
+                  <Card.Body className='card__body'>
+                    <Link to={"/article/" + item.id} className="link_none">
+                      <Card.Title className='paniervisiteurtitre'>{item.titre}</Card.Title>
+                    </Link>
+                    {item.size === 1 ? <Card.Subtitle className='panniervisiteursize'>Taille : S</Card.Subtitle> : null}
+                    {item.size === 2 ? <Card.Subtitle className='panniervisiteursize'>Taille : M</Card.Subtitle> : null}
+                    {item.size === 3 ? <Card.Subtitle className='panniervisiteursize'>Taille : L</Card.Subtitle> : null}
+                    {item.size === 4 ? <Card.Subtitle className='panniervisiteursize'>Taille : XL</Card.Subtitle> : null}
 
-                {item.quantity === 1 && item.Promo === false ?
-                  <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                    {item.quantity === 1 && item.Promo === false ?
+                      <Card.Subtitle className='card__price'>{item.prix}</Card.Subtitle>
+                      :
+                      null
+                    }
+                    {item.quantity !== 1 && item.Promo === false ?
+                      <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                      :
+                      null
+                    }
+                    {item.Promo === true && item.quantity === 1 ?
+                      <div>
+                        <Card.Subtitle className='card__promo'>Promo : {item.Reduction}%</Card.Subtitle>
+                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                      </div>
+                      :
+                      null
+                    }
+                    {item.Promo === true && item.quantity !== 1 ?
+                      <div>
+                        <Card.Subtitle className='card__promo'>Promo : {item.Reduction}%</Card.Subtitle>
+                        <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                      </div>
+                      :
+                      null
+                    }
+                    <div className='button'>
+                    <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
+                    <input type="text" className='changeQuantity' value={item.quantity} readOnly></input>
+                    <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
+                    {item.Newid !== undefined ?
+                  
+                  <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)} />
                   :
-                  null
+                  <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}/>
                 }
-                {item.quantity !== 1 && item.Promo === false ?
-                  <Card.Subtitle className='card__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
-                  :
-                  null
-                }
-                {item.Promo === true && item.quantity === 1 ?
-                  <div>
-                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
-                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
-                  </div>
-                  :
-                  null
-                }
-                {item.Promo === true && item.quantity !== 1 ?
-                  <div>
-                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                    <Card.Subtitle className='card__reduc'>{item.Reduction}%</Card.Subtitle>
-                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
-                  </div>
-                  :
-                  null
-                }
-
-                {item.Newid !== undefined ?
-                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)}>&#x2716;</button>
-                  :
-                  <button id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}>&#x2716;</button>
-                }
-                <input type="text" value={item.quantity} readOnly></input>
-                <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
-                <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
-              </Card.Body>
-            </Card>
-          ))
-          }
+                    </div>
+                
+                  </Card.Body>
+                </Card>
+               
+              ))
+              }
+            </div>
+            <div className='commander'>
+            <p className='totalpaniervisiteur'>{quantityTotal} Articles : {total}€</p>
+            {array !== undefined && array !== null && array.length > 0 ?
+              <div>
+                <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
+                <p className='totalpaniervisiteur'>Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
+                <Link className='btn-commander' to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
+              </div>
+              : null}
+            <br />
+            <Link className="btn-cont" to={"/"}>Continuer mes achats</Link>
+            </div>
+          </div>
         </div>
-      }
-      <Link className="btn-back" to={"/"}>Retour</Link>
-      <p id="totalarticle">{quantityTotal} Articles : {total}€</p>
-      {array !== undefined && array !== null && array.length > 0 ?
-        <div>
-          <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
-          <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
-          <Link to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
-        </div>
-        : null}
-    </div>
+}
+</div>
+    
   )
 }
 
 export default PanierVisiteur;
+
+      {/* <div className='mainPanier'>
+        <div className='titrePanier'>
+          <h2>Panier</h2>
+        </div>
+        <div className='bodyCardPanier'>
+          <div className='containeur'>
+
+            {array.map((item) => (
+              <Card id={"produit-" + item.id} key={array.indexOf(item)} className="panniervisiteurcard">
+                <Card.Img className='card__img' src={item.image} alt={item.titre} />
+                <Card.Body className='card__body'>
+                  <Link to={"/article/" + item.id} className="link_none">
+                    <Card.Title className='paniervisiteurtitre'>{item.titre}</Card.Title>
+                  </Link>
+                  <Card.Subtitle className='paniervisiteurprice'>{item.prix}</Card.Subtitle>
+                  {item.size === 1 ? <Card.Subtitle className='panniervisiteursize'>Taille : S</Card.Subtitle> : null}
+                  {item.size === 2 ? <Card.Subtitle className='panniervisiteursize'>Taille : M</Card.Subtitle> : null}
+                  {item.size === 3 ? <Card.Subtitle className='panniervisiteursize'>Taille : L</Card.Subtitle> : null}
+                  {item.size === 4 ? <Card.Subtitle className='panniervisiteursize'>Taille : XL</Card.Subtitle> : null}
+                </Card.Body>
+                <div className='button'>
+                  <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
+                  <input type="text" className='changeQuantity' value={item.quantity} readOnly></input>
+                  <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
+                  <DeleteForeverIcon className='trash' id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)} />
+
+                </div>
+
+              </Card>
+            ))}
+          </div>
+          <div className='commander'>
+            <p>LIVRAISON : </p>
+
+            <p className='totalpaniervisiteur'>TOTAL TTC : {total}€</p>
+            {array !== undefined && array !== null && array.length > 0 ?
+              <button className='btn-commander'><Link className="link-decoration" to={"/connect"}>COMMANDER</Link></button>
+              : null}
+            <br />
+            <Link className="btn-cont" to={"/"}>Continuer mes achats</Link>
+
+          </div>
+        </div>
+      </div>
+
+}
+
+
+    </div >
+
+</div >
+) */}
