@@ -1,4 +1,4 @@
-.contenairedetails {
+/* .contenairedetails {
     display: grid;
     gap: 6rem;
     grid-template-columns: repeat(3, 1fr);
@@ -7,13 +7,6 @@
     margin: auto;
     margin-top: 2%;
   }
-  
-  
-  /* .card .card__img{
-    object-fit : fill;
-    width: auto;
-    height: auto;
-  } */
   
   .card {
     box-shadow: 0 0 10px 5px #dbd5ba;
@@ -34,20 +27,17 @@
     flex-direction : column;
     text-decoration: none;
   
-   /*  box-shadow: 0 0 20px 5px #a0c0df;
-    border-radius: 0.6rem; */
-  
   }
   
   .card__title {
     line-height: 1.4rem;
     margin-bottom: 0.5rem;
-  }
+  } */
   
   /*  .card__description {
         line-height: 1.2rem;
       } */
-  .card__price {
+/*   .card__price {
     font-size: 1.4rem;
     margin-top: 0.6rem;
   }
@@ -67,4 +57,4 @@
 #totalTTC{
   color: #ffffff;
 }
-  
+   */
