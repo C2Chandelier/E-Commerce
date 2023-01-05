@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import Navbar from "../../NavbarComponent/Navbar/ Navbar";
 import Card from 'react-bootstrap/Card';
 import Cookies from 'universal-cookie';
+import axios from "axios";
 
 
 
@@ -12,23 +13,57 @@ export default function RecapVisiteur() {
     const cookies = new Cookies();
     const utilisateur = cookies.get('utilisateur')
     const articles = cookies.get('article')
+    const location = useLocation()
+    const frais = location.state
+    console.log(articles)
+    const montant = parseFloat(utilisateur.frais) + parseFloat(frais.prix)
+
+    let alph = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let numero = ''
+    for (let i = 0; i < 8; i++) {
+        numero += alph[Math.floor(Math.random() * 46)]
+    }
+
+    useEffect(() => {
+        const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
+        axios.post('https://localhost:8000/api/commandes', {
+            "numero": numero,
+            "montant": String(montant)
+        }, configuration)
+            .then((res) => {
+                const apicommande = res.data['@id'].substring(1)
+                for (let i = 0; i < articles.length; i++) {
+                    axios.post('https://localhost:8000/api/commande_articles', {
+                        "commande": apicommande,
+                        "articles": articles[i]['@id'].substring(1),
+                        "quantity": String(articles[i].quantity),
+                        "size": "api/sizes/" + articles[i].size
+                    })
+                }
+            })
+
+    }, []);
+
 
     articles.map((item) => {
         quantityTotal = quantityTotal + 1 * parseInt(item.quantity)
-  
+
         item.Promo === true ?
-  
-          total = total + (parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)) * parseInt(item.quantity)
-          :
-          total = total + parseFloat(item.prix) * parseInt(item.quantity)
-  
-      })
+
+            total = total + (parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)) * parseInt(item.quantity)
+            :
+            total = total + parseFloat(item.prix) * parseInt(item.quantity)
+
+    })
 
     cookies.remove('article')
 
     return (
         <div>
             <header><Navbar /></header>
+            <h1>Merci pour votre commande !</h1>
+            <h2>Recapitulatif de commande</h2>
+            <h3>Votre commande numero : {numero}</h3>
             <div className='containeur'>
                 {articles.map((item) => (
                     <Card id={"produit-" + item.id} key={articles.indexOf(item)} className="card">

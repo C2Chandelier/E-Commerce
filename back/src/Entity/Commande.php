@@ -26,7 +26,7 @@ class Commande
     private ?int $id = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[Groups('commande')]
     private ?User $user = null;
 

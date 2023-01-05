@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 import './connect.css';
+import { useLocation } from "react-router-dom";
+
 export default function Connect(){
+    const location = useLocation()
+    const frais = location.state
+    const array = frais.data
+    const PrixPoid = frais.frais
+    const total = frais.prix
+    console.log(total)
     return (
     <div className="containerr">
         <header>
@@ -15,7 +23,7 @@ export default function Connect(){
             <Link  to={"/login"} state={{data: "panier"}}><button className="submit" name="register"> Se Connecter</button></Link>
             </div>
             <div className="text-centerSansCo">
-                <Link to={"/paiementVisiteur"} className="sansconnection">Passer au paiement sans me connecter</Link>
+                <Link to={"/paiementVisiteur"} state={{ data: array, frais: PrixPoid, prix: total }} className="sansconnection">Passer au paiement sans me connecter</Link>
             </div>
         </form>
         <div id="div-cnt-achat">

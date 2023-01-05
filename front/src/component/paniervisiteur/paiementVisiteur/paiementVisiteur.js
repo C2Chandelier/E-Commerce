@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 export default function PaiementVisiteur() {
@@ -23,6 +23,12 @@ export default function PaiementVisiteur() {
   const [tariflivraison, setTariflivraison] = useState([])
   const navigate = useNavigate();
 
+  const location = useLocation()
+  const frais = location.state
+  const array = frais.data
+  const PrixPoid = frais.frais
+  const total = frais.prix
+
   useEffect(() => {
     axios('https://localhost:8000/api/livraisons')
       .then((res) => {
@@ -36,7 +42,7 @@ export default function PaiementVisiteur() {
     let object = { "fullname": fullname, "email": email, "tel": tel, "ville": ville, "zipcode": zipcode, "pays": pays, "numerocb": numerocb, "cvc": cvc, "date": date, "livraison": livraison, "frais": fraistotal }
     cookies.set("utilisateur", object)
     console.log("cookies utiliaateur", cookies.get('utilisateur'))
-    navigate("/recapitulatifVisiteur")
+    navigate("/recapitulatifVisiteur", {state:{data: array, frais: PrixPoid, prix: total}})
   }
 
   function radiochange(e) {
@@ -170,26 +176,6 @@ export default function PaiementVisiteur() {
               <span>{item.methode} {item.prix}€</span>
             </label>
           ))}
-          {/* <label className="radio">
-            <input name="livraison" type="radio" value="Normal" />
-            <span>Normal</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Relais" />
-            <span>Normal Relais</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Suivis" />
-            <span>Normal suivis</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Recommande" />
-            <span>Recommandé</span>
-          </label>
-          <label className="radio">
-            <input name="livraison" type="radio" value="Express" />
-            <span>Express</span>
-          </label> */}
         </div>
         <button type="submit" onClick={(e) => commande(e)}>Commander</button>
       </form>

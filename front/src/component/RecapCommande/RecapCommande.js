@@ -64,6 +64,7 @@ export default function RecapCommande() {
             <header><Navbar /></header>
             <h1>Merci pour votre commande !</h1>
             <h2>Recapitulatif de commande</h2>
+            <h3>Votre commande numero : {numero}</h3>
             <div className='contenairedetails'>
                 {frais.articles.map((item) => (
                     <Card id={"produit-" + item.articles.id} key={item.id} className="card">
