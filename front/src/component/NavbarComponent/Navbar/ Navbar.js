@@ -29,6 +29,7 @@ export default function Navbar() {
   return (
     <><nav className="Navbar">
       <ButtonAdmin></ButtonAdmin>
+      <Link to={"/profil"}>Profil</Link>
       {categorie ?
 
         <ul className="liste">

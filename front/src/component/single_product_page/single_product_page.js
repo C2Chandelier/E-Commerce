@@ -49,6 +49,7 @@ export default function SingleProduct() {
     if (error) return <p>An error occurred</p>
 
     function AddPanier(e) {
+        setIsShown(true);
         let id_article = "api/articles/" + e.currentTarget.id.substring(4);
         let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
         let id_size = "api/sizes/" + size;
@@ -72,7 +73,6 @@ export default function SingleProduct() {
 
                 }
             })
-        setIsShown(true);
 
     }
     function AddPanierVisiteur() {
