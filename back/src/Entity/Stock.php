@@ -5,9 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\StockRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
-#[ApiResource]
+#[ApiResource(paginationEnabled: false)]
+#[ApiFilter(SearchFilter::class, properties: ['articles'=>'exact', 'size'=>'exact'])]
+
 class Stock
 {
     #[ORM\Id]

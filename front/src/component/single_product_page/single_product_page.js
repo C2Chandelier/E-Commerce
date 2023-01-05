@@ -18,12 +18,19 @@ export default function SingleProduct() {
     const [isShown, setIsShown] = useState(false);
     const [isShownVisit, setIsShownVisit] = useState(false);
     const [size, setSize] = useState(2);
+    const [stock, setStock] = useState(0);
 
 
     let id = localStorage.getItem('id')
 
 
     useEffect(() => {
+
+        setInterval(() => {
+            setIsShown(false);
+            setIsShownVisit(false)
+        }, 3000);
+
         axios("https://localhost:8000/api/articles/" + path.id)
             .then((response) => {
                 const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
@@ -33,13 +40,14 @@ export default function SingleProduct() {
             })
             .catch(setError);
 
-        setInterval(() => {
-            setIsShown(false);
-            setIsShownVisit(false)
-        }, 3000);
+        axios("https://localhost:8000/api/stocks?articles="+path.id+"&size="+size)
+            .then((response) => {
+                setStock(response.data["hydra:member"][0].NBStock)
+            })
 
-    }, [path]);
+    }, [path,size]);
     if (error) return <p>An error occurred</p>
+
     function AddPanier(e) {
         let id_article = "api/articles/" + e.currentTarget.id.substring(4);
         let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
@@ -113,6 +121,7 @@ export default function SingleProduct() {
         product.description = description;
         setIsShownVisit(true);
     }
+    console.log(stock)
     return (
         <div className='main'>
             <header>
@@ -139,7 +148,7 @@ export default function SingleProduct() {
                 <div className="product">
                     <div className="product_title"><h2>{product.titre}</h2></div>
                     <hr className="col-md-12"></hr>
-                    
+
                     {product.Nouveauté === true ?
                         <div className='product_nouveau'>Nouveau !</div>
                         : null}
@@ -155,9 +164,19 @@ export default function SingleProduct() {
                     }
                     <div className="product-btn">
                         {(() => {
-                            if (product.nbStock === 0 || product.enRupture === true) {
+                            if (stock === 0 || product.enRupture === true) {
                                 return (
                                     <div>
+                                        <div>
+                                            {product.Size === true ?
+                                                <select onChange={(e) => setSize(e.target.value)} defaultValue={size}>
+                                                    <option value="1">S</option>
+                                                    <option value="2">M</option>
+                                                    <option value="3">L</option>
+                                                    <option value="4">XL</option>
+                                                </select>
+                                                : null}
+                                        </div>
                                         <div>
                                             <button className='btn btn-light achat' disabled>Acheter</button>
                                             <button className='btn btn-light ajout-panier' disabled>Ajouter au panier</button>
@@ -174,7 +193,7 @@ export default function SingleProduct() {
                                     <>
                                         <div>
                                             {product.Size === true ?
-                                                <select onChange={(e) => setSize(e.target.value)} defaultValue="2">
+                                                <select onChange={(e) => setSize(e.target.value)} defaultValue={size}>
                                                     <option value="1">S</option>
                                                     <option value="2">M</option>
                                                     <option value="3">L</option>
@@ -193,7 +212,7 @@ export default function SingleProduct() {
                                             }
                                         </div>
                                         <div>
-                                            <p>Il en reste {product.nbStock}</p>
+                                            <p>Il en reste {stock}</p>
                                         </div>
                                     </>
                                 )
@@ -207,7 +226,6 @@ export default function SingleProduct() {
                 </div>
             </div>
         </div>
-
     )
 }
 
