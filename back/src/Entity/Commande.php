@@ -11,7 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-
+use DateTime;
+use DateTimeInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 #[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['commande']])]
@@ -50,6 +52,7 @@ class Commande
     public function __construct()
     {
         $this->commandeArticles = new ArrayCollection();
+        $this->date = new DateTime(); 
     }
 
     public function getId(): ?int

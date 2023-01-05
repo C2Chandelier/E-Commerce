@@ -3,20 +3,24 @@ import "./commandes.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../NavbarComponent/Navbar/ Navbar";
+import { Link } from "react-router-dom";
+
 export default function HistoriqueCommandes() {
   const [article, setArticle] = useState([]);
   let prixPromoFinal = 0;
   let id_user = localStorage.getItem("id");
+
   useEffect(() => {
     if (id_user !== null) {
       axios
-        .get("https://127.0.0.1:8000/api/commandes?user=" + id_user)
+        .get("https://localhost:8000/api/commandes?user=" + id_user)
         .then((response) => {
           console.log("THISSS:", response.data["hydra:member"]);
           setArticle(response.data["hydra:member"]);
         });
     }
   }, []);
+  
   return (
     <div>
       <header>
@@ -32,7 +36,7 @@ export default function HistoriqueCommandes() {
               {item.commandeArticles.map((element) => (
                 <div className="element">
                   <div className="imageDivElem">
-                    <img className="elemImage" src={element.articles.image} />
+                    <img className="elemImage" src={element.articles.image} alt="article"/>
                   </div>
                   <div className="detailDivElem">
                     <p>{element.articles.titre}</p>
@@ -59,6 +63,7 @@ export default function HistoriqueCommandes() {
           ))}
         </div>
       </div>
+      <Link to={"/"}>Retour</Link>
     </div>
   );
 }
