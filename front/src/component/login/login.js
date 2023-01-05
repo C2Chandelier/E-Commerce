@@ -22,6 +22,13 @@ const Login = () => {
   const From = location.state.data
 
   useEffect(() => {
+    if(From === "profil"){
+      const ID = localStorage.getItem('id')
+      axios('https://localhost:8000/api/users/'+ ID)
+        .then((res) => {
+          setEmail(res.data.email)
+        })
+    }
     console.log(From)
     if (tableau === 0) {
       alert("Email ou mot de passe Incorrect")
@@ -45,6 +52,7 @@ const Login = () => {
                 "size": "api/sizes/" + cook[i].size
               })
             }
+            cookies.remove('article')
             if(From === "panier"){
               navigate('/paiement')
             }
@@ -53,7 +61,12 @@ const Login = () => {
             }
           }
           else {
-            navigate('/')
+            if(From === "profil"){
+              navigate("/profil",{state:"login"})
+            }
+            else{
+              navigate('/')
+            }
           }
           localStorage.setItem('role', role)
           localStorage.setItem('id', id_user)

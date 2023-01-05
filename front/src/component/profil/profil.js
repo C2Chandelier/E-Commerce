@@ -1,12 +1,19 @@
-import React from 'react';
-import "./profil.css"
-// import { useState, useEffect } from 'react';
-// import { useNavigate } from "react-router-dom";
-// import axios from 'axios';
-// import Card from 'react-bootstrap/Card';
-// import { Link } from 'react-router-dom';
-export default function Profil() {
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+export default function Profil(){
+    const id_user = localStorage.getItem('id');
+    const navigate = useNavigate();
+    const location = useLocation()
+
+
+    useEffect(() => {
+        if(location.state !== "login"){
+            navigate("/login",{state:{data:"profil"}})
+        }
+    },[])
     return(
-        <p>coucou</p>
+        <p>Hello</p>
     )
 }

@@ -42,6 +42,7 @@ const Register = () => {
               "size": "api/sizes/" + cook[i].size
             })
           }
+          cookies.remove('article')
           navigate('/paiement')
         }
         else
