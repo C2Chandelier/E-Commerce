@@ -28,9 +28,14 @@ export default function HistoriqueCommandes() {
       </header>
       <div className="mainHistorique">
         <h1 className="titreHistorique">Vos Commandes</h1>
-        <div className="bodyHistorique">
+       
+          {article.length > 0 ?
+           <div className="bodyHistorique">
           {article.map((item) => (
+          
+          
             <div className="bodyElementHistorique">
+            
               <p className="cmdNumero">Commande Numéro : {item.numero}</p>
               <p className="statutLivraison">Statut de livraison : Livré</p>
               {item.commandeArticles.map((element) => (
@@ -59,11 +64,18 @@ export default function HistoriqueCommandes() {
               ))}
               <p className="dateHistorique">{item.date.substring(0, 10)}</p>
               <p className="totalHistorique">Total: {item.montant}€</p>
+             
             </div>
+    
           ))}
+           </div>
+          :<p className="commandeVide">Vous n'avez aucune commande !! </p>}
+          <div className="divBtnRetourHistorique">
+          <div className="btnRetourHistorique"><Link className="retourHome btn" to={"/"}>Retour à l'accueil</Link></div>
+          </div>
         </div>
-      </div>
-      <Link to={"/"}>Retour</Link>
+     
+     
     </div>
   );
 }

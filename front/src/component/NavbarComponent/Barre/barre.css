@@ -62,24 +62,21 @@
     height: 30px;
     background-color:#061f37;
     border-width: 0 0 0 0;
-    /* margin-left: 195px;
-    margin-top: 40px; */
+
     position: relative;
-    left: 207px;
-    top: 30px;
+    left: 215px;
+    top: 32px;
    
 }
 .icon{
     filter: contrast(0);
     width: 35px !important;
     height: 35px !important;
-    /* margin-top: -4px !important; */
 }
 
 .InstResult{
     background-color:white;
     height: 330px;
-    /* max-height: 120px; */
     width: 640px !important;
     position: absolute;
     top: 90px;

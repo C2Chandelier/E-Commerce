@@ -39,7 +39,6 @@ export default function Navbar() {
   }
   return (
     <><nav className="Navbar">
-      <ButtonAdmin></ButtonAdmin>
       {categorie ?
 
         <ul className="liste">

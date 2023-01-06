@@ -4,7 +4,10 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
+    color: black ;
+    
 }
+
 .titreHistorique{
     color: white;
     margin-top: 20px;
@@ -12,7 +15,7 @@
 .bodyElementHistorique{
     width: 70%;
     height: auto;
-    background-color: rgb(25, 87, 85);
+    background-color: rgb(117, 179, 176);
     margin-left: auto;
     margin-right: auto;
 
@@ -69,5 +72,28 @@ font-weight: bold;
     font-size: 0.8rem;
 }
 .promoPrix{
-    color: rgb(239, 121, 121);
+    color: rgb(215, 4, 4);
+}
+.commandeVide{
+    color: white;
+    text-align: center;
+}
+.retourHome{
+    color: white;
+    background-color: rgb(7, 3, 36) !important;
+    border-color: rgb(7, 3, 36) !important ;
+    transition: 0.5s !important;
+    color: white !important;
+    font-size: 0.7rem !important;
+}
+.divBtnRetourHistorique{
+    height: 70px;
+}
+.retourHome:hover{
+    background-color: #04111c !important;
+    border-color: #04111c !important;
+}
+.btnRetourHistorique{
+    display: flex;
+    justify-content: center;
 }

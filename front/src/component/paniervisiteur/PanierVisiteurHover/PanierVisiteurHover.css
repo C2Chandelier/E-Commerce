@@ -4,9 +4,9 @@
     width: 24%;
     min-height: 240px;
     max-height: 400px;
-    right: 220px;
+    right: 200px;
     z-index: 1;
-    top: 110px;
+    top: 100px;
     /* overflow: hidden; */
     overflow-y: auto;
 

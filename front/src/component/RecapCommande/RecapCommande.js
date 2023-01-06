@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import Card from 'react-bootstrap/Card';
 import axios from "axios";
+import "./RecapCommande.css";
 
 
 
@@ -81,55 +82,63 @@ export default function RecapCommande() {
     return (
         <div>
             <header><Navbar /></header>
+            <div className="mainReacpCommande">
             <h1>Merci pour votre commande !</h1>
+
+            <div className="bodyRecapCommande">
             <h2>Recapitulatif de commande</h2>
             <h3>Votre commande numero : {numero}</h3>
             <div className='contenairedetails'>
                 {frais.articles.map((item) => (
-                    <Card id={"produit-" + item.articles.id} key={item.id} className="card">
+                    
+                    
+                        <div className="bodyDetailsImgDetails"><div className="divImgRecap">
                         <Link to={"/article/" + item.articles.id} className="link_none">
-                            <Card.Img className='card__img' src={item.articles.image} alt={item.articles.titre} />
+                            <Card.Img className='recapCard__img' src={item.articles.image} alt={item.articles.titre} />
                         </Link>
+                    </div><div className="divdetailsRecap">
+                            <Card id={"produit-" + item.articles.id} key={item.id} className="cardRecap">
+                                <Card.Body className='card__body'>
+                                    <Card.Title className='card__title'>{item.articles.titre}</Card.Title>
+                                    {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
+                                    <Card.Subtitle className='reacpCard__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
 
-                        <Card.Body className='card__body'>
-                            <Card.Title className='card__title' >{item.articles.titre}</Card.Title>
-                            {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
-                            <Card.Subtitle className='card__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
-
-                            {item.quantity === 1 && item.articles.Promo === false ?
-                                <Card.Subtitle className='card__price'>{item.articles.prix}</Card.Subtitle>
-                                :
-                                null
-                            }
-                            {item.quantity !== 1 && item.articles.Promo === false ?
-                                <Card.Subtitle className='card__price'>{(item.articles.prix * item.quantity).toFixed(2)}</Card.Subtitle>
-                                :
-                                null
-                            }
-                            {item.articles.Promo === true && item.quantity === 1 ?
-                                <div>
-                                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
-                                </div>
-                                :
-                                null
-                            }
-                            {item.articles.Promo === true && item.quantity !== 1 ?
-                                <div>
-                                    <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
-                                    <Card.Subtitle className='card__reduc'>{item.articles.Reduction}%</Card.Subtitle>
-                                    <Card.Subtitle className='card__newprice'>{(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
-                                </div>
-                                :
-                                null
-                            }
-                        </Card.Body>
-                    </Card>
+                                    {item.quantity === 1 && item.articles.Promo === false ?
+                                        <Card.Subtitle className='recapCard__price'>Prix : {item.articles.prix}</Card.Subtitle>
+                                        :
+                                        null}
+                                    {item.quantity !== 1 && item.articles.Promo === false ?
+                                        <Card.Subtitle className='recapCard__price'>Prix : {(item.articles.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                                        :
+                                        null}
+                                    {item.articles.Promo === true && item.quantity === 1 ?
+                                        <div>
+                                            <Card.Subtitle className='recapCard__newprice'>Prix : {(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                                        </div>
+                                        :
+                                        null}
+                                    {item.articles.Promo === true && item.quantity !== 1 ?
+                                        <div>
+                                            <Card.Subtitle className='card__promo'>Promo !</Card.Subtitle>
+                                            <Card.Subtitle className='card__reduc'>{item.articles.Reduction}%</Card.Subtitle>
+                                            <Card.Subtitle className='card__newprice'>{(parseFloat(item.articles.prix) * (1 - parseFloat(item.articles.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                                        </div>
+                                        :
+                                        null}
+                                </Card.Body>
+                            </Card>
+                        </div></div>
+               
                 ))}
             </div>
             <p id="totalarticle">{quantityTotal} Articles : {frais.total}€</p>
-            <p id="totallivraison">Livraison :{frais.fraistotal}</p>
+            <p id="totallivraison">Livraison :{frais.fraistotal}€</p>
             <p id="totalTTC">Total TTC : {(parseFloat(frais.total) + parseFloat(frais.fraistotal)).toFixed(2)}€</p>
-            <Link to={'/'}>Revenir à l'accueil</Link>
+            <div className="divBtnRetourHistorique">
+            <div className="btnRetourHistorique"><Link className="retourHome btn" to={"/"}>Retour à l'accueil</Link></div>
+            </div>
+        </div>
+        </div>
         </div>
     )
 }
