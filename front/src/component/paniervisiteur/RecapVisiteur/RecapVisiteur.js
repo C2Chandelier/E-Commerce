@@ -43,9 +43,9 @@ export default function RecapVisiteur() {
             })
 
         for (let i = 0; i < articles.length; i++) {
-            const id_size = "api/sizes/"+frais.data[i].size
+            const id_size = "api/sizes/" + frais.data[i].size
             const id_article = frais.data[i].id
-            console.log(id_size,id_article)
+            console.log(id_size, id_article)
             axios.get('https://localhost:8000/api/stocks?articles=' + id_article + '&size=' + id_size)
                 .then((reponse) => {
                     const quantite = parseInt(frais.data[i].quantity)
