@@ -220,46 +220,46 @@ function PanierVisiteur() {
                       null
                     }
                     <div className='button'>
-                    <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
-                    <input type="text" className='changeQuantity' value={item.quantity} readOnly></input>
-                    <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
-                    {item.Newid !== undefined ?
-                  
-                  <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)} />
-                  :
-                  <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.id)}/>
-                }
+                      <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
+                      <input type="text" className='changeQuantity' value={item.quantity} readOnly></input>
+                      <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
+                      {item.Newid !== undefined ?
+
+                        <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.Newid)} />
+                        :
+                        <DeleteForeverIcon className="trash" id={"btn_" + item.id} onClick={() => DeleteItem(item.id)} />
+                      }
                     </div>
-                
+
                   </Card.Body>
                 </Card>
-               
+
               ))
               }
             </div>
             <div className='commander'>
-            <p className='totalpaniervisiteur'>{quantityTotal} Articles : {total}€</p>
-            {array !== undefined && array !== null && array.length > 0 ?
-              <div>
-                <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
-                <p className='totalpaniervisiteur'>Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
-                <Link className='btn-commander' to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
-              </div>
-              : null}
-            <br />
-            <Link className="btn-cont" to={"/"}>Continuer mes achats</Link>
+              <p className='totalpaniervisiteur'>{quantityTotal} Articles : {total}€</p>
+              {array !== undefined && array !== null && array.length > 0 ?
+                <div>
+                  <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
+                  <p className='totalpaniervisiteur'>Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
+                  <Link className='btn-commander' to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
+                </div>
+                : null}
+              <br />
+              <Link className="btn-cont" to={"/"}>Continuer mes achats</Link>
             </div>
           </div>
         </div>
-}
-</div>
-    
+      }
+    </div>
+
   )
 }
 
 export default PanierVisiteur;
 
-      {/* <div className='mainPanier'>
+{/* <div className='mainPanier'>
         <div className='titrePanier'>
           <h2>Panier</h2>
         </div>
