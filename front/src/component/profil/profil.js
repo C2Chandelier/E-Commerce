@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './profil.css';
+import Navbar from "../NavbarComponent/Navbar/ Navbar";
+import { Link } from "react-router-dom";
 
 
 export default function Profil() {
@@ -31,6 +33,15 @@ export default function Profil() {
             axios("https://localhost:8000/api/users/" + id_user)
                 .then((response) => {
                     setUsers(response.data)
+                    setNom(response.data.Nom)
+                    setPrenom(response.data.Prenom)
+                    setEmail(response.data.email)
+                    setPassword(response.data.password)
+                    setPays(response.data.Pays)
+                    setAdresse(response.data.Adresse)
+                    setVille(response.data.Ville)
+                    setTel(response.data.Tel)
+                    setZipcode(response.data.zipcode)
                 })
         }
     }, [])
@@ -40,6 +51,7 @@ export default function Profil() {
     }
 
     function savemodif() {
+        if(nom !== "" && prenom !== "" && email !== "" && password !== "" && pays !== "" && Adresse !== "" && Ville !== "" && Tel !== "" && zipcode !== ""){
         users.Nom = nom
         users.Prenom = prenom
         users.email = email
@@ -55,14 +67,19 @@ export default function Profil() {
             {
                 email: users.email,
                 password: users.password,
-                role: users.role,
                 Nom: users.Nom,
                 Prenom: users.Prenom,
                 Tel: users.Tel,
                 Adresse: users.Adresse,
-
+                Ville: users.Ville,
+                zipcode: users.zipcode
             }
             , configuration)
+            setModif(false)
+        }
+        else{
+            alert("Veuillez renseigner tous les champs")
+        }
     }
 
     console.log(users)
@@ -71,6 +88,7 @@ export default function Profil() {
         users !== [] && users.length !== 0 ?
 
             <div className="mainprofiluser">
+                <header><Navbar></Navbar></header>
                 <div className="titreedit">
                     <h3>Editer son profil</h3>
                 </div>
@@ -89,7 +107,7 @@ export default function Profil() {
                         <div className="paiement">
                             <p>Moyen de paiement enregistré : </p>
                             <p>Carte finissant par {(users.paiement.carte).substring(12)}</p>
-                            <button>Modifier ce moyen de paiement</button>
+                            <Link to={"/modifPaiement"} state={{data: users}}>Modifier ce moyen de paiement</Link>
                         </div>
                     </div>
 
@@ -98,39 +116,39 @@ export default function Profil() {
                     <div className="profiluserchange">
                         <label>
                             Nom :
-                            <input type="text" value={users.Nom} onChange={e => setNom(e.target.value)} />
+                            <input type="text" value={nom} onChange={e => setNom(e.target.value)} />
                         </label>
                         <label>
                             Prénom :
-                            <input type="text" value={users.Prenom} onChange={e => setPrenom(e.target.value)} />
+                            <input type="text" value={prenom} onChange={e => setPrenom(e.target.value)} />
                         </label>
                         <label>
                             Email :
-                            <input Email="text" value={users.email} onChange={e => setEmail(e.target.value)} />
+                            <input Email="text" value={email} onChange={e => setEmail(e.target.value)} />
                         </label>
                         <label>
                             Password :
-                            <input Password="text" value={users.password} onChange={e => setPassword(e.target.value)} />
+                            <input Password="text" value={password} onChange={e => setPassword(e.target.value)} />
                         </label>
                         <label>
                             Pays :
-                            <input Pays="text" value={users.Pays} onChange={e => setPays(e.target.value)} />
+                            <input Pays="text" value={pays} onChange={e => setPays(e.target.value)} />
                         </label>
                         <label>
                             Ville :
-                            <input Pays="text" value={users.Ville} onChange={e => setVille(e.target.value)} />
+                            <input Pays="text" value={Ville} onChange={e => setVille(e.target.value)} />
                         </label>
                         <label>
                             Adresse :
-                            <input Adresse="text" value={users.Adresse} onChange={e => setAdresse(e.target.value)} />
+                            <input Adresse="text" value={Adresse} onChange={e => setAdresse(e.target.value)} />
                         </label>
                         <label>
                             Tel :
-                            <input Téléphone="text" value={users.Tel} onChange={e => setTel(e.target.value)} />
+                            <input Téléphone="text" value={Tel} onChange={e => setTel(e.target.value)} />
                         </label>
                         <label>
                             Code Postal :
-                            <input Code Postal="text" value={users.zipcode} onChange={e => setZipcode(e.target.value)} />
+                            <input Code Postal="text" value={zipcode} onChange={e => setZipcode(e.target.value)} />
                         </label>
                         <button onClick={savemodif}>Enregistrer les modifications</button>
                     </div>

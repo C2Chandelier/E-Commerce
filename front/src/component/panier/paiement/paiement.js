@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import './paiement.css';
+import Navbar from '../../NavbarComponent/Navbar/ Navbar';
 
 export default function Paiement() {
   const [carte, setCarte] = useState("");
@@ -94,52 +95,56 @@ export default function Paiement() {
   }
 
   return (
-    <div className='paiementcontainer'>
-      {known !== true ?
-        <form>
-          <input
-            value={carte}
-            onChange={e => setCarte(e.target.value)}
-            placeholder="Numero de carte"
-            type="text"
-            name="carte"
-            required
-          />
-          <input
-            value={cvc}
-            onChange={e => setCvc(e.target.value)}
-            placeholder="CVC"
-            type="text"
-            name="cvc"
-            required
-          />
-          <input
-            value={date}
-            onChange={e => setDate(e.target.value)}
-            placeholder="Date d'expiration"
-            type="text"
-            name="date"
-            required
-          />
-        </form>
-        :
-        <div className='paiementknown'>
-          <p>Moyen de Paiement enregistré :</p>
-          <p>Carte finissant par {paiement.carte.substring(12)}</p>
-          <button onClick={(e) => modif(e)}>Modifier ce moyen de paiement</button>
+    <div>
+      <header><Navbar /></header>
+
+      <div className='paiementcontainer'>
+        {known !== true ?
+          <form>
+            <input
+              value={carte}
+              onChange={e => setCarte(e.target.value)}
+              placeholder="Numero de carte"
+              type="text"
+              name="carte"
+              required
+            />
+            <input
+              value={cvc}
+              onChange={e => setCvc(e.target.value)}
+              placeholder="CVC"
+              type="text"
+              name="cvc"
+              required
+            />
+            <input
+              value={date}
+              onChange={e => setDate(e.target.value)}
+              placeholder="Date d'expiration"
+              type="text"
+              name="date"
+              required
+            />
+          </form>
+          :
+          <div className='paiementknown'>
+            <p>Moyen de Paiement enregistré :</p>
+            <p>Carte finissant par {paiement.carte.substring(12)}</p>
+            <button onClick={(e) => modif(e)}>Modifier ce moyen de paiement</button>
+          </div>
+        }
+        <div onclass="radiopaiement" onChange={radiochange}>
+          {tariflivraison.map((item) => (
+            <label className='radio' key={item.id}>
+              <input name='livraison' type="radio" value={item.methode}></input>
+              <span>{item.methode} {item.prix}€</span>
+            </label>
+          ))}
         </div>
-      }
-      <div onclass="radiopaiement" onChange={radiochange}>
-        {tariflivraison.map((item) => (
-          <label className='radio' key={item.id}>
-            <input name='livraison' type="radio" value={item.methode}></input>
-            <span>{item.methode} {item.prix}€</span>
-          </label>
-        ))}
-      </div>
-      <div className='paiementcommande'>
-        <p>Total à payer :{(parseFloat(total) + parseFloat(frais) + parseFloat(livraisonSelect)).toFixed(2)}</p>
-        <button type="submit" onClick={(e) => commande(e)}>Commander</button>
+        <div className='paiementcommande'>
+          <p>Total à payer :{(parseFloat(total) + parseFloat(frais) + parseFloat(livraisonSelect)).toFixed(2)}</p>
+          <button type="submit" onClick={(e) => commande(e)}>Commander</button>
+        </div>
       </div>
     </div>
   )
