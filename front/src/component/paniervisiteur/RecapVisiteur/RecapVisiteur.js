@@ -17,15 +17,14 @@ export default function RecapVisiteur() {
     const frais = location.state
     console.log(articles)
     const montant = parseFloat(utilisateur.frais) + parseFloat(frais.prix)
-    const [numero, setNumero] = useState("")
+
+    let alph = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let numero = ''
+    for (let i = 0; i < 8; i++) {
+        numero += alph[Math.floor(Math.random() * 46)]
+    }
 
     useEffect(() => {
-        let alph = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        let numero = ''
-        for (let i = 0; i < 8; i++) {
-            numero += alph[Math.floor(Math.random() * 46)]
-        }
-        setNumero(numero)
         const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
         axios.post('https://localhost:8000/api/commandes', {
             "numero": numero,
