@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import './paiement.css';
 
 export default function Paiement() {
   const [carte, setCarte] = useState("");
@@ -23,21 +24,21 @@ export default function Paiement() {
 
   useEffect(() => {
     if (fraistotal !== 0) {
-      navigate("/recapitulatif", { state: {fraistotal,articles,total} })
+      navigate("/recapitulatif", { state: { fraistotal, articles, total } })
     }
     else {
-    axios('https://localhost:8000/api/users/' + id_user)
-      .then((response) => {
-        if (response.data.paiement !== undefined) {
-          setPaiement(response.data.paiement)
-          setKnown(true)
-        }
-      })
-    console.log(fraistotal)
-    axios('https://localhost:8000/api/livraisons')
-      .then((res) => {
-        setTariflivraison(res.data['hydra:member'])
-      })
+      axios('https://localhost:8000/api/users/' + id_user)
+        .then((response) => {
+          if (response.data.paiement !== undefined) {
+            setPaiement(response.data.paiement)
+            setKnown(true)
+          }
+        })
+      console.log(fraistotal)
+      axios('https://localhost:8000/api/livraisons')
+        .then((res) => {
+          setTariflivraison(res.data['hydra:member'])
+        })
     }
   }, [fraistotal])
 
@@ -93,7 +94,7 @@ export default function Paiement() {
   }
 
   return (
-    <div>
+    <div className='paiementcontainer'>
       {known !== true ?
         <form>
           <input
@@ -122,13 +123,13 @@ export default function Paiement() {
           />
         </form>
         :
-        <div>
+        <div className='paiementknown'>
           <p>Moyen de Paiement enregistré :</p>
           <p>Carte finissant par {paiement.carte.substring(12)}</p>
           <button onClick={(e) => modif(e)}>Modifier ce moyen de paiement</button>
         </div>
       }
-      <div onChange={radiochange}>
+      <div onclass="radiopaiement" onChange={radiochange}>
         {tariflivraison.map((item) => (
           <label className='radio' key={item.id}>
             <input name='livraison' type="radio" value={item.methode}></input>
@@ -136,9 +137,10 @@ export default function Paiement() {
           </label>
         ))}
       </div>
-      <p>Total à payer :{(parseFloat(total) + parseFloat(frais) + parseFloat(livraisonSelect)).toFixed(2)}</p>
-      <button type="submit" onClick={(e) => commande(e)}>Commander</button>
-
+      <div className='paiementcommande'>
+        <p>Total à payer :{(parseFloat(total) + parseFloat(frais) + parseFloat(livraisonSelect)).toFixed(2)}</p>
+        <button type="submit" onClick={(e) => commande(e)}>Commander</button>
+      </div>
     </div>
   )
-}
+} 
