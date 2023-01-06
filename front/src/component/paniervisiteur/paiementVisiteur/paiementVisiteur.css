@@ -2,8 +2,7 @@
 
 
 #containerpaiementvisiteur {
-    background: rgb(254, 254, 254);
-    
+    background: rgb(254, 254, 254); 
   border: solid 3px black;
   max-width: 40%;
   margin: 60px auto;
@@ -53,7 +52,7 @@
     
     padding-top: 20%;
 }
- textarea, #email_input, #name_input , #telephone_input {
+  #email_input, #name_input , #telephone_input {
     outline:  none;
 	background: none;
     border: none;
@@ -151,7 +150,7 @@
     width: 53px;
   }
   
-  #email_input, #name_input , #telephone_input, select, textarea {
+  #email_input, #name_input , #telephone_input, select {
     font-size: 0.875em;
   }
 }
