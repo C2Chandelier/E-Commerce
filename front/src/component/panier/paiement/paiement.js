@@ -17,7 +17,6 @@ export default function Paiement() {
   const frais = useLocation().state.frais
   const total = useLocation().state.prix
   const [paiement, setPaiement] = useState([]);
-  const [change, setChange] = useState(false)
   const navigate = useNavigate();
   const [livraisonSelect, setLivraisonSelect] = useState(0)
 
@@ -70,19 +69,10 @@ export default function Paiement() {
         alert("Veuillez renseigner tous les champs")
       }
       else {
-        if (change === false) {
-          const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/json" } }
-          axios.post('https://localhost:8000/api/paiements', { user: "api/users/" + id_user, carte: carte, CVC: cvc, date: date }, configuration)
-        }
-        else {
-          const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
-          axios.patch('https://localhost:8000/api/paiements/' + paiement.id, { user: "api/users/" + id_user, carte: carte, CVC: cvc, date: date }, configuration)
-        }
         axios.get('https://localhost:8000/api/livraisons?methode=' + livraison)
           .then((res) => {
             setFraistotal(parseFloat(frais) + parseFloat(res.data['hydra:member'][0].prix))
           })
-
       }
     }
   }
@@ -90,7 +80,6 @@ export default function Paiement() {
   function modif(e) {
     e.preventDefault()
     console.log(paiement)
-    setChange(true)
     setKnown(false)
   }
 
@@ -130,7 +119,7 @@ export default function Paiement() {
           <div className='paiementknown'>
             <p>Moyen de Paiement enregistré :</p>
             <p>Carte finissant par {paiement.carte.substring(12)}</p>
-            <button onClick={(e) => modif(e)}>Modifier ce moyen de paiement</button>
+            <button onClick={(e) => modif(e)}>Utiliser un autre moyen de paiement</button>
           </div>
         }
         <div onclass="radiopaiement" onChange={radiochange}>

@@ -175,9 +175,9 @@ function Panier() {
                   null
                 }
                 <div className='button'>
-                  <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
-                  <input id={item["@id"]} type="text" className='changeQuantity' value={item.quantity} readOnly></input>
                   <button value={item["@id"]} onClick={(e) => setLessQuantity(e)}>-</button>
+                  <input id={item["@id"]} type="text" className='changeQuantity' value={item.quantity} readOnly></input>
+                  <button value={item["@id"]} onClick={(e) => setMoreQuantity(e)}>+</button>
                   <DeleteForeverIcon className='trash' id={"btn_" + item.articles.id} onClick={() => DeleteItem(item.id)} />
                 </div>
               </Card.Body>

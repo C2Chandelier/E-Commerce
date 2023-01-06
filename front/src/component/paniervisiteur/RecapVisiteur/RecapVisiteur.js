@@ -17,14 +17,15 @@ export default function RecapVisiteur() {
     const frais = location.state
     console.log(articles)
     const montant = parseFloat(utilisateur.frais) + parseFloat(frais.prix)
-
-    let alph = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    let numero = ''
-    for (let i = 0; i < 8; i++) {
-        numero += alph[Math.floor(Math.random() * 46)]
-    }
+    const [numero, setNumero] = useState("")
 
     useEffect(() => {
+        let alph = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        let numero = ''
+        for (let i = 0; i < 8; i++) {
+            numero += alph[Math.floor(Math.random() * 46)]
+        }
+        setNumero(numero)
         const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
         axios.post('https://localhost:8000/api/commandes', {
             "numero": numero,
@@ -43,9 +44,9 @@ export default function RecapVisiteur() {
             })
 
         for (let i = 0; i < articles.length; i++) {
-            const id_size = "api/sizes/"+frais.data[i].size
+            const id_size = "api/sizes/" + frais.data[i].size
             const id_article = frais.data[i].id
-            console.log(id_size,id_article)
+            console.log(id_size, id_article)
             axios.get('https://localhost:8000/api/stocks?articles=' + id_article + '&size=' + id_size)
                 .then((reponse) => {
                     const quantite = parseInt(frais.data[i].quantity)
