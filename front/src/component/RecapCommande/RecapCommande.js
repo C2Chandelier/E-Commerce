@@ -98,8 +98,8 @@ export default function RecapCommande() {
                         </Link>
                     </div><div className="divdetailsRecap">
                             <Card id={"produit-" + item.articles.id} key={item.id} className="cardRecap">
-                                <Card.Body className='card__body'>
-                                    <Card.Title className='card__title'>{item.articles.titre}</Card.Title>
+                                <Card.Body className='recapCard__body'>
+                                    <Card.Title className='recapCard__title'>{item.articles.titre}</Card.Title>
                                     {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
                                     <Card.Subtitle className='reacpCard__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
 

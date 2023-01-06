@@ -97,7 +97,7 @@ export default function RecapVisiteur() {
                         </Link>
                         </div><div className="divdetailsRecap">
                         <Card id={"produit-" + item.id} key={articles.indexOf(item)} className="cardRecap">
-                        <Card.Body className='card__body'>
+                        <Card.Body className='recapCard__body'>
                             <Link to={"/article/" + item.id} className="link_none">
                                 <Card.Title className='recapCard__title' >{item.titre}</Card.Title>
                             </Link>

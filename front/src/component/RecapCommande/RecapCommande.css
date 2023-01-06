@@ -32,13 +32,13 @@ h1,h2,h3{
     font-weight: 800;
 }
 .contenairedetails{
-    width: 80%;
+    width: 80% !important;
     height: auto;
     margin-left: auto;
     margin-right: auto;
 }
 .divImgRecap{
-    width: 25%;
+    width: 30% !important;
     height: auto;
 }
 .divdetailsRecap{
@@ -47,6 +47,7 @@ h1,h2,h3{
 }
 .recapCard__img{
     height: 160px;
+    width: 100%;
 }
 .cardRecap{
     height: 160px !important;
@@ -54,9 +55,10 @@ h1,h2,h3{
     margin-left: 0 !important;
 }
 .bodyDetailsImgDetails{
-    width: 100%;
+    width: 450px !important;
     display: flex;
     margin-top: 10px;
+    background-color: green;
 }
 .recapCard__price{
     font-weight: 800  !important;
@@ -69,4 +71,8 @@ h1,h2,h3{
 }
 .reacpCard__size{
     margin-top: 10px !important;
+}
+.recapCard__body{
+    width: 100% !important;
+    font-size: 1rem;
 }
