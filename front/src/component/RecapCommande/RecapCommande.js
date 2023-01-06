@@ -88,7 +88,7 @@ export default function RecapCommande() {
             <div className="bodyRecapCommande">
             <h2>Recapitulatif de commande</h2>
             <h3>Votre commande numero : {numero}</h3>
-            <div className='contenairedetails'>
+            <div className='contenaireRecapdetails'>
                 {frais.articles.map((item) => (
                     
                     
