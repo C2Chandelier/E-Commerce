@@ -88,7 +88,7 @@ export default function RecapVisiteur() {
         <div className="bodyRecapCommande">
         <h2>Recapitulatif de commande</h2>
         <h3>Votre commande numero : {numero}</h3>
-        <div className='contenairedetails'>
+        <div className='contenaireRecapdetails'>
                 {articles.map((item) => (
              <div className="bodyDetailsImgDetails">
                 <div className="divImgRecap">
@@ -107,25 +107,25 @@ export default function RecapVisiteur() {
                             {item.size === 4 ? <Card.Subtitle className='card__size'>Taille : XL x {item.quantity}</Card.Subtitle> : null}
                             {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
                             {item.quantity === 1 && item.Promo === false ?
-                                <Card.Subtitle className='recapCard__price'>{item.prix}</Card.Subtitle>
+                                <Card.Subtitle className='recapCard__price'>Prix : {item.prix}€</Card.Subtitle>
                                 :
                                 null
                             }
                             {item.quantity !== 1 && item.Promo === false ?
-                                <Card.Subtitle className='recapCard__price'>{(item.prix * item.quantity).toFixed(2)}</Card.Subtitle>
+                                <Card.Subtitle className='recapCard__price'>Prix : {(item.prix * item.quantity).toFixed(2)}€</Card.Subtitle>
                                 :
                                 null
                             }
                             {item.Promo === true && item.quantity === 1 ?
                                 <div>
-                                    <Card.Subtitle className='recapCard__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}</Card.Subtitle>
+                                    <Card.Subtitle className='recapCard__newprice'>Prix : {(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)).toFixed(2)}€</Card.Subtitle>
                                 </div>
                                 :
                                 null
                             }
                             {item.Promo === true && item.quantity !== 1 ?
                                 <div>
-                                    <Card.Subtitle className='recapCard__newprice'>{(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}</Card.Subtitle>
+                                    <Card.Subtitle className='recapCard__newprice'>Prix : {(parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100) * item.quantity).toFixed(2)}€</Card.Subtitle>
                                 </div>
                                 :
                                 null
