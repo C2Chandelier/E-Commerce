@@ -31,6 +31,9 @@ const Login = () => {
     }
     console.log(From)
     if (tableau === 0) {
+      setTableau(null)
+      setEmail("")
+      setPassword("")
       alert("Email ou mot de passe Incorrect")
     }
     if (tableau === 1) {

@@ -9,11 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 #[ApiResource(order: ['click' => 'DESC'],paginationEnabled: false,normalizationContext: ['groups' => ['articles']])]
 #[ApiFilter(SearchFilter::class, properties: ['categorie'=>'exact', 'souscategorie'=>'exact','titre'=>'partial'])]
+#[ApiFilter(BooleanFilter::class, properties: ['color'])]
 
 class Articles
 {
@@ -79,6 +81,10 @@ class Articles
     #[ORM\Column]
     #[Groups(['articles','commande'])]
     private ?bool $Nouveauté = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups('articles')]
+    private ?bool $color = null;
 
     
     public function getId(): ?int
@@ -252,6 +258,18 @@ class Articles
     public function setNouveauté(bool $Nouveauté): self
     {
         $this->Nouveauté = $Nouveauté;
+
+        return $this;
+    }
+
+    public function isColor(): ?bool
+    {
+        return $this->color;
+    }
+
+    public function setColor(?bool $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }   

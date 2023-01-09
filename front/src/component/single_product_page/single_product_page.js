@@ -10,6 +10,7 @@ import PanierHover from '../NavbarComponent/panierHover/panierHover';
 import PanierQuantity from '../NavbarComponent/quantity/quantity';
 import Cookies from 'universal-cookie';
 import PanierVisiteurHover from '../paniervisiteur/PanierVisiteurHover/PanierVisiteurHover'
+import { Link } from 'react-router-dom';
 
 export default function SingleProduct() {
     const [error, setError] = useState(null);
@@ -19,13 +20,15 @@ export default function SingleProduct() {
     const [isShownVisit, setIsShownVisit] = useState(false);
     const [size, setSize] = useState(2);
     const [stock, setStock] = useState(0);
+    const [color, setColor] = useState(false);
+    const [list, setList] = useState(null)
+    const cookies = new Cookies();
 
 
     let id = localStorage.getItem('id')
 
 
     useEffect(() => {
-
         setInterval(() => {
             setIsShown(false);
             setIsShownVisit(false)
@@ -33,23 +36,47 @@ export default function SingleProduct() {
 
         axios("https://localhost:8000/api/articles/" + path.id)
             .then((response) => {
-                const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
-                axios.patch('https://localhost:8000/api/articles/' + path.id, { click: response.data["click"] + 1 }, configuration)
                 setProduct(response.data)
-                setError(null);
+                setColor(response.data.color)
+                let tabId = cookies.get('click')
+                if (tabId === undefined) {
+                    cookies.set('click', [path.id])
+                    const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
+                    axios.patch('https://localhost:8000/api/articles/' + path.id, { click: response.data["click"] + 1 }, configuration)
+                    setError(null);
+                }
+                else {
+                    if (tabId.indexOf(path.id) === -1) {
+                        const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
+                        axios.patch('https://localhost:8000/api/articles/' + path.id, { click: response.data["click"] + 1 }, configuration)
+                        setError(null);
+                        tabId.push(path.id)
+                        cookies.set('click', tabId)
+                    }
+                }
             })
             .catch(setError);
 
-        axios("https://localhost:8000/api/stocks?articles="+path.id+"&size="+size)
+        axios("https://localhost:8000/api/stocks?articles=" + path.id + "&size=" + size)
             .then((response) => {
                 setStock(response.data["hydra:member"][0].NBStock)
             })
 
-    }, [path,size]);
+    }, [path, size]);
     if (error) return <p>An error occurred</p>
 
+    if(color === true){
+        let titre = product.titre.split(" ").shift()
+        axios("https://localhost:8000/api/articles?titre="+titre+"&color=true")
+            .then((res) => {
+                setList(res.data["hydra:member"])
+            })
+    }
+
+
+
+
     function AddPanier(e) {
-        setIsShown(true);
         let id_article = "api/articles/" + e.currentTarget.id.substring(4);
         let id_panier = "api/paniers/" + localStorage.getItem('id_panier');
         let id_size = "api/sizes/" + size;
@@ -73,6 +100,7 @@ export default function SingleProduct() {
 
                 }
             })
+        setIsShown(true);
 
     }
     function AddPanierVisiteur() {
@@ -121,7 +149,7 @@ export default function SingleProduct() {
         product.description = description;
         setIsShownVisit(true);
     }
-    console.log(stock)
+
     return (
         <div className='main'>
             <header>
@@ -144,6 +172,18 @@ export default function SingleProduct() {
                         src={product.image}
                         alt={product.titre}
                     />
+                    {color === true && list !== null ?
+                    <div className="img_color_list_container">
+                        {list.map((element) => (
+                            <Link to={"/article/"+ element.id} key={element.id}>
+                                <img id='img_color_list'
+                                    src={element.image}
+                                    alt={element.titre}
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                        : null}
                 </div>
                 <div className="product">
                     <div className="product_title"><h2>{product.titre}</h2></div>

@@ -83,6 +83,11 @@ export default function Paiement() {
     setKnown(false)
   }
 
+  function handleclick(e){
+    e.preventDefault()
+    setKnown(true)
+  }
+
   return (
     <div>
       <header><Navbar /></header>
@@ -114,6 +119,7 @@ export default function Paiement() {
               name="date"
               required
             />
+            <button onClick={(e) => handleclick(e)}>Annuler</button>
           </form>
           :
           <div className='paiementknown'>

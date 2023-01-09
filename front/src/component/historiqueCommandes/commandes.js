@@ -34,7 +34,7 @@ export default function HistoriqueCommandes() {
           {article.map((item) => (
           
           
-            <div className="bodyElementHistorique">
+            <div className="bodyElementHistorique" key={item.id}>
             
               <p className="cmdNumero">Commande Numéro : {item.numero}</p>
               <p className="statutLivraison">Statut de livraison : Livré</p>
