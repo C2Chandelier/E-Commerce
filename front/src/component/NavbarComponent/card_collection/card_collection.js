@@ -31,7 +31,6 @@ export default function Card_collection() {
 
   }, []);
   if (error) return <p>An error occurred</p>
-
   return (
 
     <div className='collection'>
@@ -44,6 +43,7 @@ export default function Card_collection() {
               <li><Link to={"/result/souscategorie/" + SousCategorie[4].id}>Gilet</Link></li>
               <li><Link to={"/result/souscategorie/" + SousCategorie[5].id}>Veste</Link></li>
               <li><Link to={"/result/souscategorie/" + SousCategorie[6].id}>Pull</Link></li>
+              <li><Link to={"/result/souscategorie/" + SousCategorie[7].id}>Manteaux</Link></li>
             </ul>
           </div>
           <div className='Accessoire'>
