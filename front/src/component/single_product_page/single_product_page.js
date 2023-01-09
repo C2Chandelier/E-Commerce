@@ -59,21 +59,24 @@ export default function SingleProduct() {
 
         axios("https://localhost:8000/api/stocks?articles=" + path.id + "&size=" + size)
             .then((response) => {
-                setStock(response.data["hydra:member"][0].NBStock)
+                if (response.data["hydra:totalItems"] !== 0) {
+                    setStock(response.data["hydra:member"][0].NBStock)
+                }
+                else{
+                    setStock(null)
+                }
             })
 
     }, [path, size]);
     if (error) return <p>An error occurred</p>
 
-    if(color === true){
+    if (color === true) {
         let titre = product.titre.split(" ").shift()
-        axios("https://localhost:8000/api/articles?titre="+titre+"&color=true")
+        axios("https://localhost:8000/api/articles?titre=" + titre + "&color=true")
             .then((res) => {
                 setList(res.data["hydra:member"])
             })
     }
-
-
 
 
     function AddPanier(e) {
@@ -173,16 +176,16 @@ export default function SingleProduct() {
                         alt={product.titre}
                     />
                     {color === true && list !== null ?
-                    <div className="img_color_list_container">
-                        {list.map((element) => (
-                            <Link to={"/article/"+ element.id} key={element.id}>
-                                <img id='img_color_list'
-                                    src={element.image}
-                                    alt={element.titre}
-                                />
-                            </Link>
-                        ))}
-                    </div>
+                        <div className="img_color_list_container">
+                            {list.map((element) => (
+                                <Link to={"/article/" + element.id} key={element.id}>
+                                    <img id='img_color_list'
+                                        src={element.image}
+                                        alt={element.titre}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
                         : null}
                 </div>
                 <div className="product">
@@ -204,7 +207,7 @@ export default function SingleProduct() {
                     }
                     <div className="product-btn">
                         {(() => {
-                            if (stock === 0 || product.enRupture === true) {
+                            if (parseInt(product.nbStock) === 0 || stock === 0 || product.enRupture === true) {
                                 return (
                                     <div>
                                         <div>
@@ -252,7 +255,10 @@ export default function SingleProduct() {
                                             }
                                         </div>
                                         <div>
-                                            <p>Il en reste {stock}</p>
+                                            {product.Size === false ?
+                                                <p>Il en reste {product.nbStock}</p>
+                                                :
+                                                <p>Il en reste {stock}</p>}
                                         </div>
                                     </>
                                 )

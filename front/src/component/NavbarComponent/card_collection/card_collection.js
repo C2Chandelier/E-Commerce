@@ -52,6 +52,7 @@ export default function Card_collection() {
               <li><Link to={"/result/souscategorie/" + SousCategorie[0].id}>Cravate</Link></li>
               <li><Link to={"/result/souscategorie/" + SousCategorie[1].id}>Chaussures</Link></li>
               <li><Link to={"/result/souscategorie/" + SousCategorie[2].id}>Ceinture</Link></li>
+              <li><Link to={"/result/souscategorie/" + SousCategorie[8].id}>Echarpes</Link></li>
 
             </ul>
           </div>
