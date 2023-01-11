@@ -67,7 +67,7 @@ class Articles
     private ?bool $Promo = null;
 
     #[ORM\Column]
-    #[Groups('articles')]
+    #[Groups(['panierarticles','articles','commande'])]
     private ?bool $Size = null;
 
     #[Groups(['panierarticles','articles'])]

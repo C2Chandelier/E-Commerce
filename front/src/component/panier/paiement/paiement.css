@@ -1,6 +1,22 @@
 .paiementcontainer p{
     color: white;
 }
+.paiementcontainer label{
+    color: white;
+}
+.adressecontainer p{
+    color: white;
+}
+.adresseknown p{
+    color: white;
+}
 .paiementcontainer span{
     color: white;
 }
+.validationpaiementcontainer p{
+    color: white;
+}
+.radiopaiement p{
+    color: white;
+}
+

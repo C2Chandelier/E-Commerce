@@ -12,6 +12,9 @@
     align-items: center;
     margin-top: 5%;
 }
+.profiluser p{
+    color: white;
+}
 .profiluserchange{
     display: flex;
     flex-direction: column;

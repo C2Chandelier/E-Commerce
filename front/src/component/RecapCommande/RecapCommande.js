@@ -18,7 +18,6 @@ export default function RecapCommande() {
 
     let id_panier = localStorage.getItem("id_panier")
     const [id_delete, setId_delete] = useState(null)
-
     let quantityTotal = 0;
 
     frais.articles.map((item) => (
@@ -56,23 +55,36 @@ export default function RecapCommande() {
             })
 
         for (let i = 0; i < NBArticle.length; i++) {
-            const id_size = frais.articles[i].size["@id"].split("/").pop()
-            const id_article = parseInt(frais.articles[i].articles.id)
-            axios.get('https://localhost:8000/api/stocks?articles=' + id_article + '&size=' + id_size)
-                .then((reponse) => {
-                    const quantite = parseInt(frais.articles[i].quantity)
-                    const id_stock = reponse.data['hydra:member'][0].id
-                    const NBStock = parseInt(reponse.data['hydra:member'][0].NBStock) - quantite
-                    const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
-                    const apiArticle = frais.articles[i].articles["@id"]
-                    axios.patch('https://localhost:8000/api/stocks/' + id_stock, { "NBStock": NBStock }, configuration)
-                    axios.get('https://localhost:8000' + apiArticle)
-                        .then((ress) => {
-                            const StockTotal = String(ress.data.nbStock - quantite)
-                            console.log(apiArticle)
-                            axios.patch('https://localhost:8000' + apiArticle, { "nbStock": StockTotal }, configuration)
-                        })
-                })
+            if (frais.articles[i].articles.Size !== false) {
+                const id_size = frais.articles[i].size["@id"].split("/").pop()
+                const id_article = parseInt(frais.articles[i].articles.id)
+                axios.get('https://localhost:8000/api/stocks?articles=' + id_article + '&size=' + id_size)
+                    .then((reponse) => {
+                        const quantite = parseInt(frais.articles[i].quantity)
+                        const id_stock = reponse.data['hydra:member'][0].id
+                        const NBStock = parseInt(reponse.data['hydra:member'][0].NBStock) - quantite
+                        const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+                        const apiArticle = frais.articles[i].articles["@id"]
+                        axios.patch('https://localhost:8000/api/stocks/' + id_stock, { "NBStock": NBStock }, configuration)
+                        axios.get('https://localhost:8000' + apiArticle)
+                            .then((ress) => {
+                                const StockTotal = String(ress.data.nbStock - quantite)
+                                console.log(apiArticle)
+                                axios.patch('https://localhost:8000' + apiArticle, { "nbStock": StockTotal }, configuration)
+                            })
+                    })
+            }
+            else {
+                const apiArticle = frais.articles[i].articles["@id"]
+                const quantite = parseInt(frais.articles[i].quantity)
+                const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+                axios.get('https://localhost:8000' + apiArticle)
+                    .then((ress) => {
+                        const StockTotal = String(ress.data.nbStock - quantite)
+                        console.log(apiArticle)
+                        axios.patch('https://localhost:8000' + apiArticle, { "nbStock": StockTotal }, configuration)
+                    })
+            }
         }
     }, []);
 
@@ -104,7 +116,9 @@ export default function RecapCommande() {
                                         <Card.Body className='recapCard__body'>
                                             <Card.Title className='recapCard__title'>{item.articles.titre}</Card.Title>
                                             {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
+                                            {item.articles.Size !== false ?
                                             <Card.Subtitle className='reacpCard__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
+                                            :null}
 
                                             {item.quantity === 1 && item.articles.Promo === false ?
                                                 <Card.Subtitle className='recapCard__price'>Prix : {item.articles.prix}</Card.Subtitle>

@@ -110,8 +110,12 @@ const Login = () => {
         </div>
         <button id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
         <div className='form-register link-register'>
+          {From !== "profil" ? 
+          <div>
           <p>Pas encore de compte ?</p>
           <Link to="/register" className='btn btn-primary'>Inscrivez-vous</Link>
+          </div>
+          : null}
           <Link to="/" className='btn btn-primary btn-retour'>Retour</Link>
         </div>
       </form>

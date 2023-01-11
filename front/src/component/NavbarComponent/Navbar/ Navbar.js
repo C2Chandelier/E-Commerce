@@ -65,7 +65,7 @@ export default function Navbar() {
           }
 
           {id_user != null ?
-            <Link onMouseEnter={() => showProfilHover()}><AccountCircleIcon className='profilIcon'/></Link>
+            <Link to={"/profil"} onMouseEnter={() => showProfilHover()}><AccountCircleIcon className='profilIcon'/></Link>
           :null}
           {id_user === null ?
           <li><Link to={"/login"} state={{data: "home"}}><img className="logo2" src="/images/Image_Navbar/logoprofil.png" alt="costume" /></Link></li>

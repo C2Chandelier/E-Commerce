@@ -127,7 +127,7 @@ function Panier() {
 
   const element = articlevide.splice(0, 3);
 
-
+console.log(article)
   return (
     <div className='mainPanier'>
       <header><Navbar /></header>
@@ -144,7 +144,9 @@ function Panier() {
 
               <Card.Body className='card__body'>
                 <Card.Title className='paniervisiteurtitre' >{item.articles.titre}</Card.Title>
+                {item.articles.Size !== false ?
                 <Card.Subtitle className='panniervisiteursize'>Taille : {item.size.name}</Card.Subtitle>
+                :null}
 
                 {item.quantity === 1 && item.articles.Promo === false ?
                   <Card.Subtitle className='paniervisiteurprice'>{item.articles.prix}</Card.Subtitle>
@@ -242,7 +244,7 @@ function Panier() {
               <div>
                 <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
                 <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(weighttotal)).toFixed(2)}€</p>
-                <button className='btn-commander'><Link className="link-decoration" to={"/paiement"} state={{ data: article, frais: weighttotal, prix: total }}>Passer commande</Link></button>
+                <button className='btn-commander'><Link className="link-decoration" to={"/paiement"} state={{ data: article, frais: weighttotal, prix: total, poid: PrixPoid}}>Passer commande</Link></button>
               </div>
               : null}
             <br />

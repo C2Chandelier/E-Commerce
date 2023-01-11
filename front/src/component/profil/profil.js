@@ -51,33 +51,33 @@ export default function Profil() {
     }
 
     function savemodif() {
-        if(nom !== "" && prenom !== "" && email !== "" && password !== "" && pays !== "" && Adresse !== "" && Ville !== "" && Tel !== "" && zipcode !== ""){
-        users.Nom = nom
-        users.Prenom = prenom
-        users.email = email
-        users.password = password
-        users.Pays = pays
-        users.Adresse = Adresse
-        users.Ville = Ville
-        users.Tel = Tel
-        users.zipcode = zipcode
+        if (nom !== "" && prenom !== "" && email !== "" && password !== "" && pays !== "" && Adresse !== "" && Ville !== "" && Tel !== "" && zipcode !== "") {
+            users.Nom = nom
+            users.Prenom = prenom
+            users.email = email
+            users.password = password
+            users.Pays = pays
+            users.Adresse = Adresse
+            users.Ville = Ville
+            users.Tel = Tel
+            users.zipcode = zipcode
 
-        const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
-        axios.patch('https://localhost:8000/api/users/' + id_user,
-            {
-                email: users.email,
-                password: users.password,
-                Nom: users.Nom,
-                Prenom: users.Prenom,
-                Tel: users.Tel,
-                Adresse: users.Adresse,
-                Ville: users.Ville,
-                zipcode: users.zipcode
-            }
-            , configuration)
+            const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/ld+json" } }
+            axios.patch('https://localhost:8000/api/users/' + id_user,
+                {
+                    email: users.email,
+                    password: users.password,
+                    Nom: users.Nom,
+                    Prenom: users.Prenom,
+                    Tel: users.Tel,
+                    Adresse: users.Adresse,
+                    Ville: users.Ville,
+                    zipcode: users.zipcode
+                }
+                , configuration)
             setModif(false)
         }
-        else{
+        else {
             alert("Veuillez renseigner tous les champs")
         }
     }
@@ -104,11 +104,18 @@ export default function Profil() {
                         <p>Téléphone : {users.Tel}</p>
                         <p>Code Postal : {users.zipcode}</p>
                         <button onClick={modifier}>modif</button>
-                        <div className="paiement">
-                            <p>Moyen de paiement enregistré : </p>
-                            <p>Carte finissant par {(users.paiement.carte).substring(12)}</p>
-                            <Link to={"/modifPaiement"} state={{data: users}}>Modifier ce moyen de paiement</Link>
-                        </div>
+                        {users.paiement !== undefined ?
+                            <div className="paiement">
+                                <p>Moyen de paiement enregistré : </p>
+                                <p>Carte finissant par {(users.paiement.carte).substring(12)}</p>
+                                <Link to={"/modifPaiement"} state={{ data: users }}>Modifier ce moyen de paiement</Link>
+                            </div>
+                            :
+                            <div className="paiement">
+                                <p>Aucun moyen de paiement enregistré</p>
+                                <Link to={"/modifPaiement"} state={{ data: users }}>Ajouter un moyen de paiement</Link>
+                            </div>
+                        }
                     </div>
 
                     :
