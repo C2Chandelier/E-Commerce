@@ -13,7 +13,7 @@ use ApiPlatform\Metadata\ApiFilter;
 
 
 #[ORM\Entity(repositoryClass: CommentsRepository::class)]
-#[ApiResource(paginationEnabled: false,normalizationContext: ['groups' => ['comments']])]
+#[ApiResource(order: ['date' => 'DESC'],paginationEnabled: false,normalizationContext: ['groups' => ['comments']])]
 #[ApiFilter(SearchFilter::class, properties: ['article'=>'exact'])]
 
 class Comments

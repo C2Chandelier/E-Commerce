@@ -5,6 +5,7 @@
 .Single_product {
     background-image: linear-gradient(to bottom, #09233d, #09233d, #09233d, #09233d, #09233d);
     display: flex;
+    height: 85vh;
 }
 
 .product {
@@ -76,4 +77,60 @@
     display: flex;
     justify-content: space-around;
     padding-top: 5%;
+}
+
+.comments{
+    margin-left: 5%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SingleComment {
+    margin-top: 10px;
+    width: 100%;
+    background-image: linear-gradient(to bottom, #09233d, #09233d, #09233d, #09233d, #09233d);
+    border-radius: 10px;
+}
+
+.SingleComment p{
+    color: white;
+    margin-left: 10px;
+}
+
+.end-comment{
+    margin-right: 10px;
+    float: right;
+}
+
+#titre-comment{
+    margin-left: 8%;
+}
+
+.container-input-comment{
+    margin-left: 5%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 100px;
+    background-image: linear-gradient(to bottom, #09233d, #09233d, #09233d, #09233d, #09233d);
+}
+
+.input-comment{
+    background-image: linear-gradient(to bottom, #09233d, #09233d, #09233d, #09233d, #09233d);
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.btn-comment {
+    background-color: #09233d;
+    border-radius: 5px;
+    color: white;
+    border-color: white;
 }

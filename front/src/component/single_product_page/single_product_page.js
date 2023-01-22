@@ -13,7 +13,6 @@ import PanierVisiteurHover from '../paniervisiteur/PanierVisiteurHover/PanierVis
 import { Link } from 'react-router-dom';
 
 export default function SingleProduct() {
-    const [error, setError] = useState(null);
     const [product, setProduct] = useState({});
     const path = useParams();
     const [isShown, setIsShown] = useState(false);
@@ -24,9 +23,24 @@ export default function SingleProduct() {
     const [list, setList] = useState(null)
     const cookies = new Cookies();
     const [comments, setComments] = useState(null)
+    const [avis, setAvis] = useState("")
+    const [change, setChange] = useState(false)
 
 
     let id = localStorage.getItem('id')
+
+    useEffect(()=> {
+        setChange(false)
+    },[change])
+
+    useEffect(() => {
+        axios("https://localhost:8000/api/comments?article=" + path.id)
+            .then((resp) => {
+                if (resp.data["hydra:totalItems"] !== 0) {
+                    setComments(resp.data["hydra:member"])
+                }
+            })
+    }, [avis,change])
 
 
     useEffect(() => {
@@ -44,19 +58,17 @@ export default function SingleProduct() {
                     cookies.set('click', [path.id])
                     const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
                     axios.patch('https://localhost:8000/api/articles/' + path.id, { click: response.data["click"] + 1 }, configuration)
-                    setError(null);
                 }
                 else {
                     if (tabId.indexOf(path.id) === -1) {
                         const configuration = { headers: { 'Content-Type': "application/merge-patch+json", Accept: "application/json" } }
                         axios.patch('https://localhost:8000/api/articles/' + path.id, { click: response.data["click"] + 1 }, configuration)
-                        setError(null);
                         tabId.push(path.id)
                         cookies.set('click', tabId)
                     }
                 }
             })
-            .catch(setError);
+
 
         axios("https://localhost:8000/api/stocks?articles=" + path.id + "&size=" + size)
             .then((response) => {
@@ -67,14 +79,8 @@ export default function SingleProduct() {
                     setStock(null)
                 }
             })
-        axios("https://localhost:8000/api/comments?article=" + path.id)
-            .then((resp) => {
-                if (resp.data["hydra:totalItems"] !== 0) {
-                    setComments(resp.data["hydra:member"])
-                }
-            })
 
-    }, [size]);
+    }, [size,change]);
 
     useEffect(() => {
         if (color === true) {
@@ -84,9 +90,7 @@ export default function SingleProduct() {
                     setList(res.data["hydra:member"])
                 })
         }
-    }, [color])
-
-
+    }, [color,change])
 
 
     function AddPanier(e) {
@@ -162,7 +166,23 @@ export default function SingleProduct() {
         product.description = description;
         setIsShownVisit(true);
     }
-    console.log(comments)
+
+    function commenter() {
+        if (avis !== "") {
+            const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
+            axios.post('https://localhost:8000/api/comments', {
+                "article": "api/articles/" + path.id,
+                "user": "api/users/" + id,
+                "message": avis
+            }, configuration)
+            .then((response)=>setAvis(""))
+        }
+    }
+
+    function switche(){
+        setChange(true)
+    }
+
     return (
         <div className='main'>
             <header>
@@ -188,7 +208,7 @@ export default function SingleProduct() {
                     {color === true && list !== null ?
                         <div className="img_color_list_container">
                             {list.map((element) => (
-                                <Link to={"/article/" + element.id} key={element.id}>
+                                <Link to={"/article/" + element.id} key={element.id} onClick={switche}>
                                     <img id='img_color_list'
                                         src={element.image}
                                         alt={element.titre}
@@ -281,12 +301,23 @@ export default function SingleProduct() {
                     </div>
                 </div>
             </div>
+            {id !== null || comments !== null ?
+            <h3 id="titre-comment">Avis :</h3>
+            :null}
+            {id !== null ?
+                <div className='container-input-comment'>
+                    <textarea type="text" className='input-comment' placeholder='Donnez nous votre avis !' value={avis} onChange={(e) => setAvis(e.target.value)}></textarea>
+                    <button onClick={(e) => commenter(e)} className="btn-comment">Envoyer</button>
+                </div>
+                : null}
+
             {comments !== null ?
                 <div className='comments'>
                     {comments.map((item) => (
                         <div className="SingleComment" key={item.id}>
-                            <p>{item.user.Prenom}</p>
+                            <p>{item.user.Prenom} :</p>
                             <p>{item.message}</p>
+                            <p className='end-comment'>{item.date.substring(0, 10)}</p>
                         </div>
                     ))}
                 </div>

@@ -7,6 +7,7 @@
   margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
 }
 
 .promo h2{
@@ -14,6 +15,7 @@
 }
 .promo{
   border: 2px solid #AA974C;
+  margin-bottom: 10px;
 }
 .nouveau h2{
   color: #AA974C;
@@ -42,7 +44,7 @@
   align-items: center;
   flex-direction : column;
   text-decoration: none;
-  height: 100px;
+  height: 115px;
   color: black!important;
   border-top:1px solid #cdcccc !important;
 }
