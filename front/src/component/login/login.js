@@ -22,14 +22,13 @@ const Login = () => {
   const From = location.state.data
 
   useEffect(() => {
-    if(From === "profil"){
+    if (From === "profil") {
       const ID = localStorage.getItem('id')
-      axios('https://localhost:8000/api/users/'+ ID)
+      axios('https://localhost:8000/api/users/' + ID)
         .then((res) => {
           setEmail(res.data.email)
         })
     }
-    console.log(From)
     if (tableau === 0) {
       setTableau(null)
       setEmail("")
@@ -41,33 +40,87 @@ const Login = () => {
 
       axios.get('https://localhost:8000/api/paniers?user=' + id_user)
         .then((rep) => {
-          console.log(rep)
           const path = rep.data["hydra:member"][0]["@id"]
           let array = path.split("/")
           const id_panier = array.pop()
           if (cookies.get("article") !== undefined && cookies.get('article').length > 0) {
             let cook = cookies.get("article")
+            console.log(cook)
+            let article = [];
+            let total = 0;
+            let weighttotal = 0;
+            let weight = 0;
+            let PrixPays = 0;
+            let PrixPoid = 0;
+            let country = "";
             for (let i = 0; i < cook.length; i++) {
+              let id_size = "api/sizes/2"
+              if (cook[i].Size === true) {
+                id_size = "api/sizes/" + cook[i].size
+              }
               axios.post('https://localhost:8000/api/panier_articles', {
                 "panier": "api/paniers/" + id_panier,
                 "articles": cook[i]['@id'],
                 "quantity": cook[i].quantity,
-                "size": "api/sizes/" + cook[i].size
+                "size": id_size
               })
             }
-            cookies.remove('article')
-            if(From === "panier"){
-              navigate('/paiement')
-            }
-            else{
-              navigate("/")
-            }
+            axios.get("https://localhost:8000/api/panier_articles?panier=" + id_panier)
+              .then((res) => {
+                article = res.data["hydra:member"];
+                cook.map((item) => {
+                  weight = weight + parseFloat(item.Poid) * parseInt(item.quantity);
+
+                  item.Promo === true ?
+
+                    total = total + (parseFloat(item.prix) * (1 - parseFloat(item.Reduction) / 100)) * parseInt(item.quantity)
+                    :
+                    total = total + parseFloat(item.prix) * parseInt(item.quantity)
+                })
+                total = total.toFixed(2)
+                weight = weight.toFixed(1)
+                weight = parseFloat(weight)
+                weight = Math.round(weight)
+                if (weight > 6) {
+                  weight = 6
+                }
+                axios('https://localhost:8000/api/poids?poid=' + weight)
+                  .then((response) => {
+                    PrixPoid = (response.data["hydra:member"][0].prix)
+                  })
+                axios('https://localhost:8000/api/users/15')
+                  .then((res) => {
+                    country = res.data.Pays
+                    axios("https://localhost:8000/api/pays?pays=" + country)
+                      .then((res) => {
+                        if (res.data["hydra:totalItems"] !== 0) {
+                          PrixPays = (res.data["hydra:member"][0].prix)
+                        }
+                        else {
+                          axios("https://localhost:8000/api/pays?pays=autre")
+                            .then((resp) => {
+                              PrixPays = (resp.data["hydra:member"][0].prix)
+                            })
+                        }
+                        weighttotal = parseFloat(PrixPays) + parseFloat(PrixPoid)
+                        console.log(article)
+                        console.log(weighttotal + "/" + total + "/" + PrixPays + "/" + PrixPoid)
+                        cookies.remove('article')
+                        if (From === "panier") {
+                          navigate('/paiement', { state: { data: article, frais: weighttotal, prix: total, poid: PrixPoid, from: "login" } })
+                        }
+                        else {
+                          navigate("/")
+                        }
+                      })
+                  })
+              })
           }
           else {
-            if(From === "profil"){
-              navigate("/profil",{state:"login"})
+            if (From === "profil") {
+              navigate("/profil", { state: "login" })
             }
-            else{
+            else {
               navigate('/')
             }
           }
@@ -110,13 +163,17 @@ const Login = () => {
         </div>
         <button id='button' type="submit" className="btn btn-primary" onClick={(e) => connection(e)}>Connection</button>
         <div className='form-register link-register'>
-          {From !== "profil" ? 
-          <div>
-          <p>Pas encore de compte ?</p>
-          <Link to="/register" className='btn btn-primary'>Inscrivez-vous</Link>
-          </div>
-          : null}
-          <Link to="/" className='btn btn-primary btn-retour'>Retour</Link>
+          {From !== "profil" ?
+            <div>
+              <p>Pas encore de compte ?</p>
+              <Link to="/register" state={{ data: "home" }} className='btn btn-primary'>Inscrivez-vous</Link>
+            </div>
+            : null}
+          {From !== "panier" ?
+            <Link to="/" className='btn btn-primary btn-retour'>Retour</Link>
+            :
+            <Link to="/paniervisiteur" className='btn btn-primary btn-retour'>Retour</Link>
+          }
         </div>
       </form>
     </div>

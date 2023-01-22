@@ -19,7 +19,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['panier','panierarticles','user'])]
+    #[Groups(['panier','panierarticles','user','comments'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -43,7 +43,7 @@ class User
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('user')]
+    #[Groups(['user','comments'])]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 255)]

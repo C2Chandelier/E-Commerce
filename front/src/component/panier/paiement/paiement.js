@@ -14,7 +14,7 @@ export default function Paiement() {
   const [fraistotal, setFraistotal] = useState(0);
   const [tariflivraison, setTariflivraison] = useState([])
   const [knownPaye, setKnownPaye] = useState(false)
-  const articles = useLocation().state.data
+  const [articles,setArticles] =useState(useLocation().state.data)
   const [frais, setFrais] = useState(useLocation().state.frais)
   const PrixPoid = useLocation().state.poid
   const total = useLocation().state.prix
@@ -29,7 +29,9 @@ export default function Paiement() {
   const [zipcode, setZipcode] = useState("");
   const [userAdresse, setUserAdresse] = useState("");
   const [checked, setCheked] = useState(false)
-  const [user_id, setUser_id] = useState("")
+  const [user_id, setUser_id] = useState("");
+  const from = useLocation().state.from;
+  const id_panier = localStorage.getItem('id_panier')
 
   const id_user = localStorage.getItem('id')
 
@@ -43,6 +45,12 @@ export default function Paiement() {
           setKnownPaye(true)
         }
       })
+    if(from === "login"){
+      axios.get("https://localhost:8000/api/panier_articles?panier=" + id_panier)
+        .then((res)=>{
+          setArticles(res.data["hydra:member"])
+        })
+    }
     axios('https://localhost:8000/api/livraisons')
       .then((res) => {
         setTariflivraison(res.data['hydra:member'])
@@ -82,9 +90,9 @@ export default function Paiement() {
             setFraistotal(parseFloat(frais) + parseFloat(res.data['hydra:member'][0].prix))
           })
       }
-      if(checked === true){
+      if (checked === true) {
         const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
-        axios.post('https://localhost:8000/api/paiements',{
+        axios.post('https://localhost:8000/api/paiements', {
           "user": user_id,
           "carte": carte,
           "CVC": cvc,
@@ -150,15 +158,15 @@ export default function Paiement() {
                 })
             }
           })
-          if(checked === true){
-            const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
-            axios.post('https://localhost:8000/api/paiements',{
-              "user": user_id,
-              "carte": carte,
-              "CVC": cvc,
-              "date": date
-            }, configuration)
-          }
+        if (checked === true) {
+          const configuration = { headers: { 'Content-Type': "application/json", Accept: "application/ld+json" } }
+          axios.post('https://localhost:8000/api/paiements', {
+            "user": user_id,
+            "carte": carte,
+            "CVC": cvc,
+            "date": date
+          }, configuration)
+        }
       }
     }
   }
@@ -313,9 +321,9 @@ export default function Paiement() {
                   />
                   Enregistrer ce moyen de paiement pour mes futurs achats
                 </label>
-                {paiement !== null ? 
-                <button onClick={(e) => cancelPaye(e)}>Annuler</button>
-                : null}
+                {paiement !== null ?
+                  <button onClick={(e) => cancelPaye(e)}>Annuler</button>
+                  : null}
               </form>
               :
               <div className='paiementknown'>

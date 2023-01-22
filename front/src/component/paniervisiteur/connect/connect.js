@@ -19,7 +19,7 @@ export default function Connect(){
         <h1 className="text-center">Vous n'etes pas connecté !</h1>
         <form className="registration-form">
             <div className="text-center">
-            <Link  to={"/register"}><button className="submit" name="register">S'inscrire</button></Link>
+            <Link  to={"/register"} state={{data: "panier"}}><button className="submit" name="register">S'inscrire</button></Link>
             <Link  to={"/login"} state={{data: "panier"}}><button className="submit" name="register"> Se Connecter</button></Link>
             </div>
             <div className="text-centerSansCo">

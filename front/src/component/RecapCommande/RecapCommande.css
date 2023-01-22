@@ -76,3 +76,9 @@ h1,h2,h3{
     width: 100% !important;
     font-size: 1rem;
 }
+
+.btn-print {
+    position: absolute;
+    left: 47%;
+    bottom: 5%;
+}

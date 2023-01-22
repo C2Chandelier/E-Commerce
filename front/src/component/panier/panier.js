@@ -22,6 +22,7 @@ function Panier() {
   let id_panier = localStorage.getItem("id_panier")
 
   useEffect(() => {
+    console.log(article)
     if (id_panier !== null) {
       axios.get("https://localhost:8000/api/panier_articles?panier=" + id_panier)
         .then((response) => {
@@ -244,7 +245,7 @@ console.log(article)
               <div>
                 <p id="totalfrais">Livraison à partir de : {weighttotal}€</p>
                 <p id="totalTTC">Total TTC : {(parseFloat(total) + parseFloat(weighttotal)).toFixed(2)}€</p>
-                <button className='btn-commander'><Link className="link-decoration" to={"/paiement"} state={{ data: article, frais: weighttotal, prix: total, poid: PrixPoid}}>Passer commande</Link></button>
+                <button className='btn-commander'><Link className="link-decoration linkConnected" to={"/paiement"} state={{ data: article, frais: weighttotal, prix: total, poid: PrixPoid}}>Passer commande</Link></button>
               </div>
               : null}
             <br />

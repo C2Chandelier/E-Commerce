@@ -23,6 +23,7 @@ export default function SingleProduct() {
     const [color, setColor] = useState(false);
     const [list, setList] = useState(null)
     const cookies = new Cookies();
+    const [comments, setComments] = useState(null)
 
 
     let id = localStorage.getItem('id')
@@ -62,21 +63,30 @@ export default function SingleProduct() {
                 if (response.data["hydra:totalItems"] !== 0) {
                     setStock(response.data["hydra:member"][0].NBStock)
                 }
-                else{
+                else {
                     setStock(null)
                 }
             })
-
-    }, [path, size]);
-    if (error) return <p>An error occurred</p>
-
-    if (color === true) {
-        let titre = product.titre.split(" ").shift()
-        axios("https://localhost:8000/api/articles?titre=" + titre + "&color=true")
-            .then((res) => {
-                setList(res.data["hydra:member"])
+        axios("https://localhost:8000/api/comments?article=" + path.id)
+            .then((resp) => {
+                if (resp.data["hydra:totalItems"] !== 0) {
+                    setComments(resp.data["hydra:member"])
+                }
             })
-    }
+
+    }, [size]);
+
+    useEffect(() => {
+        if (color === true) {
+            let titre = product.titre.split(" ").shift()
+            axios("https://localhost:8000/api/articles?titre=" + titre + "&color=true")
+                .then((res) => {
+                    setList(res.data["hydra:member"])
+                })
+        }
+    }, [color])
+
+
 
 
     function AddPanier(e) {
@@ -152,7 +162,7 @@ export default function SingleProduct() {
         product.description = description;
         setIsShownVisit(true);
     }
-
+    console.log(comments)
     return (
         <div className='main'>
             <header>
@@ -271,6 +281,16 @@ export default function SingleProduct() {
                     </div>
                 </div>
             </div>
+            {comments !== null ?
+                <div className='comments'>
+                    {comments.map((item) => (
+                        <div className="SingleComment" key={item.id}>
+                            <p>{item.user.Prenom}</p>
+                            <p>{item.message}</p>
+                        </div>
+                    ))}
+                </div>
+                : null}
         </div>
     )
 }

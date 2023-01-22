@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import './paniervisiteur.css';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Navbar from '../NavbarComponent/Navbar/ Navbar';
 import Cookies from 'universal-cookie';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 function PanierVisiteur() {
+  const navigate = useNavigate()
   let total = 0;
   let weight = 0;
   let quantityTotal = 0;
@@ -31,7 +32,6 @@ function PanierVisiteur() {
   }, [length]);
 
 
-  console.log(array)
   if (array !== null && array !== undefined) {
     array.map((item) => {
       weight = weight + parseFloat(item.Poid) * parseInt(item.quantity)
@@ -119,6 +119,15 @@ function PanierVisiteur() {
         setLength(length - 1);
       }
     })
+  }
+
+  function commander(){
+    if(parseFloat(total) > 500){
+      alert("Vous ne pouvez pas dépasser 500€ sans vous connecter")
+    }
+    else{
+      navigate("/connect", {state:{ data: array, frais: PrixPoid, prix: total }})
+    }
   }
   const element = articlevide.splice(0, 3);
   return (
@@ -243,7 +252,7 @@ function PanierVisiteur() {
                 <div>
                   <p id="totalfrais">Livraison à partir de : {parseFloat(PrixPoid) + 4}€</p>
                   <p className='totalpaniervisiteur'>Total TTC : {(parseFloat(total) + parseFloat(PrixPoid) + 4).toFixed(2)}€</p>
-                  <Link className='btn-commander' to={"/connect"} state={{ data: array, frais: PrixPoid, prix: total }}>Passer commande</Link>
+                  <button className='btn-commander commandeVisiteur' onClick={commander}>Passer commande</button>
                 </div>
                 : null}
               <br />
