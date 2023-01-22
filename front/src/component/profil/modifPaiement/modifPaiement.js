@@ -55,24 +55,31 @@ export default function ModifPaiement() {
         }
     }
 
-    return (
-        <div>
+        return (
+          <div>
             <header><Navbar></Navbar></header>
-            <div className="containermodifpaiement">
-                <label>
-                    Numero de carte :
-                    <input type="text" value={numero} onChange={e => setNumero(e.target.value)} />
+            <div className="form-style-4">
+                
+                <label htmlFor="field1">NUMERO CARTE :
+                <input type="text" name="field1" value={numero} onChange={e => setNumero(e.target.value)}/>
                 </label>
-                <label>
-                    CVC :
-                    <input type="text" value={CVC} onChange={e => setCVC(e.target.value)} />
+                
+                <label htmlFor="field2">DATE :
+                <input type="text" name="field2" value={date} onChange={e => setDate(e.target.value)} />
                 </label>
-                <label>
-                    Date :
-                    <input type="text" value={date} onChange={e => setDate(e.target.value)} />
+                <label htmlFor="field3">CVC :
+                <input type="text" name="field3"  value={CVC} onChange={e => setCVC(e.target.value)} />
                 </label>
-                <button onClick={savemodif}>Enregistrer les modifications</button>
+                <label htmlFor="field4">
+                <input onClick={savemodif} type="submit" value="ENREGISTER LES INFORMATIONS" />
+                </label>
             </div>
         </div>
-    )
+           
+           
+        
+
+        )
+   
+    
 }

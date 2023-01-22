@@ -1,22 +1,9 @@
-.paiementcontainer p{
-    color: white;
+.inputtypesumbit{
+    display: flex;
 }
-.paiementcontainer label{
-    color: white;
+.inputtypesumbit input{
+    margin-right: 13px;
 }
-.adressecontainer p{
-    color: white;
+.pdeladiv{
+    font-size: larger;
 }
-.adresseknown p{
-    color: white;
-}
-.paiementcontainer span{
-    color: white;
-}
-.validationpaiementcontainer p{
-    color: white;
-}
-.radiopaiement p{
-    color: white;
-}
-

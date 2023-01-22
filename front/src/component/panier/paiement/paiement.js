@@ -194,29 +194,32 @@ export default function Paiement() {
   }
 
   return (
-    <div>
+    <div>  
       {fraistotal !== 0 ?
-        <div className='validationpaiementcontainer'>
+        <div className='form-style-4'>
+          <h2>Validation de commande</h2>
           {knownAdresse === true ?
-            <p>{userAdresse}</p>
+            <p className='pdeladiv'>{userAdresse}</p>
             :
             <div>
-              <p>{adresse}</p>
-              <p>{ville}</p>
-              <p>{zipcode}</p>
-              <p>{pays}</p>
+              <p className='pdeladiv'>{adresse}</p>
+              <p className='pdeladiv'>{ville}</p>
+              <p className='pdeladiv'>{zipcode}</p>
+              <p className='pdeladiv'>{pays}</p>
             </div>
           }
           <div>
             {articles.map((item) => (
-              <p key={articles.indexOf(item)}>{item.articles.titre} x {item.quantity} {parseFloat(item.articles.prix) * parseInt(item.quantity)}</p>
+              <p className='pdeladiv' key={articles.indexOf(item)}>{item.articles.titre} x {item.quantity} {parseFloat(item.articles.prix) * parseInt(item.quantity)}</p>
             ))}
           </div>
-          <p>Total articles : {total}</p>
-          <p>Frais de livraison : {fraistotal}</p>
-          <p>Total TTC : {parseFloat(total)+parseFloat(fraistotal)}</p>
-          <button onClick={() => setFraistotal(0)}>Retour</button>
-          <button onClick={Validation}>Valider</button>
+          <p className='pdeladiv'>Total articles : {total}</p>
+          <p className='pdeladiv'>Frais de livraison : {fraistotal}</p>
+          <p className='pdeladiv'>Total TTC : {parseFloat(total)+parseFloat(fraistotal)}</p>
+          <div className='inputtypesumbit'>
+            <input  onClick={() => setFraistotal(0)} type="submit" value="RETOUR" />
+            <input  onClick={Validation} type="submit" value="VALIDER MA COMMANDE" />
+          </div>    
         </div>
         :
         <div>
