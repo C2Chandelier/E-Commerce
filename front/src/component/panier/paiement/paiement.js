@@ -308,7 +308,7 @@ export default function Paiement() {
               <div className='adresseknown'>
                 <p>Adresse enregistré :</p>
                 <p>{userAdresse}</p>
-                <button class="butondepaiementvs" onClick={(e) => modifAdresse(e)}>Utiliser une autre adresse</button>
+                <button class="butondepaiementvs btn-white" onClick={(e) => modifAdresse(e)}>Utiliser une autre adresse</button>
               </div>
               
             }
@@ -372,7 +372,7 @@ export default function Paiement() {
                 
                   <p className='whitepp'>Moyen de Paiement enregistré :</p>
                   <p className='whitepp'>Carte finissant par {paiement.carte.substring(12)}</p>  
-                <button class="butondepaiementvs" onClick={(e) => modifPaye(e)}>Utiliser un autre moyen de paiement</button>
+                <button class="butondepaiementvs btn-white" onClick={(e) => modifPaye(e)}>Utiliser un autre moyen de paiement</button>
               </div>
             }
             <div className="radiopaiement" onChange={radiochange}>

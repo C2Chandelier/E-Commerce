@@ -15,11 +15,11 @@
     align-items: center;
     width: 80%;
     margin: 2% auto;
-    
 }
+
 #form_buttonpaiementvi{
     margin-top: 2%;
-    margin-left: 45%;
+    margin-left: 44%;
     background: none;
     border: solid 2px #474544;
     color: #474544;
@@ -47,7 +47,7 @@
     margin: auto;
     }
 #form_buttonpaiementvisiteurrrr {
-    margin-top: 120%;
+    margin-top: 140%;
     background: none;
     border: solid 2px #474544;
     color: #474544;
@@ -130,4 +130,11 @@
   #form_buttonpaiementvisiteurrrr:hover {
     background: #474544;
     color: #F2F3EB;
+  }
+  #form_buttonpaiementvi:hover {
+    background: #474544;
+    color: #F2F3EB;
+  }
+  .btn-white{
+    background-color: white;
   }
