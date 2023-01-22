@@ -20,6 +20,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
+    "react-to-print": "^2.14.11",
     "reactstrap": "^9.1.5",
     "universal-cookie": "^4.0.4",
     "use-react-router-breadcrumbs": "^4.0.1",

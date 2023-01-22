@@ -1,13 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Navbar from "../NavbarComponent/Navbar/ Navbar";
 import Card from 'react-bootstrap/Card';
 import axios from "axios";
 import "./RecapCommande.css";
-
+import ReactToPrint from "react-to-print";
 
 
 export default function RecapCommande() {
+    let componentRef = useRef();
+
+    return (
+        <>
+            <div>
+                {/* button to trigger printing of target component */}
+                <ReactToPrint
+                    trigger={() => <button className="btn-print">Imprimer</button>}
+                    content={() => componentRef}
+                />
+
+                {/* component to be printed */}
+                <ComponentToPrint ref={(el) => (componentRef = el)} />
+            </div>
+        </>
+    );
+}
+
+
+
+export const ComponentToPrint = React.forwardRef((props, ref) => {
     const user = localStorage.getItem('id')
     const location = useLocation()
     const frais = location.state
@@ -97,7 +118,7 @@ export default function RecapCommande() {
     return (
         <div>
             <header><Navbar /></header>
-            <div className="mainReacpCommande">
+            <div className="mainReacpCommande" ref={ref}>
                 <h1>Merci pour votre commande !</h1>
 
                 <div className="bodyRecapCommande">
@@ -117,8 +138,8 @@ export default function RecapCommande() {
                                             <Card.Title className='recapCard__title'>{item.articles.titre}</Card.Title>
                                             {item.size === undefined ? <Card.Subtitle className='card__quantity'>x {item.quantity}</Card.Subtitle> : null}
                                             {item.articles.Size !== false ?
-                                            <Card.Subtitle className='reacpCard__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
-                                            :null}
+                                                <Card.Subtitle className='reacpCard__size'>Taille : {item.size.name} x {item.quantity}</Card.Subtitle>
+                                                : null}
 
                                             {item.quantity === 1 && item.articles.Promo === false ?
                                                 <Card.Subtitle className='recapCard__price'>Prix : {item.articles.prix}</Card.Subtitle>
@@ -157,5 +178,5 @@ export default function RecapCommande() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+});

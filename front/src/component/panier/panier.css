@@ -51,4 +51,6 @@
 .card__newprice {
   color: red;
 }
-
+.linkConnected:hover {
+  color: blue !important;
+}
