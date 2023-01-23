@@ -207,23 +207,23 @@ export default function Paiement() {
         <div className='form-style-4'>
           <h2>Validation de commande</h2>
           {knownAdresse === true ?
-            <p className='pdeladiv'>{userAdresse}</p>
+            <p className='pdeladiv'>Adresse : {userAdresse}</p>
             :
             <div>
-              <p className='pdeladiv'>{adresse}</p>
-              <p className='pdeladiv'>{ville}</p>
-              <p className='pdeladiv'>{zipcode}</p>
-              <p className='pdeladiv'>{pays}</p>
+              <p className='pdeladiv'> Adresse : {adresse}</p>
+              <p className='pdeladiv'> Ville : {ville}</p>
+              <p className='pdeladiv'>CodePostale : {zipcode}</p>
+              <p className='pdeladiv'> Pays : {pays}</p>
             </div>
           }
           <div>
             {articles.map((item) => (
-              <p className='pdeladiv' key={articles.indexOf(item)}>{item.articles.titre} x {item.quantity} {parseFloat(item.articles.prix) * parseInt(item.quantity)}</p>
+              <p className='pdeladiv' key={articles.indexOf(item)}>{item.articles.titre} x {item.quantity} : {parseFloat(item.articles.prix) * parseInt(item.quantity)} €</p>
             ))}
           </div>
-          <p className='pdeladiv'>Total articles : {total}</p>
-          <p className='pdeladiv'>Frais de livraison : {fraistotal}</p>
-          <p className='pdeladiv'>Total TTC : {parseFloat(total)+parseFloat(fraistotal)}</p>
+          <p className='pdeladiv'>Total articles : {total} €</p>
+          <p className='pdeladiv'>Frais de livraison : {fraistotal} €</p>
+          <p className='pdeladiv'>Total TTC : {parseFloat(total)+parseFloat(fraistotal)} €</p>
           <div className='inputtypesumbit'>
             <input  onClick={() => setFraistotal(0)} type="submit" value="RETOUR" />
             <input  onClick={Validation} type="submit" value="VALIDER MA COMMANDE" />
@@ -232,117 +232,163 @@ export default function Paiement() {
         :
         <div>
           <header><Navbar /></header>
-          <div className='adressecontainer'>
+          <div className=''>
+          
             {knownAdresse !== true ?
-              <form>
-                <input
-                  value={adresse}
-                  onChange={e => setAdresse(e.target.value)}
-                  placeholder="Adresse"
-                  type="text"
-                  name="adresse"
-                  required
-                />
-                <input
-                  value={adressebis}
-                  onChange={e => setAdressebis(e.target.value)}
-                  placeholder="Complément d'adresse"
-                  type="text"
-                  name="adresseBis"
-                  required
-                />
-                <input
-                  value={ville}
-                  onChange={e => setVille(e.target.value)}
-                  placeholder="Ville"
-                  type="text"
-                  name="ville"
-                  required
-                />
-                <input
-                  value={zipcode}
-                  onChange={e => setZipcode(e.target.value)}
-                  placeholder="Code postal"
-                  type="text"
-                  name="zipcode"
-                  required
-                />
-                <input
-                  value={pays}
-                  onChange={e => setPays(e.target.value)}
-                  placeholder="Pays"
-                  type="text"
-                  name="pays"
-                  required
-                />
-                <button onClick={(e) => cancelAdresse(e)}>Annuler</button>
+            <div className='containerpaiementvisiteurrrr'>
+              
+              <form className='formee'>
+                <div className="namepaiementvisiteur">
+                <label htmlFor="adresse"></label>
+                  <input
+                    id="name_input"
+                    value={adresse}
+                    onChange={e => setAdresse(e.target.value)}
+                    placeholder="Adresse"
+                    type="text"
+                    name="adresse"
+                    required
+                  />
+                </div>
+                <div className="emailpaiementvisiteur">
+                  <label htmlFor="adresseBis"></label>
+                  <input
+                    id="email_input"
+                    value={adressebis}
+                    onChange={e => setAdressebis(e.target.value)}
+                    placeholder="Complément d'adresse"
+                    type="text"
+                    name="adresseBis"
+                    required
+                  />
+                </div>
+                <div className='namepaiementvisiteur'>
+                  <label htmlFor="ville"></label>
+                  <input
+                    id="name_input"
+                    value={ville}
+                    onChange={e => setVille(e.target.value)}
+                    placeholder="Ville"
+                    type="text"
+                    name="ville"
+                    required
+                  />
+                </div>
+                <div className='emailpaiementvisiteur'>
+                  <label htmlFor="zipcode"></label>
+                  <input
+                    id="email_input"
+                    value={zipcode}
+                    onChange={e => setZipcode(e.target.value)}
+                    placeholder="Code postal"
+                    type="text"
+                    name="zipcode"
+                    required
+                  />
+                </div>
+                <div className='namepaiementvisiteur'>
+                  <label htmlFor='pays'></label>
+                  <input
+                    id="name_input"
+                    value={pays}
+                    onChange={e => setPays(e.target.value)}
+                    placeholder="Pays"
+                    type="text"
+                    name="pays"
+                    required
+                  />
+                </div>
+                <div className="submitpaiementvisiteur">
+                  <button type="submit" id="form_buttonpaiementvisiteurrrr"  onClick={(e) => cancelAdresse(e)}>Annuler</button>
+                </div>
               </form>
+            </div>
+              
               :
               <div className='adresseknown'>
                 <p>Adresse enregistré :</p>
                 <p>{userAdresse}</p>
-                <button onClick={(e) => modifAdresse(e)}>Utiliser une autre adresse</button>
+                <button class="butondepaiementvs" onClick={(e) => modifAdresse(e)}>Utiliser une autre adresse</button>
               </div>
+              
             }
           </div>
 
-          <div className='paiementcontainer'>
+          <div>
             {knownPaye !== true ?
-              <form>
+              <form className='containerpaiementvisiteurrrr formee'>
+                <div className='emailpaiementvisiteur'>
+                <label htmlFor='carte'></label>
                 <input
                   value={carte}
                   onChange={e => setCarte(e.target.value)}
                   placeholder="Numero de carte"
+                  id='email_input'
                   type="text"
                   name="carte"
                   required
                 />
+                </div>
+                <div className='namepaiementvisiteur'>
                 <input
                   value={cvc}
                   onChange={e => setCvc(e.target.value)}
                   placeholder="CVC"
                   type="text"
                   name="cvc"
+                  id='name_input'
                   required
                 />
+
+                </div>
+                <div className='emailpaiementvisiteur'>
                 <input
                   value={date}
                   onChange={e => setDate(e.target.value)}
                   placeholder="Date d'expiration"
                   type="text"
                   name="date"
+                  id='name_input'
                   required
                 />
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={handleCheck}
-                  />
-                  Enregistrer ce moyen de paiement pour mes futurs achats
-                </label>
+
+                </div>
+                <div className='emailpaiementvisiteur'>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={handleCheck}
+                    />
+                    Enregistrer ce moyen de paiement pour mes futurs achats
+                  </label>
+                </div>
                 {paiement !== null ?
-                  <button onClick={(e) => cancelPaye(e)}>Annuler</button>
+                  <button type="submit" id="form_buttonpaiementvi"   onClick={(e) => cancelPaye(e)}>Annuler</button>
                   : null}
               </form>
               :
               <div className='paiementknown'>
-                <p>Moyen de Paiement enregistré :</p>
-                <p>Carte finissant par {paiement.carte.substring(12)}</p>
-                <button onClick={(e) => modifPaye(e)}>Utiliser un autre moyen de paiement</button>
+                
+                  <p className='whitepp'>Moyen de Paiement enregistré :</p>
+                  <p className='whitepp'>Carte finissant par {paiement.carte.substring(12)}</p>  
+                <button class="butondepaiementvs" onClick={(e) => modifPaye(e)}>Utiliser un autre moyen de paiement</button>
               </div>
             }
             <div className="radiopaiement" onChange={radiochange}>
+            <div className='radiopimp'>
               {tariflivraison.map((item) => (
-                <label className='radio' key={item.id}>
-                  <input name='livraison' type="radio" value={item.methode}></input>
-                  <span>{item.methode} {item.prix}€</span>
-                </label>
+                
+                  <label className='radio' key={item.id}>
+                    <input name='livraison' type="radio" value={item.methode}></input>
+                    <span>{item.methode} {item.prix}€</span>
+                  </label>
+                
+                
               ))}
             </div>
-            <div className='paiementcommande'>
               <p>Total à payer :{(parseFloat(total) + parseFloat(frais) + parseFloat(livraisonSelect)).toFixed(2)}</p>
-              <button type="submit" onClick={(e) => commande(e)}>Commander</button>
+              <button className='butondepaiementvs' type="submit" onClick={(e) => commande(e)}>Commander</button>
             </div>
           </div>
         </div>
