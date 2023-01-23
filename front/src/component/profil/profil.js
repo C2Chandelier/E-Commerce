@@ -91,7 +91,7 @@ export default function Profil() {
                 <header><Navbar></Navbar></header>
                 {modif === false ?
 
-                 <div className='containerRgister col-md-8'>
+                 <div className='containerProfil col-md-8'>
                  <form className='form col-md-3'>
                  
                  <div className="form-group">

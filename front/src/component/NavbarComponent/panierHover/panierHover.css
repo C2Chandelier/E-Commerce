@@ -8,6 +8,8 @@
     z-index: 1;
     top: 70px;
     overflow-y: auto;
+    border: 1px solid black;
+    box-shadow: 1px 1px 2px 2px black;
   }
   
 .contenuPanier1::-webkit-scrollbar{
