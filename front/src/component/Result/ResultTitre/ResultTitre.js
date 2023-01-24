@@ -56,7 +56,7 @@ function ResultSearch() {
 
         {product.length > 0 ? product.map((item) => (
 
-          <Link to={"/article/" + item.id} key={item.id}>
+          <Link to={"/article/" + item.id} key={item.id} style={{textDecoration: "none"}}>
             <Card id={"produit-" + item.id} className="card">
               <Card.Img
                 className="card__img"

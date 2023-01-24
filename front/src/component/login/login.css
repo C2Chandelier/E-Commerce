@@ -108,3 +108,10 @@ body{
     background-color: #203647;
     border-color: #203647;
 }
+
+.btn-registerlogin {
+    background-color: rgb(7, 3, 36) !important;
+    border-color: rgb(7, 3, 36) !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

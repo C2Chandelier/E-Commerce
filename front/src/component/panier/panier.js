@@ -13,7 +13,7 @@ function Panier() {
   const [length, setLength] = useState(null)
   const [articlevide, setArticlevide] = useState([]);
   const [PrixPays, setPrixPays] = useState(0);
-  const [PrixPoid, setPrixPoid] = useState(0)
+  const [PrixPoid, setPrixPoid] = useState(0);
 
   let total = 0;
   let weight = 0;

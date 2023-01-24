@@ -316,7 +316,7 @@ export default function Paiement() {
 
           <div>
             {knownPaye !== true ?
-              <form className='containerpaiementvisiteurrrr formee'>
+              <form className='containerpaiementvisiteurrrr form22'>
                 <div className='emailpaiementvisiteur'>
                 <label htmlFor='carte'></label>
                 <input

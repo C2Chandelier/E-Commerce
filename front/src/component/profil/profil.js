@@ -115,7 +115,7 @@ export default function Profil() {
                  <div className="form-group">
                    <label htmlFor="text">Pays</label>
                    <p className="form-control" id="tel">{users.Pays}</p>
-                   <button id='button' type="button" className="btn btn-primary"  onClick={modifier}>Modifier mes informations</button>
+                   <button id='buttonprofilchange' type="button" className="btn btn-primary"  onClick={modifier}>Modifier mes informations</button>
                  </div>
 
                    </form>

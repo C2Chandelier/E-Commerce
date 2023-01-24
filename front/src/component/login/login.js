@@ -166,7 +166,7 @@ const Login = () => {
           {From !== "profil" ?
             <div>
               <p>Pas encore de compte ?</p>
-              <Link to="/register" state={{ data: "home" }} className='btn btn-primary'>Inscrivez-vous</Link>
+              <Link to="/register" state={{ data: "home" }} className='btn btn-primary btn-registerlogin'>Inscrivez-vous</Link>
             </div>
             : null}
           {From !== "panier" ?

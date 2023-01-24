@@ -1,13 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Navbar from "../../NavbarComponent/Navbar/ Navbar";
 import Card from 'react-bootstrap/Card';
 import Cookies from 'universal-cookie';
 import axios from "axios";
-
+import ReactToPrint from "react-to-print";
 
 
 export default function RecapVisiteur() {
+    let componentRef = useRef();
+
+    return (
+        <>
+            <div>
+                {/* button to trigger printing of target component */}
+                <ReactToPrint
+                    trigger={() => <button className="btn-print">Imprimer</button>}
+                    content={() => componentRef}
+                />
+
+                {/* component to be printed */}
+                <ComponentToPrint ref={(el) => (componentRef = el)} />
+            </div>
+        </>
+    );
+}
+
+
+export const ComponentToPrint = React.forwardRef((props, ref) => {
     let quantityTotal = 0;
     let total = 0;
     const cookies = new Cookies();
@@ -170,4 +190,4 @@ export default function RecapVisiteur() {
         </div>
 
     )
-}
+});

@@ -48,6 +48,7 @@ export default function SingleProduct() {
             setIsShown(false);
             setIsShownVisit(false)
         }, 3000);
+        
 
         axios("https://localhost:8000/api/articles/" + path.id)
             .then((response) => {
@@ -116,8 +117,9 @@ export default function SingleProduct() {
                         })
 
                 }
+            setIsShown(true);
             })
-        setIsShown(true);
+        
 
     }
     function AddPanierVisiteur() {
@@ -275,7 +277,7 @@ export default function SingleProduct() {
                                                 : null}
                                         </div>
                                         <div>
-                                            <button className='btn btn-light achat'>Acheter</button>
+                                            
 
                                             {id === null
                                                 ?

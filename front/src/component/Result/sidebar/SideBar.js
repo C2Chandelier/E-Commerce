@@ -45,15 +45,15 @@ export default function Sidebar(props) {
           {catname.map((item) => (
             <div className="user-box" key={item[0]}>
               <div className="user-id">
-                <div className="user-name"><Link to={"/result/"+titre+"/CAT/"+item[0]}>{item[1]}</Link></div>
-                {item[1] !== "Chemise" && item[1] !== "Costumes" ?  
+                <div className="user-name"><Link style={{textDecoration: "none"}} to={"/result/"+titre+"/CAT/"+item[0]}>{item[1]}</Link></div>
+                {item[1] !== "Chemise" && item[1] !== "Costume" ?  
                 <div>
                 <div className="dropdown-arrow"></div>
                 <div className="dropdown-menu">
                   <ul>
                     {souscatname.map((value) => (
                       value[2] === item[1] ?
-                        <li key={value[0]}><Link to={"/result/"+titre+"/SCAT/"+value[0]}>{value[1]}</Link></li>
+                        <li key={value[0]}><Link style={{textDecoration: "none"}} to={"/result/"+titre+"/SCAT/"+value[0]}>{value[1]}</Link></li>
                         : null
                     ))}
                   </ul>

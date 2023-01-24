@@ -31,7 +31,7 @@ export default function ResultCategorie() {
             <div className='container-product'>
 
                 {product.map((item) => (
-                    <Link to={"/article/" + item.id} key={item.id}>
+                    <Link to={"/article/" + item.id} key={item.id}  style={{textDecoration: "none"}}>
                         <Card id={"produit-" + item.id} className="card">
                             <Card.Img className='card__img' src={item.image} alt={item.titre} />
                             <Card.Body className='card__body'>
