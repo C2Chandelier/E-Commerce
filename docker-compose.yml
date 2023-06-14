@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql
+    container_name: db
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'e-commerce'
+    networks:
+      - dev
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmnin
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - dev
+
+  back:
+    build: docker
+    container_name: backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./docker/vhosts:/etc/apache2/sites-enabled
+      - ./:/var/www
+    networks:
+      - dev
+  
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./front:/app
+    depends_on:
+      - back
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-data:
+
