@@ -8,7 +8,9 @@ services:
     volumes:
       - ./e-commerce.sql:/docker-entrypoint-initdb.d/e-commerce.sql
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_DATABASE: "e-commerce"
     networks:
       - dev
 
@@ -26,7 +28,6 @@ services:
   front:
     build:
       context: ./front
-      dockerfile: Dockerfile
     container_name: frontend
     ports:
       - 3000:3000
