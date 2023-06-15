@@ -5,3 +5,10 @@ Présentation du projet en image :
 ![image](https://user-images.githubusercontent.com/102954303/214387986-a15f7788-f728-4c8e-adc4-1a227e80e4cc.png)
 ![image](https://user-images.githubusercontent.com/102954303/214388112-086e6f9f-c945-4f2c-b3f5-1748cd749578.png)
 
+Pour lancer ce projet :
+    -nécessite d'avoir docker installé
+
+    - dans le dossier du projet, éxecuter simplement :
+        "docker compose up --build"
+
+Dans votre navigateur, taper : "http://localhost:3000"

@@ -7,6 +7,10 @@
 -- Version du serveur :  8.0.30-0ubuntu0.20.04.2
 -- Version de PHP : 8.0.24
 
+-- Création de la base de données `e-commerce`
+CREATE DATABASE IF NOT EXISTS `e-commerce`;
+USE `e-commerce`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -23,7 +27,6 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `articles`
 --
