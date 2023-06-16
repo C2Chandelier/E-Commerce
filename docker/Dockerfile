@@ -23,4 +23,4 @@ RUN docker-php-ext-configure \
   \
   &&  pecl install apcu && docker-php-ext-enable apcu
 
-WORKDIR /var/www/
+WORKDIR /back/var/www/
